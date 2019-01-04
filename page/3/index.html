@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>godeofdeath</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="godeofdeath">
+<meta property="og:url" content="https://godeofdeath8080.github.io/page/3/index.html">
+<meta property="og:site_name" content="godeofdeath">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="godeofdeath">
+  
+    <link rel="alternate" href="/atom.xml" title="godeofdeath" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">godeofdeath</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://godeofdeath8080.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-40976803" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/11/10/40976803/" class="article-date">
+  <time datetime="2014-11-10T02:01:00.000Z" itemprop="datePublished">2014-11-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/11/10/40976803/">android四种数据存储及示例</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Android系统中，应用数据基本都是私有的，存放于“data/data/程序包名”目录下</p>
+<p>实现应用间数据共享，使用Content Provider  </p>
+<p>如果删除应用时选择清除数据 相关文件将被删除</p>
+<p>1.SQLite：  SQLite是一个轻量级的数据库，支持基本SQL语法，Android提供了一个SQLiteDatabase的类。</p>
+<p>2.SharedPreference：  除SQLite数据库外，另一种常用的数据存储方式，其本质就是一个xml文件。</p>
+<p>3.File：  即常说的文件（I/O）存储方法，常用语存储大数量的数据，但是缺点是更新数据将是一件困难的事情。</p>
+<p>4.ContentProvider:  Android系统中能实现所有应用程序共享的一种数据存储方式，由于数据通常在各应用间的是互相私密的，所以此存储方式较<br>少使用，但是其又是必不可少的一种存储方式。例如音频，视频，图片和通讯录，一般都可以采用此种方式进行存储。每个Content<br>Provider都会对外提供一个公共的URI（包装成Uri对象），如果应用程序有数据需要共享时，就需要使用Content<br>Provider为这些数据定义一个URI，然后其他的应用程序就通过Content Provider传入这个URI来对数据进行操作。</p>
+<p><strong> sqlite </strong></p>
+<p>创建表</p>
+<p>方法1：db.openOrCreateDatabase  (String path, SQLiteDatabase.CursorFactory<br>factory) ；//这是  SQLiteDatabase类实现的；</p>
+<p>方法2：新  建DBOpenHelper继承自SQLiteOpenHelper，先定义表名称，  创建表放在onCreate里 比如</p>
+<p>db.execSQL(“CREATE TABLE IF NOT EXISTS<br>“+表名称+”(“+字段1+”TEXT,”+字段2+”TEXT,”…….”);”)；//这是用sql语句实现的  </p>
+<p>之后增删改查之前先进行初始化 比如：</p>
+<p>SQLiteDatabase db = DBOpenHelper.getInstance(context).getWritableDatabase();  </p>
+<p>插入</p>
+<p>db.execSQL(“insert into<br>“+表名称+”(“+字段1+”TEXT,”+字段2+”TEXT,”…….”)”+”values(?,?,?) “,new<br>String[]{值1，值2，值3}）；  </p>
+<pre><code>或者
+
+
+db.insert(表名称, &quot;字段名&quot;, 值);//同样是两种方法 不同场景灵活使用
+</code></pre><p>查询</p>
+<p>Cursor cursor = db.execSQL(“select * from”+  表名称+”order by”+需查询字段+”desc”,new<br>String[]{});  </p>
+<p>if(cursor != null){</p>
+<p>list = new ArrayList<test>();//new一个list用来塞值  </test></p>
+<p>cursor.moveToFirst();</p>
+<p>while (!cursor.isAfterLast()) {</p>
+<p>Test item = new Test();//new一个Test表对象用来塞值  </p>
+<p>item.setRowId(cursor.getString(cursor.getColumnIndexOrThrow(字段名1)));  </p>
+<p>item.setRowId(cursor.getString(cursor  .getColumnIndexOrThrow(字段名2)));</p>
+<p>list.add(item);<br>cursor.moveToNext();</p>
+<p>}</p>
+<p>cursor.close();</p>
+<p>}</p>
+<p>删除字段</p>
+<p>db.delete（表名,字段名1，String数组）  </p>
+<p>表对象及其字段定义放在公共类里 实现BaseColumns 字段名称同上</p>
+<p><strong> SharedPreference </strong></p>
+<p>一般通过SharedPreferences和Editor组合来实现</p>
+<p>存储数据类型：boolean，int，float，long和String  </p>
+<p>存储目录在/data/data/&lt;包名&gt;/shared_prefs下 为XML文件  </p>
+<p>插入值</p>
+<p>editor.putString(字段1，值1)；</p>
+<p>获取值</p>
+<p>editor.getString(字段1,值1)；  </p>
+<p>一般定义在项目的公共类里，在项目建立之初就考虑好</p>
+<p><strong> ContentProvider </strong></p>
+<p>通过Uri实现数据操作的方式。其步骤为：</p>
+<p>1. 在当前应用中定义一个类继承自ContentProvider。</p>
+<p>2. 在当前应用AndroidManifest.xml中注册此ContentProvider</p>
+<p>3. 其他应用程序通过ContentResolver和Uri来获取此ContentProvider的数据。</p>
+<p>URI格式由  scheme/authority/path三部分构成 示例</p>
+<p>content://me.abitno.vplayer.mediaprovider/media_scanner  </p>
+<p>URI中经常用到MIME  这是android内部用来定义特定扩展名的数据类型  在intent时用到  </p>
+<p>ContentResolver经常和sqlite结合使用  </p>
+<p>同样通过insert(), delete(), query()和update()方法进行数据操作  </p>
+<p><strong> file文件存储 </strong></p>
+<p><strong> </strong> 无法更新数据 之前项目里用户名密码保存 应用更新后无法将保存的文件记录保留下来 </p>
+<hr>
+<p><strong>   
+</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://godeofdeath8080.github.io/2014/11/10/40976803/" data-id="cjqhtiq7i000a6ouk569t68l7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-40707553" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/11/02/40707553/" class="article-date">
+  <time datetime="2014-11-02T02:55:00.000Z" itemprop="datePublished">2014-11-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/11/02/40707553/">CYGWIN环境搭建及openvpn编译</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://blog.csdn.net/happytengfei/article/details/8674412" target="_blank" rel="noopener">http://blog.csdn.net/happytengfei/article/details/8674412</a></p>
+<p>这里只提几个要点 gcc –version 有的教程会写成-version</p>
+<p>$ndk/ndk-build这里我在cygwin目录下配置文件设置的环境变量是NDKROOT  </p>
+<p>所以这里输入  $NDKROOT/ndk-build</p>
+<p>编译的是googlecode上的openvpn</p>
+<p>官方的代码下不下来 现在  googlecode上都是用hg clone</p>
+<p>我试了tortorisehg克隆提示255错误 不知何解</p>
+<p>只好在别地找了份 build提示引用 <a href="http://meiyitianabc.blog.163.com/blog/static/10502212720145443335565/" target="_blank" rel="noopener"> Google breakpad
+</a> 找不到</p>
+<p>就在jni的Android.mk文件里注掉相关代码得以成功编译</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://godeofdeath8080.github.io/2014/11/02/40707553/" data-id="cjqhtiq7k000c6oukv9myeuf4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-39052859" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/04/39052859/" class="article-date">
+  <time datetime="2014-09-04T07:12:00.000Z" itemprop="datePublished">2014-09-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/04/39052859/">editplus 列模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>alt + 左键拖动 去除复制代码头部或者注释很方便</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://godeofdeath8080.github.io/2014/09/04/39052859/" data-id="cjqhtiq7m000h6ouk2osaydss" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-39052255" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/04/39052255/" class="article-date">
+  <time datetime="2014-09-04T06:40:00.000Z" itemprop="datePublished">2014-09-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/04/39052255/">mongodb “dbpath (/data/db/) does not exist, terminating”  问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>按照mongodb的 <a href="http://www.mongodb.org/display/DOCS/Quickstart+Windows" target="_blank" rel="noopener"> 快速上手手册 </a><br>上操作步骤（Windows）发现启动报出异常：</p>
+<p>“dbpath (/data/db/) does not exist, terminating”</p>
+<p>奇怪的是我已经按手册上的步骤建立了C:\data\db，却还是报这个错。最后发现mongodb安装在哪就必须在bin同级目录内建立data\db，手册上的这<br>句话存在误导性：</p>
+<p>“Unzip the downloaded binary package to the location of your choice.”</p>
+<p>在bin目录平级建立data\db顺利启动service，顺利连接shell。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://godeofdeath8080.github.io/2014/09/04/39052255/" data-id="cjqhtiq7b00046oukzz6orezj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-39011491" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/02/39011491/" class="article-date">
+  <time datetime="2014-09-02T12:43:00.000Z" itemprop="datePublished">2014-09-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/02/39011491/">X230安装10.9.3黑苹果不完美教程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前在3820TG 和4820TG上装过10.8.X 为了研究swift 所以在X230上装了10.9.3（xcode6的最低要求<br>我估计正式发布还要换10.10吧）</p>
+<p>之前的帖子： <a href="http://bbs.replays.net/thread-2529416-1-1.html" target="_blank" rel="noopener">http://bbs.replays.net/thread-2529416-1-1.html</a></p>
+<p><a href="http://bbs.replays.net/forum.php?mod=viewthread&amp;tid=2488013&amp;highlight=4820TG" target="_blank" rel="noopener">http://bbs.replays.net/forum.php?mod=viewthread&amp;tid=2488013&amp;highlight=4820TG</a>  </p>
+<p>X230 装了有段时间了 总的来说不算完美 基本可用吧 总结下</p>
+<p>第一阶段<br>1.前期参照  <a href="http://www.sdifenzhou.com/s8.html" target="_blank" rel="noopener"> http://www.sdifenzhou.com/s8.html
+</a> (有修改)<br>1）创建MAC安装盘。右键我的电脑 – 管理 – 存储 – 磁盘管理(本地) – 右键一个非系统磁盘– 压缩卷- 输入压缩空间量 = 6144(6G)<br>(原文5G偏小 多出的空间可用工具扩展WIN分区)<br>2）多出处一个绿色的6G的分区.  - 右键该分区 – 新建简单卷( 一路下一步, 但是暂时不要格式化)<br>3）创建MAC系统盘，方法同上，分了50G<br>4）打开磁盘安装助手 – 选择刚才下载的镜像文件 – 目标分区为刚才分出来的没有格式化的6G分区 – 把下面的三个勾都去掉, 然后点开始… 大概几分钟,<br>中间程序没响应是正常的. 然后软件底部出现Change partition type to AF: Success 就成功了。<br>5）接下来就是安装Win版本变色龙，然后将我提供的wowpc.iso替换C盘中的wowpc.iso，重启，用变色龙引导刚写好6G的安装盘即可。<br>6)  进入安装界面 先进行抹盘操作 点击上方 工具 磁盘工具 抹盘选项卡 选中刚才分30G的目标盘 抹盘格式选择 MAC-OS (不要选区分大小写那个)<br>抹盘完成即可安装 安装选择刚才抹盘的盘符。<br>注:<br>1)到这里需要修复引导 完成启动后可以看到WIN7/Chameleon启动菜单<br>2)wowpc.iso在WIN7的100M保留分区下 如果隐藏 给盘符可以看到 如果以前保留分区被干掉了 就在C盘根目录下<br>3)Chameleon菜单下各盘卷标可能被盖住 将中文卷标改成英文  </p>
+<p>后面步骤参见之前4820TG第二部分内容 在pcbeta搜索相关机型成功例子 在机器根目录下新建Extra/Extension 分别在各级目录下放入对应文件</p>
+<p>X230的AC269声卡有点问题（HDMI也无法输出音频）另外VGA无法输出（这个无解，但是HDMI可以接大屏输出）</p>
+<p>蓝牙和休眠也有点小问题  总体来说已可以作为开发环境</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://godeofdeath8080.github.io/2014/09/02/39011491/" data-id="cjqhtiq7e00066oukqwm2m76i" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-39008427" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/02/39008427/" class="article-date">
+  <time datetime="2014-09-02T08:47:00.000Z" itemprop="datePublished">2014-09-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/02/39008427/">sublime2.0.2注册码</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>-—- BEGIN LICENSE —–</p>
+<p>Andrew Weber</p>
+<p>Single User License</p>
+<p>EA7E-855605</p>
+<p>813A03DD 5E4AD9E6 6C0EEB94 BC9 <a href="http://iw3c.com/tag/97/1/" target="_blank" rel="noopener"> 97 </a> 98F</p>
+<p>942194A6 02396E98 E62C9979 4BB979FE</p>
+<p>91424C9D A45400BF F6747D88 2FB88078</p>
+<p>90F5CC94 1CDC92DC 8457107A F151657B</p>
+<p>1D22E383 A997F016 42397640 33F41CFC</p>
+<p>E1D0AE85 A0BBD039 0E9C8D55 E1B89D5D</p>
+<p>5CDB7036 E56DE1C0 EFCC0840 650CD3A6</p>
+<p>B98FC99C 8FAC73EE D2B95564 DF450523</p>
+<p>-—– END LICENSE ——</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://godeofdeath8080.github.io/2014/09/02/39008427/" data-id="cjqhtiq7d00056oukdmsh9y1m" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-39001723" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/02/39001723/" class="article-date">
+  <time datetime="2014-09-02T01:39:00.000Z" itemprop="datePublished">2014-09-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/02/39001723/">利用node.js进行phonegap开发环境搭建</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>请首先完成android开发环境搭建（adt bundle 和java SDK分别配置好环境变量）</p>
+<p>node.js官方下载地址：<a href="http://www.nodejs.org/download/" target="_blank" rel="noopener">http://www.nodejs.org/download/</a>                    请根据操作系统选择</p>
+<p>apache ant 下载地址 ：<a href="http://ant.apache.org/bindownload.cgi" target="_blank" rel="noopener">http://ant.apache.org/bindownload.cgi</a>           最新版本1.9.4</p>
+<p>ant环境变量配置</p>
+<p>ANT_HOME     C:\apache-ant-1.9.4  </p>
+<p>Path                  %ANT_HOME%/bin;%ANT_HOME%/lib;</p>
+<p>完成输入npm 检测 node.js（报错在appdata下添加npm文件夹）</p>
+<p>ant -version 检测ant</p>
+<p>java -verson 检测java</p>
+<p>adb和android -h 检测android SDK安装</p>
+<p>一定要保证环境变量配置正确  否则后面安装步骤过程中会报错</p>
+<p>在node.js command 命令行工具中输入npm install -g phonegap 稍等片刻完成安装  或者npm install -g<br>cordova（WIN下推荐）</p>
+<p>在D盘新建一个phonegapworkspace   然后定位到那里 cordova create com.example.hello HelloWorld</p>
+<p>创建HelloWorld工程成功后 cd hello  再 cordova platform add android</p>
+<p>这里可以按需添加类型</p>
+<p><code>$ cd hello</code></p>
+<p><code>$ cordova platform add ios</code></p>
+<p><code>$ cordova platform add amazon-fireos</code></p>
+<p><code>$ cordova platform add android</code></p>
+<p><code>$ cordova platform add blackberry10</code></p>
+<p><code>$ cordova platform add firefoxos</code></p>
+<p><code>$ cordova platform add wp8</code></p>
+<p><code>$ cordova platform add windows8</code></p>
+<p><code>$ cordova platform add amazon-fireos</code></p>
+<p><code>$ cordova platform add android</code></p>
+<p><code>$ cordova platform add blackberry10</code></p>
+<p><code>$ cordova platform add firefoxos</code></p>
+<p>如果没有错误eclipse下导入hello  会有两个工程 HelloWold 和  HelloWorld -CordovaLib</p>
+<p>前者将后者设成库即可运行 看到机器人画面代表成功</p>
+<p>IOS或者linux  要sudo npm install -g phonegap</p>
+<p>phonegap create HelloWorld</p>
+<p>创建HelloWorld工程成功后 cd HelloWorld 再 phonegap build ios</p>
+<p>在ios目录下找到project文件打开即可</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://godeofdeath8080.github.io/2014/09/02/39001723/" data-id="cjqhtiq7600016oukquunoui5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-38541367" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/08/13/38541367/" class="article-date">
+  <time datetime="2014-08-13T11:48:00.000Z" itemprop="datePublished">2014-08-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/08/13/38541367/">Android 增量更新实例（Smart App Updates）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>目录[-]</p>
+<ul>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h2_1" target="_blank" rel="noopener"> 官方说明 </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h2_2" target="_blank" rel="noopener"> 实现原理 </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h2_3" target="_blank" rel="noopener"> 实现 </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h3_4" target="_blank" rel="noopener"> （1）生成差异包 </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h3_5" target="_blank" rel="noopener"> （2）使用旧apk+差异包，在客户端合成新apk </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h2_6" target="_blank" rel="noopener"> 注意事项 </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h2_7" target="_blank" rel="noopener"> demo </a></li>
+</ul>
+<p>自从 Android 4.1 开始，Google引入了应用程序的增量更新。</p>
+<p>##</p>
+<ul>
+<li>官方说明 </li>
+</ul>
+<blockquote>
+<p>Smart app updates is a new feature of Google Play that introduces a better<br>way of delivering app updates to devices. When developers publish an update,<br>Google Play now delivers only the bits that have changed to devices, rather<br>than the entire APK. This makes the updates much lighter-weight in most cases,<br>so they are faster to download, save the device’s battery, and conserve<br>bandwidth usage on users’ mobile data plan. On average, a smart app update is<br>about 1/3 the sizeof a full APK update.</p>
+</blockquote>
+<p><a href="http://developer.android.com/about/versions/jelly-bean.html" target="_blank" rel="noopener"> http://developer.android.com/about/versions/jelly-bean.html
+</a></p>
+<p>##</p>
+<ul>
+<li>实现原理 </li>
+</ul>
+<p>增量更新的原理非常简单，就是将本地apk与服务器端最新版本比对，并得到差异包，用户更新App时只需要下载差异包。例如，当前安装新浪微博V3.5，12.8 M<br>B，新浪微博最新版V4.0，15.4MB，经过对两个版本比较之后，发现差异只有7、8M，这时候用户更新的时候只需要下载一个7、8M的差异包便可，不需要整包下<br>载15.4M的新版微博客户端。下载差异包后，在手机端使用旧版apk+差异包，合成得到微博最新版V4.0，提醒用户安装即可。  </p>
+<p>##</p>
+<ul>
+<li>实现 </li>
+</ul>
+<p>以新浪微博客户端的升级为例，假设手机上安装的是V3.5，现在最新版是V4.0，用户需要从V3.5升级到V4.0。  </p>
+<p>弄清楚原理之后，我们就需要解决两个问题：<br>1.如何比对两个版本的apk生成差异包；<br>2.如何使用旧的apk+差异包，生成一个新apk；  </p>
+<h3 id="（1）生成差异包"><a href="#（1）生成差异包" class="headerlink" title="（1）生成差异包"></a>（1）生成差异包</h3><p>这一步需要在服务器端来实现，一般来说，apk有新版本之后，需要往后台管理端上传新apk，上传时就应该生成每一个旧版与最新版本的差异包。<br>假设，你的apk已经发布了3个版，1.0，2.0，3.0，这时候你要在后台发布4.0，在你上传时，就应该生成<br>1.0——&gt;4.0的差异包；<br>2.0——&gt;4.0的差异包；<br>3.0——&gt;4.0的差异包；  </p>
+<p>选择使用这个开源二进制比较工具来实现：<br><a href="http://www.daemonology.net/bsdiff/" target="_blank" rel="noopener"> http://www.daemonology.net/bsdiff/ </a><br>下载后得到bsdiff-4.3.tar.gz。  </p>
+<p>其中bsdiff.c是二进制文件比对的代码；bspatch.c是二进制文件合成的代码；<br>我们将使用这个bsdiff来生成两个apk的patch包，并且使用bspatch.c来合成旧apk与patch包；  </p>
+<p>使用bsdiff、bspatch时，还需用到bzip2： <a href="http://www.bzip.org/downloads.html" target="_blank" rel="noopener"> http://www.bzip.org/downloads.html
+</a><br>下载后得到：bzip2-1.0.6.tar.gz。<br>我们需要用到bzip2-1.0.6.tar.gz中以下13个文件（这里面可能有的是不需要的，我都拷贝过来了）：  </p>
+<p><a href="http://my.oschina.net/liucundong/blog/160436#" target="_blank" rel="noopener"> ? </a></p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p><code>blocksort.c</code></p>
+<p><code>bzip2.c</code></p>
+<p><code>bzip2recover.c</code></p>
+<p><code>bzlib_private.h</code></p>
+<p><code>bzlib.c</code></p>
+<p><code>bzlib.h</code></p>
+<p><code>compress.c</code></p>
+<p><code>crctable.c</code></p>
+<p><code>decompress.c</code></p>
+<p><code>dlltest.c</code></p>
+<p><code>huffman.c</code></p>
+<p><code>randtable.c</code></p>
+<p><code>spewG.c</code></p>
+<p>将这13个文件拷贝至jni目录下，接下来，我们就调用bsdiff生成差异包，并且调用bspatch合成新包。  </p>
+<p>我是在Mac下做的，使用java开发，通过jni调用C程序（bsdiff、bzip2）。  </p>
+<p>调用，com.cundong.utils.DiffUtils.java中genDiff()方法，可以通过传入的新（newApkPath）旧（oldApkPa<br>th）apk，得到差异包（patchPath）。  </p>
+<p><a href="http://my.oschina.net/liucundong/blog/160436#" target="_blank" rel="noopener"> ? </a></p>
+<p>1</p>
+<p><code>public</code> <code>static</code> <code>native</code> <code>int</code> <code>genDiff(String oldApkPath, String
+newApkPath,String patchPath);</code></p>
+<p>调用，com.cundong.utils.PatchUtils.java中patch()方法，可以通过旧apk（oldApkPath）与差异包（patchP<br>ath），得到新apk（newApkPath）。</p>
+<p><a href="http://my.oschina.net/liucundong/blog/160436#" target="_blank" rel="noopener"> ? </a></p>
+<p>1</p>
+<p><code>public</code> <code>static</code> <code>native</code> <code>int</code> <code>patch(String oldApkPath, String
+newApkPath,String patchPath);</code></p>
+<h3 id="（2）使用旧apk-差异包，在客户端合成新apk"><a href="#（2）使用旧apk-差异包，在客户端合成新apk" class="headerlink" title="（2）使用旧apk+差异包，在客户端合成新apk"></a>（2）使用旧apk+差异包，在客户端合成新apk</h3><p>差异包已经在服务器端生成，我们只需要在客户端提示用户有更新，然后让用户来下载差异包，下载成功之后，<br>使用本地apk与差异包，生成新版apk。  </p>
+<p>这一步需要在Android应用中开发。<br>1.首先NDK编译出一个*.so，APKPatch工程负责生成 libapkpatch<br>so，生成的so文件位于APKPatch/libs/libapkpatch.so下，其他Android工程便可以使用该so文件来合成apk。  </p>
+<p>2.调用该so文件。<br>任意一个Android工程，使用该so文件，拷贝至libs\armeabi中，便可以调用patch()方法，来和成旧apk+差异包。<br>附件中，test工程，就是一个调用该so文件的例子。  </p>
+<p>##</p>
+<ul>
+<li>注意事项 </li>
+</ul>
+<p>1.新包和成之后，还需要对合成升级版本的apk包及最新版本apk包进行MD5或SHA1校验，如果校验码不一致，说明合成过程有问题，新合成的包将不能被安装。  </p>
+<p>2.增量升级成功的前提是，用户手机端必须有能够让你拷贝出来且与你服务器用于差分的版本一致的apk，这样就存在，例如，系统内置的apk无法获取到，无法进行增量<br>升级；对于某些与你差分版本一致，但是内容有过修改的(比如破解版apk)，这样也是无法进行增量升级的，为了防止合成补丁错误，最好在补丁合成前对旧版本的apk进<br>行校验，保证基础包的一致性。  </p>
+<p>##</p>
+<ul>
+<li>demo </li>
+</ul>
+<p>demo中，包含以下文件：  </p>
+<p>1.服务器端生成差异包的工程：AppUpdate；</p>
+<p>2.客户端编译得到so的工程：APKPatch；</p>
+<p>3.调用so文件，实现增量更新的工程：test；</p>
+<p>4.两个用于测试的微博apk；</p>
+<p><a href="https://github.com/cundong/SmartAppUpdates" target="_blank" rel="noopener"> 下载 </a></p>
+<p>转帖：<a href="http://my.oschina.net/liucundong/blog/160436" target="_blank" rel="noopener">http://my.oschina.net/liucundong/blog/160436</a></p>
+<p>目录[-]</p>
+<ul>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h2_1" target="_blank" rel="noopener"> 官方说明 </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h2_2" target="_blank" rel="noopener"> 实现原理 </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h2_3" target="_blank" rel="noopener"> 实现 </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h3_4" target="_blank" rel="noopener"> （1）生成差异包 </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h3_5" target="_blank" rel="noopener"> （2）使用旧apk+差异包，在客户端合成新apk </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h2_6" target="_blank" rel="noopener"> 注意事项 </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h2_7" target="_blank" rel="noopener"> demo </a></li>
+</ul>
+<p>自从 Android 4.1 开始，Google引入了应用程序的增量更新。</p>
+<p>##</p>
+<ul>
+<li>官方说明 </li>
+</ul>
+<blockquote>
+<p>Smart app updates is a new feature of Google Play that introduces a better<br>way of delivering app updates to devices. When developers publish an update,<br>Google Play now delivers only the bits that have changed to devices, rather<br>than the entire APK. This makes the updates much lighter-weight in most cases,<br>so they are faster to download, save the device’s battery, and conserve<br>bandwidth usage on users’ mobile data plan. On average, a smart app update is<br>about 1/3 the sizeof a full APK update.</p>
+</blockquote>
+<p><a href="http://developer.android.com/about/versions/jelly-bean.html" target="_blank" rel="noopener"> http://developer.android.com/about/versions/jelly-bean.html
+</a></p>
+<p>##</p>
+<ul>
+<li>实现原理 </li>
+</ul>
+<p>增量更新的原理非常简单，就是将本地apk与服务器端最新版本比对，并得到差异包，用户更新App时只需要下载差异包。例如，当前安装新浪微博V3.5，12.8 M<br>B，新浪微博最新版V4.0，15.4MB，经过对两个版本比较之后，发现差异只有7、8M，这时候用户更新的时候只需要下载一个7、8M的差异包便可，不需要整包下<br>载15.4M的新版微博客户端。下载差异包后，在手机端使用旧版apk+差异包，合成得到微博最新版V4.0，提醒用户安装即可。  </p>
+<p>##</p>
+<ul>
+<li>实现 </li>
+</ul>
+<p>以新浪微博客户端的升级为例，假设手机上安装的是V3.5，现在最新版是V4.0，用户需要从V3.5升级到V4.0。  </p>
+<p>弄清楚原理之后，我们就需要解决两个问题：<br>1.如何比对两个版本的apk生成差异包；<br>2.如何使用旧的apk+差异包，生成一个新apk；  </p>
+<h3 id="（1）生成差异包-1"><a href="#（1）生成差异包-1" class="headerlink" title="（1）生成差异包"></a>（1）生成差异包</h3><p>这一步需要在服务器端来实现，一般来说，apk有新版本之后，需要往后台管理端上传新apk，上传时就应该生成每一个旧版与最新版本的差异包。<br>假设，你的apk已经发布了3个版，1.0，2.0，3.0，这时候你要在后台发布4.0，在你上传时，就应该生成<br>1.0——&gt;4.0的差异包；<br>2.0——&gt;4.0的差异包；<br>3.0——&gt;4.0的差异包；  </p>
+<p>选择使用这个开源二进制比较工具来实现：<br><a href="http://www.daemonology.net/bsdiff/" target="_blank" rel="noopener"> http://www.daemonology.net/bsdiff/ </a><br>下载后得到bsdiff-4.3.tar.gz。  </p>
+<p>其中bsdiff.c是二进制文件比对的代码；bspatch.c是二进制文件合成的代码；<br>我们将使用这个bsdiff来生成两个apk的patch包，并且使用bspatch.c来合成旧apk与patch包；  </p>
+<p>使用bsdiff、bspatch时，还需用到bzip2： <a href="http://www.bzip.org/downloads.html" target="_blank" rel="noopener"> http://www.bzip.org/downloads.html
+</a><br>下载后得到：bzip2-1.0.6.tar.gz。<br>我们需要用到bzip2-1.0.6.tar.gz中以下13个文件（这里面可能有的是不需要的，我都拷贝过来了）：  </p>
+<p><a href="http://my.oschina.net/liucundong/blog/160436#" target="_blank" rel="noopener"> ? </a></p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p><code>blocksort.c</code></p>
+<p><code>bzip2.c</code></p>
+<p><code>bzip2recover.c</code></p>
+<p><code>bzlib_private.h</code></p>
+<p><code>bzlib.c</code></p>
+<p><code>bzlib.h</code></p>
+<p><code>compress.c</code></p>
+<p><code>crctable.c</code></p>
+<p><code>decompress.c</code></p>
+<p><code>dlltest.c</code></p>
+<p><code>huffman.c</code></p>
+<p><code>randtable.c</code></p>
+<p><code>spewG.c</code></p>
+<p>将这13个文件拷贝至jni目录下，接下来，我们就调用bsdiff生成差异包，并且调用bspatch合成新包。  </p>
+<p>我是在Mac下做的，使用java开发，通过jni调用C程序（bsdiff、bzip2）。  </p>
+<p>调用，com.cundong.utils.DiffUtils.java中genDiff()方法，可以通过传入的新（newApkPath）旧（oldApkPa<br>th）apk，得到差异包（patchPath）。  </p>
+<p><a href="http://my.oschina.net/liucundong/blog/160436#" target="_blank" rel="noopener"> ? </a></p>
+<p>1</p>
+<p><code>public</code> <code>static</code> <code>native</code> <code>int</code> <code>genDiff(String oldApkPath, String
+newApkPath,String patchPath);</code></p>
+<p>调用，com.cundong.utils.PatchUtils.java中patch()方法，可以通过旧apk（oldApkPath）与差异包（patchP<br>ath），得到新apk（newApkPath）。</p>
+<p><a href="http://my.oschina.net/liucundong/blog/160436#" target="_blank" rel="noopener"> ? </a></p>
+<p>1</p>
+<p><code>public</code> <code>static</code> <code>native</code> <code>int</code> <code>patch(String oldApkPath, String
+newApkPath,String patchPath);</code></p>
+<h3 id="（2）使用旧apk-差异包，在客户端合成新apk-1"><a href="#（2）使用旧apk-差异包，在客户端合成新apk-1" class="headerlink" title="（2）使用旧apk+差异包，在客户端合成新apk"></a>（2）使用旧apk+差异包，在客户端合成新apk</h3><p>差异包已经在服务器端生成，我们只需要在客户端提示用户有更新，然后让用户来下载差异包，下载成功之后，<br>使用本地apk与差异包，生成新版apk。  </p>
+<p>这一步需要在Android应用中开发。<br>1.首先NDK编译出一个*.so，APKPatch工程负责生成 libapkpatch<br>so，生成的so文件位于APKPatch/libs/libapkpatch.so下，其他Android工程便可以使用该so文件来合成apk。  </p>
+<p>2.调用该so文件。<br>任意一个Android工程，使用该so文件，拷贝至libs\armeabi中，便可以调用patch()方法，来和成旧apk+差异包。<br>附件中，test工程，就是一个调用该so文件的例子。  </p>
+<p>##</p>
+<ul>
+<li>注意事项 </li>
+</ul>
+<p>1.新包和成之后，还需要对合成升级版本的apk包及最新版本apk包进行MD5或SHA1校验，如果校验码不一致，说明合成过程有问题，新合成的包将不能被安装。  </p>
+<p>2.增量升级成功的前提是，用户手机端必须有能够让你拷贝出来且与你服务器用于差分的版本一致的apk，这样就存在，例如，系统内置的apk无法获取到，无法进行增量<br>升级；对于某些与你差分版本一致，但是内容有过修改的(比如破解版apk)，这样也是无法进行增量升级的，为了防止合成补丁错误，最好在补丁合成前对旧版本的apk进<br>行校验，保证基础包的一致性。  </p>
+<p>##</p>
+<ul>
+<li>demo </li>
+</ul>
+<p>demo中，包含以下文件：  </p>
+<p>1.服务器端生成差异包的工程：AppUpdate；</p>
+<p>2.客户端编译得到so的工程：APKPatch；</p>
+<p>3.调用so文件，实现增量更新的工程：test；</p>
+<p>4.两个用于测试的微博apk；</p>
+<p><a href="https://github.com/cundong/SmartAppUpdates" target="_blank" rel="noopener"> 下载 </a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://godeofdeath8080.github.io/2014/08/13/38541367/" data-id="cjqhtiq8t002b6oukio2r71rg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-38541277" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/08/13/38541277/" class="article-date">
+  <time datetime="2014-08-13T11:33:00.000Z" itemprop="datePublished">2014-08-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/08/13/38541277/">Android WebView使用(一)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文主要对WebView进行介绍，包括  webView 4个可以定制的点  、  设置WebView back键响应  、<br>控制网页的链接仍在webView中跳转  、  显示页面加载进度  、  处理https请求  、<br>利用addJavascriptInterface实现android程序和javascript交互  等等</p>
+<p>WebView基于webkit引擎展现web页面的控件，使用前需要在Android Manifest<br>file中配置internet访问权限，否则提示页面无法访问</p>
+<p>Xml代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>&lt; uses-permission  android:name  =  “android.permission.INTERNET”  /&gt;</li>
+</ol>
+<p>WebView控件功能强大，除了具有一般View的属性和设置外，还可以对url请求、页面加载、渲染、页面交互进行强大的处理。</p>
+<p>WebView有几个可以定制的点：</p>
+<p>（1）设置 <a href="http://developers.androidcn.com/reference/android/we
+bkit/WebChromeClient.html" target="_blank" rel="noopener"> WebChromeClient </a> 子类， <strong> WebChromeClient会在一些影响浏览器ui交互动作发生时被调用 </strong><br>，比如WebView关闭和隐藏、页面加载进展、js确认框和警告框、js加载前、js操作超时、webView获得焦点等等，详见 <a href="http://developers.androidcn.com/reference/android/webkit/Web
+ChromeClient.html" target="_blank" rel="noopener"><br>WebChromeClient </a></p>
+<p>（2）设置 <a href="http://developers.androidcn.com/reference/android/webkit/WebViewClient.html" target="_blank" rel="noopener"> WebViewClient
+</a><br>子类， <strong> WebViewClient会在一些影响内容喧嚷的动作发生时被调用 </strong><br>，比如表单的错误提交需要重新提交、页面开始加载及加载完成、资源加载中、接收到http认证需要处理、页面键盘响应、页面中的url打开处理等等，详见 <a href="http://developers.androidcn.com/reference/android/webkit/WebViewClient.html" target="_blank" rel="noopener"><br>WebViewClient
+</a></p>
+<p>（3）设置 <a href="http://developers.androidcn.com/reference/android/webkit/WebSettings.html" target="_blank" rel="noopener"> WebSettings
+</a><br>类， <strong> 其中包含多项配置 </strong> 。WebSettings用来对WebView的配置进行配置和管理，比如是否可以进行文件操作、缓存的设置、页面是否支持放大<br>和缩小、是否允许使用数据库api、字体及文字编码设置、是否允许js脚本运行、是否允许图片自动加载、是否允许数据及密码保存等等，详见 <a href="http://developers.androidcn.com/reference/android/webkit/WebSettings.html" target="_blank" rel="noopener"><br>WebSettings
+</a></p>
+<p>（4）设置 <a href="http://developers.androidcn.com/reference/and
+roid/webkit/WebView.html#addJavascriptInterface\(java.lang.Object,%20java.lang
+.String\" target="_blank" rel="noopener"> addJavascriptInterface </a>) 方法， <strong> 将java对象绑定到webView中，以方便从页面js中控制java对象 </strong> ，实现用本地java代码和html页面进<br>行交互，甚至可以进行页面自动化。但如此做存在安全隐患，所以若设置了此方法，请确保webView的代码都是自己完成，详细使用addJavascriptInte<br>rface进行自动化见本文5使用addJavascriptInterface完成和js交互</p>
+<p><strong> 1、back键控制网页后退 </strong></p>
+<p>Activity默认的back键处理为结束当前Activity，webView查看了很多网页后，希望按back键返回上一次浏览的页面，这个时候我们就需要覆盖<br>onKeyDown函数，告诉他如何处理，如下：</p>
+<p>Java代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>public  boolean  onKeyDown(  int  keyCode, KeyEvent event) { </li>
+<li>if  (webView.canGoBack() &amp;&amp; event.getKeyCode() == KeyEvent.KEYCODE_BACK &amp;&amp; event.getRepeatCount() ==  0  ) { </li>
+<li>webView.goBack(); </li>
+<li>return  true  ; </li>
+<li>} </li>
+<li><ol start="7">
+<li>return  super  .onKeyDown(keyCode, event); </li>
+</ol>
+</li>
+<li>} </li>
+</ol>
+<p>其中webView.canGoBack()在webView含有一个可后退的浏览记录时返回true</p>
+<p>webView.goBack();表示返回webView的上次访问页面</p>
+<p><strong> 2、当前网页的链接仍在webView中跳转  </strong></p>
+<p>Java代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>webView.setWebViewClient(  new  WebViewClient() { </li>
+<li><ol start="3">
+<li>@Override </li>
+</ol>
+</li>
+<li>public  boolean  shouldOverrideUrlLoading(WebView view, String url) { </li>
+<li>view.loadUrl(url); </li>
+<li>return  true  ; </li>
+<li>} </li>
+<li>}); </li>
+</ol>
+<p>shouldOverrideUrlLoading表示当前webView中的一个新url需要加载时，给当前应用程序一个处理机会，如果没有重写此函数，webVi<br>ew请求ActivityManage选择合适的方式处理请求，就像弹出uc和互联网让用户选择浏览器一样。重写后return<br>true表示让当前程序处理，return false表示让当前webView处理</p>
+<p>Xml代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>Give the host application a chance to take over the control when a new url is about to be loaded in the current WebView. If WebViewClient is not provided, by default WebView will ask Activity Manager to choose the proper handler for the url. If WebViewClient is provided, return true means the host application handles the url, while return false means the current WebView handles the url. </li>
+</ol>
+<p>参考：</p>
+<p><a href="http://devel
+oper.android.com/reference/android/webkit/WebViewClient.html#shouldOverrideUrl
+Loading\(android.webkit.WebView,%20java.lang.String\" target="_blank" rel="noopener"> http://developer.android.com/reference/android/webkit/WebViewClient.html#sho<br>uldOverrideUrlLoading(android.webkit.WebView, java.lang.String) </a>)</p>
+<p>问题分析：</p>
+<p>今天在用webView load腾讯的OAuth页面 <a href="http://open.t.qq.com/cgi-bin/authorize" target="_blank" rel="noopener"> http://open.t.qq.com/cgi-bin/authorize
+</a></p>
+<p>时，突然弹出选择uc还是互联网浏览器的确认框，很奇怪，其他页面都能正常load，而这个却无法在webView中load，后来用火狐看了下是因为load这个页<br>面的时候会重定向到另外一个页面 <a href="http://open.t.qq.com/oauth_html/login.php?oauth_token=xxx&amp;type=0" target="_blank" rel="noopener"><br>http://open.t.qq.com/oauth_html/login.php?oauth_token=xxx&amp;type=0
+</a> ，而webView没<br>有设置shouldOverrideUrlLoading，导致url交给了ActivityManage去处理，解释如上，后添加后可正常load页面</p>
+<p><strong> 3、页面加载进度  </strong></p>
+<p>代码如下</p>
+<p>Java代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>webView.setWebChromeClient(  new  WebChromeClient() { </li>
+<li><ol start="3">
+<li>public  void  onProgressChanged(WebView view,  int  progress) { </li>
+</ol>
+</li>
+<li>setTitle(  “页面加载中，请稍候…”  + progress +  “%”  ); </li>
+<li>setProgress(progress *  100  ); </li>
+<li><ol start="7">
+<li>if  (progress ==  100  ) { </li>
+</ol>
+</li>
+<li>setTitle(R.string.app_name); </li>
+<li>} </li>
+<li>} </li>
+<li>}); </li>
+</ol>
+<p>onProgressChanged通知应用程序当前页面加载的进度</p>
+<p>progress  表示当前页面加载的进度，为1至100的整数</p>
+<p>参考：</p>
+<p><a href="http://developer.android.com/r
+eference/android/webkit/WebChromeClient.html#onProgressChanged\(android.webkit
+.WebView,%20int\" target="_blank" rel="noopener"> http://developer.android.com/reference/android/webkit/WebChromeClient.html#o<br>nProgressChanged(android.webkit.WebView, int) </a>)</p>
+<p><strong> 4、处理https请求  </strong></p>
+<p>webView默认是不处理https请求的，页面显示空白，需要进行如下设置：</p>
+<p>Java代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>webView.setWebViewClient(  new  WebViewClient() { </li>
+<li><ol start="3">
+<li>@Override </li>
+</ol>
+</li>
+<li>public  void  onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) { </li>
+<li>handler.proceed(); </li>
+<li>//            handler.cancel(); </li>
+<li>//            handler.handleMessage(null); </li>
+<li>} </li>
+<li>}); </li>
+</ol>
+<p>onReceivedSslError为webView处理ssl证书设置</p>
+<p>其中handler.proceed();表示等待证书响应</p>
+<p>handler.cancel();表示挂起连接，为默认方式</p>
+<p>handler.handleMessage(null);可做其他处理</p>
+<p>参考：</p>
+<p><a href="http://developer.android.com/reference/android/we
+bkit/WebViewClient.html#onReceivedSslError\(android.webkit.WebView,%20android.
+webkit.SslErrorHandler,%20android.net.http.SslError\" target="_blank" rel="noopener"> http://developer.android.com/reference/android/webkit/WebViewClient.html#onR<br>eceivedSslError(android.webkit.WebView, android.webkit.SslErrorHandler,<br>android.net.http.SslError) </a>)</p>
+<p><strong> 5、使用addJavascriptInterface完成和js交互  </strong></p>
+<p><strong> 5.1 javascript中调用java对象及方法 </strong></p>
+<p>设置webView的addJavascriptInterface方法，该方法有两个参数，第一个参数为被绑定到js中的类实例，第二个参数为在js中暴露的类别名<br>，在js中引用java对象就是用这个名字</p>
+<p>Java代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>ClassBeBindedToJS classBeBindedToJS =  new  ClassBeBindedToJS(); </li>
+<li>webView.addJavascriptInterface(classBeBindedToJS,  “classNameBeExposedInJs”  ); </li>
+</ol>
+<p>实现绑定到js的类，其中的javaMethod方法我们将在页面前端js中调用，用于返回一段内容。  showHtml用来使用<br>AlertDialog显示一段html代码，稍后将使用到</p>
+<p>Java代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>private  class  ClassBeBindedToJS{ </li>
+<li>public  void  showHtml(String html){ </li>
+<li>new  AlertDialog.Builder(UpdateStatusActivity.  this  ) </li>
+<li>.setTitle(  “HTML”  ).setMessage(html) </li>
+<li>.setPositiveButton(android.R.string.ok,  null  ) </li>
+<li>.setCancelable(  false  ).create().show(); </li>
+<li>} </li>
+<li>public  String javaMethod() { </li>
+<li>return  “use java method”  ; </li>
+<li>} </li>
+<li>}; </li>
+</ol>
+<p>如此我们就可以在前端调用java对象，如下：</p>
+<p>Html代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>&lt; span  &gt; &lt; html  &gt;</li>
+<li>&lt; body  &gt;</li>
+<li>&lt; div  id  =  “displayDiv”  &gt; Test page.  &lt;/  div  &gt;</li>
+<li>&lt; input  type  =  “button”  value  =  “use java object”  onclick  =  “document.getElementById(‘displayDiv’).innerHTML=classNameBeExposedInJs.javaMethod()”  /&gt;</li>
+<li>&lt; span  &gt; &lt;/  body  &gt;</li>
+<li>&lt;/  html  &gt; &lt;/  span  &gt;</li>
+</ol>
+<p>这段html作用为点击button按钮，改变div内容为java对象方法中的内容，其中classNameBeExposedInJs为java对象在js中的别<br>名，  javaMethod为java对象的方法</p>
+<p><strong> 5.2 java中调用js方法 </strong></p>
+<p>用webView的loadUrl实现，比如现在我们想在页面加载完成后调用js中的hello函数，实现如下：</p>
+<p>Java代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>webView.setWebViewClient(  new  WebViewClient() { </li>
+<li>@Override </li>
+<li>public  void  onPageFinished(WebView webView, String url){ </li>
+<li>webView.loadUrl(  “javascript:hello()”  ); </li>
+<li>} </li>
+<li>}); </li>
+</ol>
+<p>怎么样，很简单吧^_^,直接loadUrl(“javascript:hello()”)就可以了</p>
+<p>利用这一点我们可以很方便的实现WebView的自动化，如网页自动化登录。举个栗子，实现 <a href="http://m.renren.com/" target="_blank" rel="noopener"> http://m.renren.com/
+</a> 的自动登录啊，代码如下</p>
+<p>Java代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>webView.getSettings().setJavaScriptEnabled(  true  ); </li>
+<li>webView.loadUrl(  “<a href="http://m.renren.com&quot;" target="_blank" rel="noopener">http://m.renren.com&quot;</a>  ); </li>
+<li>webView.requestFocus(); </li>
+<li><ol start="5">
+<li>ClassBeBindedToJS classBeBindedToJS =  new  ClassBeBindedToJS(); </li>
+</ol>
+</li>
+<li>webView.addJavascriptInterface(classBeBindedToJS,  “classNameBeExposedInJs”  ); </li>
+<li>webView.setWebViewClient(  new  WebViewClient() { </li>
+<li>@Override </li>
+<li>public  void  onPageFinished(WebView webView, String url){ </li>
+<li>webView.loadUrl(  “javascript:document.getElementsByName(‘email’)[0].value=’userName’”  ); </li>
+<li>webView.loadUrl(  “javascript:document.getElementsByName(‘password’)[0].value=’userPassword’”  ); </li>
+<li>webView.loadUrl(  “javascript:document.getElementsByName(‘login’)[0].click()”  ); </li>
+<li>} </li>
+<li>}); </li>
+</ol>
+<p>从中可以看出先加载  <a href="http://m.renren.com页面，在页面加载完成" target="_blank" rel="noopener">http://m.renren.com页面，在页面加载完成</a>  onPageFinished后，调用js实现自动登录</p>
+<p>其中三句js分别表示设置用户名文本框内容、设置用户密码文本框内容、点击登录按钮，如此登录成功喽</p>
+<p><strong> 5.3 java和js混用实现一些效果 </strong></p>
+<p><strong> 5.3.1 WebView用  AlertDialog显示页面的html代码  </strong></p>
+<p>之前5.1中的  showHtml方法现在派上用场啦，在页面加载完成后显示页面html内容，如下：</p>
+<p>Java代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>webView.setWebViewClient(  new  WebViewClient() { </li>
+<li>@Override </li>
+<li>public  void  onPageFinished(WebView webView, String url){ </li>
+<li>webView.loadUrl(  “javascript:window.classNameBeExposedInJs.showHtml(document.getElementsByTagName(‘html’)[0].innerHTML);”  ); </li>
+<li>} </li>
+<li>}); </li>
+</ol>
+<p>其中webView.loadUrl表示调用页面中的js，而页面中的js<br>window.classNameBeExposedInJs.showHtml调用了程序中的java对象的方法，方法参数为一段js。</p>
+<p>首先webView会执行这一段js document.getElementsByTagName(‘html’)[0].innerHTML。含义即为取得页面中<br>html标记的innerHTML，及网页主要内容；</p>
+<p>然后将得到的网页内容当作字符串参数传入showHtml方法</p>
+<p>最后调用showHtml函数实现，即用AlertDialog显示字符串，如此得到了整个网页的大部分html代码</p>
+<p><strong> 5.3.2 WebView显示当前页面的url地址 </strong></p>
+<p>获得WebView当前页面url使用  webView.getUrl()即可，如下：</p>
+<p>Java代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>webView.loadUrl(  “javascript:window.classNameBeExposedInJs.showHtml(‘“  + webView.getUrl() +  “‘);”  ); </li>
+</ol>
+<p>参考：</p>
+<p><a href="http://developer.android.com/reference/android/webkit/WebView.html" target="_blank" rel="noopener"> http://developer.android.com/reference/android/webkit/WebView.html
+</a></p>
+<p><a href="http://android.tgbus.com/Android/tutorial/201103/347674.shtml" target="_blank" rel="noopener"> http://android.tgbus.com/Android/tutorial/201103/347674.shtml
+</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://godeofdeath8080.github.io/2014/08/13/38541277/" data-id="cjqhtiq8s002a6ouks7y5e7sc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-38048353" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/07/22/38048353/" class="article-date">
+  <time datetime="2014-07-22T11:59:00.000Z" itemprop="datePublished">2014-07-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/22/38048353/">使用Vitamio播放rtsp流媒体并实现动态截图</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Vitamio是北京的一家企业开发多媒体库 主要是面向移动领域的</p>
+<p>自己的项目里遇到videoview截图问题</p>
+<p>传统的view用getDrawableCache可以</p>
+<p>但是动态的surfaceview或者videoview 还有地图的mapview 等等都是不行的</p>
+<p>android的截图其实门道很多 有个黑客比赛貌似就是免root实现截图功能</p>
+<p>Vitamio是我找到一个蛮适合截videoview第三例子  </p>
+<p>首先在官网下载最新版4.2.2示例 解压后有两个主要的文件夹：vitamio 和 vitamio-demo</p>
+<p>自己按照包名各自新建两个工程（示例没有.project文件无法直接导入）</p>
+<p>对应目录拷入文件 注意一定要放在同一文件夹</p>
+<p>vitamio设置成is Liberary  </p>
+<p>vitamio-demo引入vitamio作为库  </p>
+<p>运行可以看到里面的主要功能</p>
+<p>老版本API主要是建立在videoview上的 现在转向mediaplayer了</p>
+<p>其实这两个类在android源码里都有对应的 vitamio应该是在其基础上重写了</p>
+<p>又加入了一些解码库在它的so文件里</p>
+<p>Activity新建的时候加入so库检测：</p>
+<pre><code>if (!LibsChecker.checkVitamioLibs(this))
+return;
+</code></pre><p>初始化MediaPlayer：</p>
+<pre><code>mMediaPlayer = new MediaPlayer(this);
+mMediaPlayer.setDataSource(url);//url为rtsp视频地址
+mMediaPlayer.setDisplay(holder);
+mMediaPlayer.prepareAsync();
+mMediaPlayer.setOnBufferingUpdateListener(this);
+mMediaPlayer.setOnCompletionListener(this);
+mMediaPlayer.setOnPreparedListener(this);
+mMediaPlayer.setOnVideoSizeChangedListener(this);
+setVolumeControlStream(AudioManager.STREAM_MUSIC);
+</code></pre><p>截图代码：</p>
+<pre><code>Bitmap dd = mMediaPlayer.getCurrentFrame();//截图方法
+                if (mMediaPlayer.isPlaying()) {
+                    try {
+                        String name = new DateFormat().format(
+                                &quot;yyyyMMdd_hhmmss&quot;,
+                                Calendar.getInstance(Locale.CHINA))
+                                + &quot;.jpg&quot;;
+                        String fileName = getSDPath() + &quot;/&quot; + name;//getSDPath()获取SD卡目录string方法
+                        FileOutputStream b = new FileOutputStream(fileName);
+                        dd.compress(Bitmap.CompressFormat.JPEG, 100, b);
+                        b.flush();
+                        b.close();
+                        Toast.makeText(VideoPlayerActivity.this, &quot;截图成功&quot;,
+                                Toast.LENGTH_LONG).show();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                } else
+                    Toast.makeText(VideoPlayerActivity.this, &quot;视频未播放，请稍候截图&quot;,
+                            Toast.LENGTH_LONG).show();
+</code></pre><p>注： 截图的时候 发现bitmap保存为jpg很正常 但是保存png会花屏 我估计和流的格式有关系</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://godeofdeath8080.github.io/2014/07/22/38048353/" data-id="cjqhtiq6z00006ouk0nty80o9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术笔记/">技术笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常/">日常</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown语法测试/">markdown语法测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/kotlin/" style="font-size: 10px;">kotlin</a> <a href="/tags/markdown语法测试/" style="font-size: 10px;">markdown语法测试</a> <a href="/tags/python/" style="font-size: 10px;">python</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/09/markdown test/">高山探秘｜南阿尔卑斯风光</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/05/github page build/">github page的搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/05/git bash open/">win下git bash交互操作用sublime3或者markdown打开本地文件</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/sql exception/">java.sql.SQLException:ResultSet.next was not called</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/01/kotlin gradle/">android studio中kotlin安卓工程的gradle配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 godeofdeath<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

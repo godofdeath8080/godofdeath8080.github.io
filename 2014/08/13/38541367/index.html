@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Android 增量更新实例（Smart App Updates） | godeofdeath</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="目录[-]   官方说明   实现原理   实现   （1）生成差异包   （2）使用旧apk+差异包，在客户端合成新apk   注意事项   demo   自从 Android 4.1 开始，Google引入了应用程序的增量更新。 ##  官方说明    Smart app updates is a new feature of Google Play that introduces a bet">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 增量更新实例（Smart App Updates）">
+<meta property="og:url" content="https://godeofdeath8080.github.io/2014/08/13/38541367/index.html">
+<meta property="og:site_name" content="godeofdeath">
+<meta property="og:description" content="目录[-]   官方说明   实现原理   实现   （1）生成差异包   （2）使用旧apk+差异包，在客户端合成新apk   注意事项   demo   自从 Android 4.1 开始，Google引入了应用程序的增量更新。 ##  官方说明    Smart app updates is a new feature of Google Play that introduces a bet">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-07-21T02:38:03.615Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 增量更新实例（Smart App Updates）">
+<meta name="twitter:description" content="目录[-]   官方说明   实现原理   实现   （1）生成差异包   （2）使用旧apk+差异包，在客户端合成新apk   注意事项   demo   自从 Android 4.1 开始，Google引入了应用程序的增量更新。 ##  官方说明    Smart app updates is a new feature of Google Play that introduces a bet">
+  
+    <link rel="alternate" href="/atom.xml" title="godeofdeath" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">godeofdeath</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://godeofdeath8080.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-38541367" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/08/13/38541367/" class="article-date">
+  <time datetime="2014-08-13T11:48:00.000Z" itemprop="datePublished">2014-08-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android 增量更新实例（Smart App Updates）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>目录[-]</p>
+<ul>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h2_1" target="_blank" rel="noopener"> 官方说明 </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h2_2" target="_blank" rel="noopener"> 实现原理 </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h2_3" target="_blank" rel="noopener"> 实现 </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h3_4" target="_blank" rel="noopener"> （1）生成差异包 </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h3_5" target="_blank" rel="noopener"> （2）使用旧apk+差异包，在客户端合成新apk </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h2_6" target="_blank" rel="noopener"> 注意事项 </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h2_7" target="_blank" rel="noopener"> demo </a></li>
+</ul>
+<p>自从 Android 4.1 开始，Google引入了应用程序的增量更新。</p>
+<p>##</p>
+<ul>
+<li>官方说明 </li>
+</ul>
+<blockquote>
+<p>Smart app updates is a new feature of Google Play that introduces a better<br>way of delivering app updates to devices. When developers publish an update,<br>Google Play now delivers only the bits that have changed to devices, rather<br>than the entire APK. This makes the updates much lighter-weight in most cases,<br>so they are faster to download, save the device’s battery, and conserve<br>bandwidth usage on users’ mobile data plan. On average, a smart app update is<br>about 1/3 the sizeof a full APK update.</p>
+</blockquote>
+<p><a href="http://developer.android.com/about/versions/jelly-bean.html" target="_blank" rel="noopener"> http://developer.android.com/about/versions/jelly-bean.html
+</a></p>
+<p>##</p>
+<ul>
+<li>实现原理 </li>
+</ul>
+<p>增量更新的原理非常简单，就是将本地apk与服务器端最新版本比对，并得到差异包，用户更新App时只需要下载差异包。例如，当前安装新浪微博V3.5，12.8 M<br>B，新浪微博最新版V4.0，15.4MB，经过对两个版本比较之后，发现差异只有7、8M，这时候用户更新的时候只需要下载一个7、8M的差异包便可，不需要整包下<br>载15.4M的新版微博客户端。下载差异包后，在手机端使用旧版apk+差异包，合成得到微博最新版V4.0，提醒用户安装即可。  </p>
+<p>##</p>
+<ul>
+<li>实现 </li>
+</ul>
+<p>以新浪微博客户端的升级为例，假设手机上安装的是V3.5，现在最新版是V4.0，用户需要从V3.5升级到V4.0。  </p>
+<p>弄清楚原理之后，我们就需要解决两个问题：<br>1.如何比对两个版本的apk生成差异包；<br>2.如何使用旧的apk+差异包，生成一个新apk；  </p>
+<h3 id="（1）生成差异包"><a href="#（1）生成差异包" class="headerlink" title="（1）生成差异包"></a>（1）生成差异包</h3><p>这一步需要在服务器端来实现，一般来说，apk有新版本之后，需要往后台管理端上传新apk，上传时就应该生成每一个旧版与最新版本的差异包。<br>假设，你的apk已经发布了3个版，1.0，2.0，3.0，这时候你要在后台发布4.0，在你上传时，就应该生成<br>1.0——&gt;4.0的差异包；<br>2.0——&gt;4.0的差异包；<br>3.0——&gt;4.0的差异包；  </p>
+<p>选择使用这个开源二进制比较工具来实现：<br><a href="http://www.daemonology.net/bsdiff/" target="_blank" rel="noopener"> http://www.daemonology.net/bsdiff/ </a><br>下载后得到bsdiff-4.3.tar.gz。  </p>
+<p>其中bsdiff.c是二进制文件比对的代码；bspatch.c是二进制文件合成的代码；<br>我们将使用这个bsdiff来生成两个apk的patch包，并且使用bspatch.c来合成旧apk与patch包；  </p>
+<p>使用bsdiff、bspatch时，还需用到bzip2： <a href="http://www.bzip.org/downloads.html" target="_blank" rel="noopener"> http://www.bzip.org/downloads.html
+</a><br>下载后得到：bzip2-1.0.6.tar.gz。<br>我们需要用到bzip2-1.0.6.tar.gz中以下13个文件（这里面可能有的是不需要的，我都拷贝过来了）：  </p>
+<p><a href="http://my.oschina.net/liucundong/blog/160436#" target="_blank" rel="noopener"> ? </a></p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p><code>blocksort.c</code></p>
+<p><code>bzip2.c</code></p>
+<p><code>bzip2recover.c</code></p>
+<p><code>bzlib_private.h</code></p>
+<p><code>bzlib.c</code></p>
+<p><code>bzlib.h</code></p>
+<p><code>compress.c</code></p>
+<p><code>crctable.c</code></p>
+<p><code>decompress.c</code></p>
+<p><code>dlltest.c</code></p>
+<p><code>huffman.c</code></p>
+<p><code>randtable.c</code></p>
+<p><code>spewG.c</code></p>
+<p>将这13个文件拷贝至jni目录下，接下来，我们就调用bsdiff生成差异包，并且调用bspatch合成新包。  </p>
+<p>我是在Mac下做的，使用java开发，通过jni调用C程序（bsdiff、bzip2）。  </p>
+<p>调用，com.cundong.utils.DiffUtils.java中genDiff()方法，可以通过传入的新（newApkPath）旧（oldApkPa<br>th）apk，得到差异包（patchPath）。  </p>
+<p><a href="http://my.oschina.net/liucundong/blog/160436#" target="_blank" rel="noopener"> ? </a></p>
+<p>1</p>
+<p><code>public</code> <code>static</code> <code>native</code> <code>int</code> <code>genDiff(String oldApkPath, String
+newApkPath,String patchPath);</code></p>
+<p>调用，com.cundong.utils.PatchUtils.java中patch()方法，可以通过旧apk（oldApkPath）与差异包（patchP<br>ath），得到新apk（newApkPath）。</p>
+<p><a href="http://my.oschina.net/liucundong/blog/160436#" target="_blank" rel="noopener"> ? </a></p>
+<p>1</p>
+<p><code>public</code> <code>static</code> <code>native</code> <code>int</code> <code>patch(String oldApkPath, String
+newApkPath,String patchPath);</code></p>
+<h3 id="（2）使用旧apk-差异包，在客户端合成新apk"><a href="#（2）使用旧apk-差异包，在客户端合成新apk" class="headerlink" title="（2）使用旧apk+差异包，在客户端合成新apk"></a>（2）使用旧apk+差异包，在客户端合成新apk</h3><p>差异包已经在服务器端生成，我们只需要在客户端提示用户有更新，然后让用户来下载差异包，下载成功之后，<br>使用本地apk与差异包，生成新版apk。  </p>
+<p>这一步需要在Android应用中开发。<br>1.首先NDK编译出一个*.so，APKPatch工程负责生成 libapkpatch<br>so，生成的so文件位于APKPatch/libs/libapkpatch.so下，其他Android工程便可以使用该so文件来合成apk。  </p>
+<p>2.调用该so文件。<br>任意一个Android工程，使用该so文件，拷贝至libs\armeabi中，便可以调用patch()方法，来和成旧apk+差异包。<br>附件中，test工程，就是一个调用该so文件的例子。  </p>
+<p>##</p>
+<ul>
+<li>注意事项 </li>
+</ul>
+<p>1.新包和成之后，还需要对合成升级版本的apk包及最新版本apk包进行MD5或SHA1校验，如果校验码不一致，说明合成过程有问题，新合成的包将不能被安装。  </p>
+<p>2.增量升级成功的前提是，用户手机端必须有能够让你拷贝出来且与你服务器用于差分的版本一致的apk，这样就存在，例如，系统内置的apk无法获取到，无法进行增量<br>升级；对于某些与你差分版本一致，但是内容有过修改的(比如破解版apk)，这样也是无法进行增量升级的，为了防止合成补丁错误，最好在补丁合成前对旧版本的apk进<br>行校验，保证基础包的一致性。  </p>
+<p>##</p>
+<ul>
+<li>demo </li>
+</ul>
+<p>demo中，包含以下文件：  </p>
+<p>1.服务器端生成差异包的工程：AppUpdate；</p>
+<p>2.客户端编译得到so的工程：APKPatch；</p>
+<p>3.调用so文件，实现增量更新的工程：test；</p>
+<p>4.两个用于测试的微博apk；</p>
+<p><a href="https://github.com/cundong/SmartAppUpdates" target="_blank" rel="noopener"> 下载 </a></p>
+<p>转帖：<a href="http://my.oschina.net/liucundong/blog/160436" target="_blank" rel="noopener">http://my.oschina.net/liucundong/blog/160436</a></p>
+<p>目录[-]</p>
+<ul>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h2_1" target="_blank" rel="noopener"> 官方说明 </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h2_2" target="_blank" rel="noopener"> 实现原理 </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h2_3" target="_blank" rel="noopener"> 实现 </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h3_4" target="_blank" rel="noopener"> （1）生成差异包 </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h3_5" target="_blank" rel="noopener"> （2）使用旧apk+差异包，在客户端合成新apk </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h2_6" target="_blank" rel="noopener"> 注意事项 </a></li>
+<li><a href="http://my.oschina.net/liucundong/blog/160436#OSC_h2_7" target="_blank" rel="noopener"> demo </a></li>
+</ul>
+<p>自从 Android 4.1 开始，Google引入了应用程序的增量更新。</p>
+<p>##</p>
+<ul>
+<li>官方说明 </li>
+</ul>
+<blockquote>
+<p>Smart app updates is a new feature of Google Play that introduces a better<br>way of delivering app updates to devices. When developers publish an update,<br>Google Play now delivers only the bits that have changed to devices, rather<br>than the entire APK. This makes the updates much lighter-weight in most cases,<br>so they are faster to download, save the device’s battery, and conserve<br>bandwidth usage on users’ mobile data plan. On average, a smart app update is<br>about 1/3 the sizeof a full APK update.</p>
+</blockquote>
+<p><a href="http://developer.android.com/about/versions/jelly-bean.html" target="_blank" rel="noopener"> http://developer.android.com/about/versions/jelly-bean.html
+</a></p>
+<p>##</p>
+<ul>
+<li>实现原理 </li>
+</ul>
+<p>增量更新的原理非常简单，就是将本地apk与服务器端最新版本比对，并得到差异包，用户更新App时只需要下载差异包。例如，当前安装新浪微博V3.5，12.8 M<br>B，新浪微博最新版V4.0，15.4MB，经过对两个版本比较之后，发现差异只有7、8M，这时候用户更新的时候只需要下载一个7、8M的差异包便可，不需要整包下<br>载15.4M的新版微博客户端。下载差异包后，在手机端使用旧版apk+差异包，合成得到微博最新版V4.0，提醒用户安装即可。  </p>
+<p>##</p>
+<ul>
+<li>实现 </li>
+</ul>
+<p>以新浪微博客户端的升级为例，假设手机上安装的是V3.5，现在最新版是V4.0，用户需要从V3.5升级到V4.0。  </p>
+<p>弄清楚原理之后，我们就需要解决两个问题：<br>1.如何比对两个版本的apk生成差异包；<br>2.如何使用旧的apk+差异包，生成一个新apk；  </p>
+<h3 id="（1）生成差异包-1"><a href="#（1）生成差异包-1" class="headerlink" title="（1）生成差异包"></a>（1）生成差异包</h3><p>这一步需要在服务器端来实现，一般来说，apk有新版本之后，需要往后台管理端上传新apk，上传时就应该生成每一个旧版与最新版本的差异包。<br>假设，你的apk已经发布了3个版，1.0，2.0，3.0，这时候你要在后台发布4.0，在你上传时，就应该生成<br>1.0——&gt;4.0的差异包；<br>2.0——&gt;4.0的差异包；<br>3.0——&gt;4.0的差异包；  </p>
+<p>选择使用这个开源二进制比较工具来实现：<br><a href="http://www.daemonology.net/bsdiff/" target="_blank" rel="noopener"> http://www.daemonology.net/bsdiff/ </a><br>下载后得到bsdiff-4.3.tar.gz。  </p>
+<p>其中bsdiff.c是二进制文件比对的代码；bspatch.c是二进制文件合成的代码；<br>我们将使用这个bsdiff来生成两个apk的patch包，并且使用bspatch.c来合成旧apk与patch包；  </p>
+<p>使用bsdiff、bspatch时，还需用到bzip2： <a href="http://www.bzip.org/downloads.html" target="_blank" rel="noopener"> http://www.bzip.org/downloads.html
+</a><br>下载后得到：bzip2-1.0.6.tar.gz。<br>我们需要用到bzip2-1.0.6.tar.gz中以下13个文件（这里面可能有的是不需要的，我都拷贝过来了）：  </p>
+<p><a href="http://my.oschina.net/liucundong/blog/160436#" target="_blank" rel="noopener"> ? </a></p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p><code>blocksort.c</code></p>
+<p><code>bzip2.c</code></p>
+<p><code>bzip2recover.c</code></p>
+<p><code>bzlib_private.h</code></p>
+<p><code>bzlib.c</code></p>
+<p><code>bzlib.h</code></p>
+<p><code>compress.c</code></p>
+<p><code>crctable.c</code></p>
+<p><code>decompress.c</code></p>
+<p><code>dlltest.c</code></p>
+<p><code>huffman.c</code></p>
+<p><code>randtable.c</code></p>
+<p><code>spewG.c</code></p>
+<p>将这13个文件拷贝至jni目录下，接下来，我们就调用bsdiff生成差异包，并且调用bspatch合成新包。  </p>
+<p>我是在Mac下做的，使用java开发，通过jni调用C程序（bsdiff、bzip2）。  </p>
+<p>调用，com.cundong.utils.DiffUtils.java中genDiff()方法，可以通过传入的新（newApkPath）旧（oldApkPa<br>th）apk，得到差异包（patchPath）。  </p>
+<p><a href="http://my.oschina.net/liucundong/blog/160436#" target="_blank" rel="noopener"> ? </a></p>
+<p>1</p>
+<p><code>public</code> <code>static</code> <code>native</code> <code>int</code> <code>genDiff(String oldApkPath, String
+newApkPath,String patchPath);</code></p>
+<p>调用，com.cundong.utils.PatchUtils.java中patch()方法，可以通过旧apk（oldApkPath）与差异包（patchP<br>ath），得到新apk（newApkPath）。</p>
+<p><a href="http://my.oschina.net/liucundong/blog/160436#" target="_blank" rel="noopener"> ? </a></p>
+<p>1</p>
+<p><code>public</code> <code>static</code> <code>native</code> <code>int</code> <code>patch(String oldApkPath, String
+newApkPath,String patchPath);</code></p>
+<h3 id="（2）使用旧apk-差异包，在客户端合成新apk-1"><a href="#（2）使用旧apk-差异包，在客户端合成新apk-1" class="headerlink" title="（2）使用旧apk+差异包，在客户端合成新apk"></a>（2）使用旧apk+差异包，在客户端合成新apk</h3><p>差异包已经在服务器端生成，我们只需要在客户端提示用户有更新，然后让用户来下载差异包，下载成功之后，<br>使用本地apk与差异包，生成新版apk。  </p>
+<p>这一步需要在Android应用中开发。<br>1.首先NDK编译出一个*.so，APKPatch工程负责生成 libapkpatch<br>so，生成的so文件位于APKPatch/libs/libapkpatch.so下，其他Android工程便可以使用该so文件来合成apk。  </p>
+<p>2.调用该so文件。<br>任意一个Android工程，使用该so文件，拷贝至libs\armeabi中，便可以调用patch()方法，来和成旧apk+差异包。<br>附件中，test工程，就是一个调用该so文件的例子。  </p>
+<p>##</p>
+<ul>
+<li>注意事项 </li>
+</ul>
+<p>1.新包和成之后，还需要对合成升级版本的apk包及最新版本apk包进行MD5或SHA1校验，如果校验码不一致，说明合成过程有问题，新合成的包将不能被安装。  </p>
+<p>2.增量升级成功的前提是，用户手机端必须有能够让你拷贝出来且与你服务器用于差分的版本一致的apk，这样就存在，例如，系统内置的apk无法获取到，无法进行增量<br>升级；对于某些与你差分版本一致，但是内容有过修改的(比如破解版apk)，这样也是无法进行增量升级的，为了防止合成补丁错误，最好在补丁合成前对旧版本的apk进<br>行校验，保证基础包的一致性。  </p>
+<p>##</p>
+<ul>
+<li>demo </li>
+</ul>
+<p>demo中，包含以下文件：  </p>
+<p>1.服务器端生成差异包的工程：AppUpdate；</p>
+<p>2.客户端编译得到so的工程：APKPatch；</p>
+<p>3.调用so文件，实现增量更新的工程：test；</p>
+<p>4.两个用于测试的微博apk；</p>
+<p><a href="https://github.com/cundong/SmartAppUpdates" target="_blank" rel="noopener"> 下载 </a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://godeofdeath8080.github.io/2014/08/13/38541367/" data-id="cjqhtiq8t002b6oukio2r71rg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/09/02/39001723/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          利用node.js进行phonegap开发环境搭建
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/08/13/38541277/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android WebView使用(一)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术笔记/">技术笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常/">日常</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown语法测试/">markdown语法测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/kotlin/" style="font-size: 10px;">kotlin</a> <a href="/tags/markdown语法测试/" style="font-size: 10px;">markdown语法测试</a> <a href="/tags/python/" style="font-size: 10px;">python</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/09/markdown test/">高山探秘｜南阿尔卑斯风光</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/05/github page build/">github page的搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/05/git bash open/">win下git bash交互操作用sublime3或者markdown打开本地文件</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/sql exception/">java.sql.SQLException:ResultSet.next was not called</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/01/kotlin gradle/">android studio中kotlin安卓工程的gradle配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 godeofdeath<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

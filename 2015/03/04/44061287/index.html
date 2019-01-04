@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>android Application类的详细介绍 | godeofdeath</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在代码中经常看到application这个类，一直不知道这个是干什么用的，今天刚好有点时间，所以进行了详细的学习。 一.先对它的整体概念解释：   在android源码中对他的描述是;  Base class for those who need to maintain global application state. You can    provide your own implementa">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android Application类的详细介绍">
+<meta property="og:url" content="https://godeofdeath8080.github.io/2015/03/04/44061287/index.html">
+<meta property="og:site_name" content="godeofdeath">
+<meta property="og:description" content="在代码中经常看到application这个类，一直不知道这个是干什么用的，今天刚好有点时间，所以进行了详细的学习。 一.先对它的整体概念解释：   在android源码中对他的描述是;  Base class for those who need to maintain global application state. You can    provide your own implementa">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-07-21T02:38:03.631Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="android Application类的详细介绍">
+<meta name="twitter:description" content="在代码中经常看到application这个类，一直不知道这个是干什么用的，今天刚好有点时间，所以进行了详细的学习。 一.先对它的整体概念解释：   在android源码中对他的描述是;  Base class for those who need to maintain global application state. You can    provide your own implementa">
+  
+    <link rel="alternate" href="/atom.xml" title="godeofdeath" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">godeofdeath</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://godeofdeath8080.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-44061287" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/04/44061287/" class="article-date">
+  <time datetime="2015-03-04T07:52:00.000Z" itemprop="datePublished">2015-03-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      android Application类的详细介绍
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在代码中经常看到application这个类，一直不知道这个是干什么用的，今天刚好有点时间，所以进行了详细的学习。</p>
+<p>一.先对它的整体概念解释：  </p>
+<p>在android源码中对他的描述是;</p>
+<ul>
+<li>Base class for those who need to maintain global application state. You can   </li>
+<li>provide your own implementation by specifying its name in your   </li>
+<li>AndroidManifest.xml’s &lt;application&gt; tag, which will cause that class   </li>
+<li>to be instantiated for you when the process for your application/package is   </li>
+<li>created. </li>
+</ul>
+<p>SDK中的描述：Application类是为了那些需要保存全局变量设计的基本类，你可以在AndroidManifest.xml的<application>标<br>签中进行自己的实现，这样的结果是：当你的       application或者包被建立的时候将引起那个类被建立。  </application></p>
+<p>理解：就是说application是用来保存全局变量的，并且是在package创建的时候就跟着存在了。所以当我们需要创建全局变量的时候，不需 要再像j2se<br>那样需要创建public权限的static变量，而直接在application中去实现。只需要调用Context的getApplicationContext<br>或者Activity的getApplication方法来获得一个application对象，再做出相应 的处理。</p>
+<p>例如Launcher模块中;它自己就写了个application，在AndroidManifest.xml中将它进行了设置：  </p>
+<p>&lt;application<br>android:name=”com.android.launcher2.LauncherApplication”  </p>
+<p>对于他的设置可以参考这个模块。</p>
+<p>二.里面的方法进行说明：</p>
+<p>onCreate();</p>
+<p>/**  </p>
+<ul>
+<li>Called when the application is starting, before any other application   </li>
+<li>objects have been created.  Implementations should be as quick as   </li>
+<li>possible (for example using lazy initialization of state) since the time   </li>
+<li>spent in this function directly impacts the performance of starting the   </li>
+<li>first activity, service, or receiver in a process.   </li>
+<li>If you override this method, be sure to call super.onCreate().<br>*/ </li>
+</ul>
+<p>这个函数是当我们的应用开始之时就被调用了，比应用中的其他对象创建的早，这个实现尽可能的快一点，因为这个时间直接影响到我们第一个activity/servic<br>e</p>
+<p>/receiver。如果你要重写这个方法必须调用super.onCreate().</p>
+<p>onTerminate():</p>
+<p>/**  </p>
+<ul>
+<li>This method is for use in emulated process environments.  It will   </li>
+<li>never be called on a production Android device, where processes are   </li>
+<li>removed by simply killing them; no user code (including this callback)   </li>
+<li>is executed when doing so.<br>*/ </li>
+</ul>
+<p>这个函数是模拟一个过程环境，在真机中永远也不会被调用。  </p>
+<h2 id="Android-Application对象必须掌握的七点"><a href="#Android-Application对象必须掌握的七点" class="headerlink" title="Android Application对象必须掌握的七点"></a>Android Application对象必须掌握的七点</h2><p>作者：皇马船长  更新于 07月01日  访问（  1589  ）  评论（ <a href="http://my.eoe.cn/cainiao1/archive/2355.html#comment" target="_blank" rel="noopener"> 4
+</a> ）</p>
+<h1 id="1-Application是什么？"><a href="#1-Application是什么？" class="headerlink" title="1:Application是什么？"></a>1:Application是什么？</h1><pre><code>1
+
+
+      Application和Activity,Service一样,是android框架的一个系统组件，当android程序启动时系统会创建一个 application对象，用来存储系统的一些信息。通常我们是不需要指定一个Application的，这时系统会自动帮我们创建，如果需要创建自己 的Application，也很简单创建一个类继承 Application并在manifest的application标签中进行注册(只需要给Application标签增加个name属性把自己的 Application的名字定入即可)。
+</code></pre><p>android系统会为每个程序运行时创建一个Application类的对象且仅创建一个，所以Application可以说是单例<br>(singleton)模式的一个类.且application对象的生命周期是整个程序中最长的，它的生命周期就等于这个程序的生命周期。因为它是全局<br>的单例的，所以在不同的Activity,Service中获得的对象都是同一个对象。所以通过Application来进行一些，数据传递，数据共享<br>等,数据缓存等操作。</p>
+<h1 id="2-通过Application传递数据"><a href="#2-通过Application传递数据" class="headerlink" title="2:通过Application传递数据"></a>2:通过Application传递数据</h1><pre><code>1
+2
+
+
+     假如有一个Activity A, 跳转到 Activity B ,并需要推荐一些数据，通常的作法是Intent.putExtra() 让Intent携带，或者有一个Bundle把信息加入Bundle让Intent推荐Bundle对象，实现传递。但这样作有一个问题在 于，Intent和Bundle所能携带的数据类型都是一些基本的数据类型，如果想实现复杂的数据传递就比较麻烦了，通常需要实现 Serializable或者Parcellable接口。这其实是Android的一种IPC数据传递的方法。如果我们的两个Activity在同一个 进程当中为什么还要这么麻烦呢，只要把需要传递的对象的引用传递过去就可以了。
+    基本思路是这样的。在Application中创建一个HashMap ，以字符串为索引，Object为value这样我们的HashMap就可以存储任何类型的对象了。在Activity A中把需要传递的对象放入这个HashMap，然后通过Intent或者其它途经再把这索引的字符串传递给Activity B ,Activity B 就可以根据这个字符串在HashMap中取出这个对象了。只要再向下转个型 ，就实现了对象的传递。
+</code></pre><h1 id="3-Application数据缓存"><a href="#3-Application数据缓存" class="headerlink" title="3:Application数据缓存"></a>3:Application数据缓存</h1><p>我一般会习惯在application中建立两个HashMap一个用于数据的传递，一个用于缓<br>存一些数据。比如有一个Activity需要从网站获取一些数据，获取完之后我们就可以把这个数据cache到Application<br>当中，当页面设置到其它Activity再回来的时候，就可以直接使用缓存好的数据了。但如果需要cache一些大量的数据，最好是cache一些<br>(软引用)SoftReference<br>，并把这些数据cache到本地rom上或者sd卡上。如果在application中的缓存不存在，从本地缓存查找，如果本地缓存的数据也不存在再从网 络上获取。</p>
+<h1 id="4-PitFalls-汉语：易犯的错误"><a href="#4-PitFalls-汉语：易犯的错误" class="headerlink" title="4:PitFalls(汉语：易犯的错误)"></a>4:PitFalls(汉语：易犯的错误)</h1><p>使用Application如果保存了一些不该保存的对象很容易导致内存泄漏。如果在Application的oncreate中执行比较<br>耗时的操作，将直接影响的程序的启动时间。不些清理工作不能依靠onTerminate完成，因为android会尽量让你的程序一直运行，所以很有可能<br>onTerminate不会被调用。</p>
+<h1 id="5：MemoryLeak"><a href="#5：MemoryLeak" class="headerlink" title="5：MemoryLeak"></a>5：MemoryLeak</h1><p>在Java中内存泄漏是只，某个(某些)对象已经不在被使用应该被gc所回收，但有一个对象持有这个对象的引用而阻止这个对象被回收。比如我<br>们通常会这样创建一个View TextView tv = new<br>TextView(this);这里的this通常都是Activity。所以这个TextView就持有着这个Activity的引用。下面看张图 (Google<br>IO 2011 ppt中抄得)<br>通常情况下，当用户转动手机的时候，android会重新调用OnCreate()方法生成一个新的Activity，原来的<br>Activity应该被GC所回收。但如果有个对象比如一个View的作用域超过了这个Activity(比如有一个static对象或者我们把这个<br>View的引用放到了Application当中)，这时候原来的Activity将不能被GC所回收，Activity本身又持有很多对象的引用，所以<br>整个Activity的内存被泄漏了。</p>
+<pre><code>1
+2
+3
+
+
+  备注：经常导致内存泄漏核心原因：
+   keeping a long-lived reference to a Context.持有一个context的对象，从而gc不能回收。
+  情况如下：
+</code></pre><p>1.一个View的作用域超出了所在的Activity的作用域，比如一个static的View或者把一个View cache到了application当中<br>etc<br>理解：内存：注意静态的数据和缓存中的数据；注意释放；<br>2.某些与View关联的Drawable的作用域超出了Activity的作用域。<br>3.Runnable对象：比如在一个Activity中启用了一个新线程去执行一个任务，在这期间这个Activity被系统回收了， 但Runnalbe的<br>任务还没有执行完毕并持有Activity的引用而泄漏，但这种泄漏一般来泄漏一段时间，只有Runnalbe的线程执行完闭，这个<br>Activity又可以被正常回收了。</p>
+<p>4.内存类的对象作用域超出Activity的范围：比如定义了一个内存类来存储数据，又把这个内存类的对象传给了其它Activity 或者Service等。因为<br>内部类的对象会持有当前类的引用，所以也就持有了Context的引用。解决方法是如果不需要当前的引用把内部类写成static或者，把内部类抽取出来变成一个单独<br>的类，或者把避免内部对象作用域超出Activity的作用域。out Of Memery Error<br>在android中每一个程序所分到的内存大小是有限的，如果超过了这个数就会报Out Of Memory Error。<br>android给程序分配的内存大小与手机硬件有关，以下是一些手机的数据：<br>G1:16M Droid:24 Nexus One:32M Xoom:48Ms<br>所以尽量把程序中的一些大的数据cache到本地文件。以免内存使用量超标。<br>记得数据传递完成之后，把存放在application的HashMap中的数据remove掉，以免发生内存的泄漏</p>
+<h1 id="6：生命周期："><a href="#6：生命周期：" class="headerlink" title="6：生命周期："></a>6：生命周期：</h1><p>onCreate 在创建应用程序时创建<br>onTerminate 当终止应用程序对象时调用，不保证一定被调用，当程序是被内核终止以便为其他应用程序释放资源，那<br>么将不会提醒，并且不调用应用程序的对象的onTerminate方法而直接终止进 程<br>onLowMemory 当后台程序已经终止资源还匮乏时会调用这个方法。好的应用程序一般会在这个方法里面释放一些不必<br>要的资源来应付当后台程序已经终止，前台应用程序内存还不够时的情况。<br>onConfigurationChanged 配置改变时触发这个方法</p>
+<p>备注:application 被杀死的情况分析：<br>为了决定在内存较低的时候杀掉哪个进程, Android会根据运行在这些进程内的组件及他们的状态把进程划分成一个”重要程度层次”.<br>其重要的程度按以下规则排序:<br>1：前端进程可以是一个持有运行在屏幕最前端并与用户交互的Activity的进程(onResume方法被调用时)，也可以是持有一个正在运行的IntentRec<br>eiver(也就是说他正在执行自己的onReceiveIntent方法)的进程. 在系统中, 只会有少数这样的进程, 并且除非内存已经低到不够这些进程运行,<br>否则系统不会主动杀掉这些进程. 这时, 设备通常已经达到了需要内存整理的状态, 所以杀掉这些进程是为了不让用户界面停止响应.<br>2：可视进程是持有一个被用户可见, 但没有显示在最前端 (onPause方法被调用时) 的Activity的进程. 举例来说,<br>这种进程通常出现在一个前端Activity以一个对话框出现并保持前一个Activity可见时. 这种进程被系统认为是极其重要的, 并且通常不会被杀掉,<br>除非为了保持所有前端进程正常运行不得不杀掉这些可见进程.<br>3：服务进程是持有一个Service的进程, 该Service是由startService()方法启动的, 尽管这些进程用户不能直接看到,<br>但是通常他们做的工作用户是十分关注的(例如, 在后台播放mp3或是在后台下载 上传文件), 所以, 除非为了保持所有的前端进程和可视进程正常运行外,<br>系统是不会杀掉服务进程的.<br>4：后台进程是持有一个不再被用户可见的Activity(onStop()方法被调用时)的进程. 这些进程不会直接影响用户体验.<br>加入这些进程已经完整的,正确的完成了自己的生命周期(访问Activity查看更多细节), 系统会在为前三种进程释放内存时随时杀掉这些后台进程.<br>通常会有很多的后台进程在运行, 所以这些进程被存放在一个LRU列表中, 以保证在低内存的时候, 最近一个被用户看到的进程会被最后杀掉.<br>5：空进程是没有持有任何活动应用组件的进程. 保留这种进程的唯一理由是为了提供一种缓存机制, 缩短他的应用下次运行时的启动时间. 就其本身而言,<br>系统杀掉这些进程的目的是为了在这些空进程和底层的核心缓存之间平衡整个系统的资源. <a href="http://www.2cto.com/" target="_blank" rel="noopener"> www.2cto.com
+</a><br>当需要给一个进程分类的时候, 系统会在该进程中处于活动状态的所有组件里掉选一个重要等级最高作为分类依据. 查看Activity,<br>Service,和IntentReceiver的文档, 了解每个组件在进程整个生命周期中的贡献.<br>每一个classes的文档详细描述他们在各自应用的生命周期中所起得作用.</p>
+<h1 id="7：application-的context"><a href="#7：application-的context" class="headerlink" title="7：application 的context"></a>7：application 的context</h1><p>1、它描述的是一个应用程序环境的信息，即上下文。<br>2、该类是一个抽象(abstract class)类，Android提供了该抽象类的具体实现类(后面我们会讲到是ContextIml类)。<br>3、通过它我们可以获取应用程序的资源和类，也包括一些应用级别操作，例如：启动一个Activity，发送广播，接受Intent<br>信息 等。。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://godeofdeath8080.github.io/2015/03/04/44061287/" data-id="cjqhtiq8w002f6ouksp9cpbi7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/06/44904009/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          webview和js交互的灵活应用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/02/12/43758861/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">android 不常用控件一览</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术笔记/">技术笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常/">日常</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown语法测试/">markdown语法测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/kotlin/" style="font-size: 10px;">kotlin</a> <a href="/tags/markdown语法测试/" style="font-size: 10px;">markdown语法测试</a> <a href="/tags/python/" style="font-size: 10px;">python</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/09/markdown test/">高山探秘｜南阿尔卑斯风光</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/05/github page build/">github page的搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/05/git bash open/">win下git bash交互操作用sublime3或者markdown打开本地文件</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/sql exception/">java.sql.SQLException:ResultSet.next was not called</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/01/kotlin gradle/">android studio中kotlin安卓工程的gradle配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 godeofdeath<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

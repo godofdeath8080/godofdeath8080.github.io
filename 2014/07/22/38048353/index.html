@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>使用Vitamio播放rtsp流媒体并实现动态截图 | godeofdeath</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Vitamio是北京的一家企业开发多媒体库 主要是面向移动领域的 自己的项目里遇到videoview截图问题 传统的view用getDrawableCache可以 但是动态的surfaceview或者videoview 还有地图的mapview 等等都是不行的 android的截图其实门道很多 有个黑客比赛貌似就是免root实现截图功能 Vitamio是我找到一个蛮适合截videoview第三例子">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Vitamio播放rtsp流媒体并实现动态截图">
+<meta property="og:url" content="https://godeofdeath8080.github.io/2014/07/22/38048353/index.html">
+<meta property="og:site_name" content="godeofdeath">
+<meta property="og:description" content="Vitamio是北京的一家企业开发多媒体库 主要是面向移动领域的 自己的项目里遇到videoview截图问题 传统的view用getDrawableCache可以 但是动态的surfaceview或者videoview 还有地图的mapview 等等都是不行的 android的截图其实门道很多 有个黑客比赛貌似就是免root实现截图功能 Vitamio是我找到一个蛮适合截videoview第三例子">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-07-21T02:38:03.613Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Vitamio播放rtsp流媒体并实现动态截图">
+<meta name="twitter:description" content="Vitamio是北京的一家企业开发多媒体库 主要是面向移动领域的 自己的项目里遇到videoview截图问题 传统的view用getDrawableCache可以 但是动态的surfaceview或者videoview 还有地图的mapview 等等都是不行的 android的截图其实门道很多 有个黑客比赛貌似就是免root实现截图功能 Vitamio是我找到一个蛮适合截videoview第三例子">
+  
+    <link rel="alternate" href="/atom.xml" title="godeofdeath" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">godeofdeath</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://godeofdeath8080.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-38048353" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/07/22/38048353/" class="article-date">
+  <time datetime="2014-07-22T11:59:00.000Z" itemprop="datePublished">2014-07-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用Vitamio播放rtsp流媒体并实现动态截图
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Vitamio是北京的一家企业开发多媒体库 主要是面向移动领域的</p>
+<p>自己的项目里遇到videoview截图问题</p>
+<p>传统的view用getDrawableCache可以</p>
+<p>但是动态的surfaceview或者videoview 还有地图的mapview 等等都是不行的</p>
+<p>android的截图其实门道很多 有个黑客比赛貌似就是免root实现截图功能</p>
+<p>Vitamio是我找到一个蛮适合截videoview第三例子  </p>
+<p>首先在官网下载最新版4.2.2示例 解压后有两个主要的文件夹：vitamio 和 vitamio-demo</p>
+<p>自己按照包名各自新建两个工程（示例没有.project文件无法直接导入）</p>
+<p>对应目录拷入文件 注意一定要放在同一文件夹</p>
+<p>vitamio设置成is Liberary  </p>
+<p>vitamio-demo引入vitamio作为库  </p>
+<p>运行可以看到里面的主要功能</p>
+<p>老版本API主要是建立在videoview上的 现在转向mediaplayer了</p>
+<p>其实这两个类在android源码里都有对应的 vitamio应该是在其基础上重写了</p>
+<p>又加入了一些解码库在它的so文件里</p>
+<p>Activity新建的时候加入so库检测：</p>
+<pre><code>if (!LibsChecker.checkVitamioLibs(this))
+return;
+</code></pre><p>初始化MediaPlayer：</p>
+<pre><code>mMediaPlayer = new MediaPlayer(this);
+mMediaPlayer.setDataSource(url);//url为rtsp视频地址
+mMediaPlayer.setDisplay(holder);
+mMediaPlayer.prepareAsync();
+mMediaPlayer.setOnBufferingUpdateListener(this);
+mMediaPlayer.setOnCompletionListener(this);
+mMediaPlayer.setOnPreparedListener(this);
+mMediaPlayer.setOnVideoSizeChangedListener(this);
+setVolumeControlStream(AudioManager.STREAM_MUSIC);
+</code></pre><p>截图代码：</p>
+<pre><code>Bitmap dd = mMediaPlayer.getCurrentFrame();//截图方法
+                if (mMediaPlayer.isPlaying()) {
+                    try {
+                        String name = new DateFormat().format(
+                                &quot;yyyyMMdd_hhmmss&quot;,
+                                Calendar.getInstance(Locale.CHINA))
+                                + &quot;.jpg&quot;;
+                        String fileName = getSDPath() + &quot;/&quot; + name;//getSDPath()获取SD卡目录string方法
+                        FileOutputStream b = new FileOutputStream(fileName);
+                        dd.compress(Bitmap.CompressFormat.JPEG, 100, b);
+                        b.flush();
+                        b.close();
+                        Toast.makeText(VideoPlayerActivity.this, &quot;截图成功&quot;,
+                                Toast.LENGTH_LONG).show();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                } else
+                    Toast.makeText(VideoPlayerActivity.this, &quot;视频未播放，请稍候截图&quot;,
+                            Toast.LENGTH_LONG).show();
+</code></pre><p>注： 截图的时候 发现bitmap保存为jpg很正常 但是保存png会花屏 我估计和流的格式有关系</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://godeofdeath8080.github.io/2014/07/22/38048353/" data-id="cjqhtiq6z00006ouk0nty80o9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/08/13/38541277/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android WebView使用(一)
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术笔记/">技术笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常/">日常</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown语法测试/">markdown语法测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/kotlin/" style="font-size: 10px;">kotlin</a> <a href="/tags/markdown语法测试/" style="font-size: 10px;">markdown语法测试</a> <a href="/tags/python/" style="font-size: 10px;">python</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/09/markdown test/">高山探秘｜南阿尔卑斯风光</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/05/github page build/">github page的搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/05/git bash open/">win下git bash交互操作用sublime3或者markdown打开本地文件</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/sql exception/">java.sql.SQLException:ResultSet.next was not called</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/01/kotlin gradle/">android studio中kotlin安卓工程的gradle配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 godeofdeath<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

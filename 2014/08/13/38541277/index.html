@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Android WebView使用(一) | godeofdeath</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文主要对WebView进行介绍，包括  webView 4个可以定制的点  、  设置WebView back键响应  、控制网页的链接仍在webView中跳转  、  显示页面加载进度  、  处理https请求  、利用addJavascriptInterface实现android程序和javascript交互  等等 WebView基于webkit引擎展现web页面的控件，使用前需要在An">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android WebView使用(一)">
+<meta property="og:url" content="https://godeofdeath8080.github.io/2014/08/13/38541277/index.html">
+<meta property="og:site_name" content="godeofdeath">
+<meta property="og:description" content="本文主要对WebView进行介绍，包括  webView 4个可以定制的点  、  设置WebView back键响应  、控制网页的链接仍在webView中跳转  、  显示页面加载进度  、  处理https请求  、利用addJavascriptInterface实现android程序和javascript交互  等等 WebView基于webkit引擎展现web页面的控件，使用前需要在An">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://trinea.iteye.com/images/icon_star.png">
+<meta property="og:image" content="http://trinea.iteye.com/images/icon_star.png">
+<meta property="og:image" content="http://trinea.iteye.com/images/icon_star.png">
+<meta property="og:image" content="http://trinea.iteye.com/images/icon_star.png">
+<meta property="og:image" content="http://trinea.iteye.com/images/icon_star.png">
+<meta property="og:image" content="http://trinea.iteye.com/images/icon_star.png">
+<meta property="og:image" content="http://trinea.iteye.com/images/icon_star.png">
+<meta property="og:image" content="http://trinea.iteye.com/images/icon_star.png">
+<meta property="og:image" content="http://trinea.iteye.com/images/icon_star.png">
+<meta property="og:image" content="http://trinea.iteye.com/images/icon_star.png">
+<meta property="og:image" content="http://trinea.iteye.com/images/icon_star.png">
+<meta property="og:image" content="http://trinea.iteye.com/images/icon_star.png">
+<meta property="og:image" content="http://trinea.iteye.com/images/icon_star.png">
+<meta property="og:updated_time" content="2017-07-21T02:38:03.614Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android WebView使用(一)">
+<meta name="twitter:description" content="本文主要对WebView进行介绍，包括  webView 4个可以定制的点  、  设置WebView back键响应  、控制网页的链接仍在webView中跳转  、  显示页面加载进度  、  处理https请求  、利用addJavascriptInterface实现android程序和javascript交互  等等 WebView基于webkit引擎展现web页面的控件，使用前需要在An">
+<meta name="twitter:image" content="http://trinea.iteye.com/images/icon_star.png">
+  
+    <link rel="alternate" href="/atom.xml" title="godeofdeath" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">godeofdeath</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://godeofdeath8080.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-38541277" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/08/13/38541277/" class="article-date">
+  <time datetime="2014-08-13T11:33:00.000Z" itemprop="datePublished">2014-08-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android WebView使用(一)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文主要对WebView进行介绍，包括  webView 4个可以定制的点  、  设置WebView back键响应  、<br>控制网页的链接仍在webView中跳转  、  显示页面加载进度  、  处理https请求  、<br>利用addJavascriptInterface实现android程序和javascript交互  等等</p>
+<p>WebView基于webkit引擎展现web页面的控件，使用前需要在Android Manifest<br>file中配置internet访问权限，否则提示页面无法访问</p>
+<p>Xml代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>&lt; uses-permission  android:name  =  “android.permission.INTERNET”  /&gt;</li>
+</ol>
+<p>WebView控件功能强大，除了具有一般View的属性和设置外，还可以对url请求、页面加载、渲染、页面交互进行强大的处理。</p>
+<p>WebView有几个可以定制的点：</p>
+<p>（1）设置 <a href="http://developers.androidcn.com/reference/android/we
+bkit/WebChromeClient.html" target="_blank" rel="noopener"> WebChromeClient </a> 子类， <strong> WebChromeClient会在一些影响浏览器ui交互动作发生时被调用 </strong><br>，比如WebView关闭和隐藏、页面加载进展、js确认框和警告框、js加载前、js操作超时、webView获得焦点等等，详见 <a href="http://developers.androidcn.com/reference/android/webkit/Web
+ChromeClient.html" target="_blank" rel="noopener"><br>WebChromeClient </a></p>
+<p>（2）设置 <a href="http://developers.androidcn.com/reference/android/webkit/WebViewClient.html" target="_blank" rel="noopener"> WebViewClient
+</a><br>子类， <strong> WebViewClient会在一些影响内容喧嚷的动作发生时被调用 </strong><br>，比如表单的错误提交需要重新提交、页面开始加载及加载完成、资源加载中、接收到http认证需要处理、页面键盘响应、页面中的url打开处理等等，详见 <a href="http://developers.androidcn.com/reference/android/webkit/WebViewClient.html" target="_blank" rel="noopener"><br>WebViewClient
+</a></p>
+<p>（3）设置 <a href="http://developers.androidcn.com/reference/android/webkit/WebSettings.html" target="_blank" rel="noopener"> WebSettings
+</a><br>类， <strong> 其中包含多项配置 </strong> 。WebSettings用来对WebView的配置进行配置和管理，比如是否可以进行文件操作、缓存的设置、页面是否支持放大<br>和缩小、是否允许使用数据库api、字体及文字编码设置、是否允许js脚本运行、是否允许图片自动加载、是否允许数据及密码保存等等，详见 <a href="http://developers.androidcn.com/reference/android/webkit/WebSettings.html" target="_blank" rel="noopener"><br>WebSettings
+</a></p>
+<p>（4）设置 <a href="http://developers.androidcn.com/reference/and
+roid/webkit/WebView.html#addJavascriptInterface\(java.lang.Object,%20java.lang
+.String\" target="_blank" rel="noopener"> addJavascriptInterface </a>) 方法， <strong> 将java对象绑定到webView中，以方便从页面js中控制java对象 </strong> ，实现用本地java代码和html页面进<br>行交互，甚至可以进行页面自动化。但如此做存在安全隐患，所以若设置了此方法，请确保webView的代码都是自己完成，详细使用addJavascriptInte<br>rface进行自动化见本文5使用addJavascriptInterface完成和js交互</p>
+<p><strong> 1、back键控制网页后退 </strong></p>
+<p>Activity默认的back键处理为结束当前Activity，webView查看了很多网页后，希望按back键返回上一次浏览的页面，这个时候我们就需要覆盖<br>onKeyDown函数，告诉他如何处理，如下：</p>
+<p>Java代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>public  boolean  onKeyDown(  int  keyCode, KeyEvent event) { </li>
+<li>if  (webView.canGoBack() &amp;&amp; event.getKeyCode() == KeyEvent.KEYCODE_BACK &amp;&amp; event.getRepeatCount() ==  0  ) { </li>
+<li>webView.goBack(); </li>
+<li>return  true  ; </li>
+<li>} </li>
+<li><ol start="7">
+<li>return  super  .onKeyDown(keyCode, event); </li>
+</ol>
+</li>
+<li>} </li>
+</ol>
+<p>其中webView.canGoBack()在webView含有一个可后退的浏览记录时返回true</p>
+<p>webView.goBack();表示返回webView的上次访问页面</p>
+<p><strong> 2、当前网页的链接仍在webView中跳转  </strong></p>
+<p>Java代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>webView.setWebViewClient(  new  WebViewClient() { </li>
+<li><ol start="3">
+<li>@Override </li>
+</ol>
+</li>
+<li>public  boolean  shouldOverrideUrlLoading(WebView view, String url) { </li>
+<li>view.loadUrl(url); </li>
+<li>return  true  ; </li>
+<li>} </li>
+<li>}); </li>
+</ol>
+<p>shouldOverrideUrlLoading表示当前webView中的一个新url需要加载时，给当前应用程序一个处理机会，如果没有重写此函数，webVi<br>ew请求ActivityManage选择合适的方式处理请求，就像弹出uc和互联网让用户选择浏览器一样。重写后return<br>true表示让当前程序处理，return false表示让当前webView处理</p>
+<p>Xml代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>Give the host application a chance to take over the control when a new url is about to be loaded in the current WebView. If WebViewClient is not provided, by default WebView will ask Activity Manager to choose the proper handler for the url. If WebViewClient is provided, return true means the host application handles the url, while return false means the current WebView handles the url. </li>
+</ol>
+<p>参考：</p>
+<p><a href="http://devel
+oper.android.com/reference/android/webkit/WebViewClient.html#shouldOverrideUrl
+Loading\(android.webkit.WebView,%20java.lang.String\" target="_blank" rel="noopener"> http://developer.android.com/reference/android/webkit/WebViewClient.html#sho<br>uldOverrideUrlLoading(android.webkit.WebView, java.lang.String) </a>)</p>
+<p>问题分析：</p>
+<p>今天在用webView load腾讯的OAuth页面 <a href="http://open.t.qq.com/cgi-bin/authorize" target="_blank" rel="noopener"> http://open.t.qq.com/cgi-bin/authorize
+</a></p>
+<p>时，突然弹出选择uc还是互联网浏览器的确认框，很奇怪，其他页面都能正常load，而这个却无法在webView中load，后来用火狐看了下是因为load这个页<br>面的时候会重定向到另外一个页面 <a href="http://open.t.qq.com/oauth_html/login.php?oauth_token=xxx&amp;type=0" target="_blank" rel="noopener"><br>http://open.t.qq.com/oauth_html/login.php?oauth_token=xxx&amp;type=0
+</a> ，而webView没<br>有设置shouldOverrideUrlLoading，导致url交给了ActivityManage去处理，解释如上，后添加后可正常load页面</p>
+<p><strong> 3、页面加载进度  </strong></p>
+<p>代码如下</p>
+<p>Java代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>webView.setWebChromeClient(  new  WebChromeClient() { </li>
+<li><ol start="3">
+<li>public  void  onProgressChanged(WebView view,  int  progress) { </li>
+</ol>
+</li>
+<li>setTitle(  “页面加载中，请稍候…”  + progress +  “%”  ); </li>
+<li>setProgress(progress *  100  ); </li>
+<li><ol start="7">
+<li>if  (progress ==  100  ) { </li>
+</ol>
+</li>
+<li>setTitle(R.string.app_name); </li>
+<li>} </li>
+<li>} </li>
+<li>}); </li>
+</ol>
+<p>onProgressChanged通知应用程序当前页面加载的进度</p>
+<p>progress  表示当前页面加载的进度，为1至100的整数</p>
+<p>参考：</p>
+<p><a href="http://developer.android.com/r
+eference/android/webkit/WebChromeClient.html#onProgressChanged\(android.webkit
+.WebView,%20int\" target="_blank" rel="noopener"> http://developer.android.com/reference/android/webkit/WebChromeClient.html#o<br>nProgressChanged(android.webkit.WebView, int) </a>)</p>
+<p><strong> 4、处理https请求  </strong></p>
+<p>webView默认是不处理https请求的，页面显示空白，需要进行如下设置：</p>
+<p>Java代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>webView.setWebViewClient(  new  WebViewClient() { </li>
+<li><ol start="3">
+<li>@Override </li>
+</ol>
+</li>
+<li>public  void  onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) { </li>
+<li>handler.proceed(); </li>
+<li>//            handler.cancel(); </li>
+<li>//            handler.handleMessage(null); </li>
+<li>} </li>
+<li>}); </li>
+</ol>
+<p>onReceivedSslError为webView处理ssl证书设置</p>
+<p>其中handler.proceed();表示等待证书响应</p>
+<p>handler.cancel();表示挂起连接，为默认方式</p>
+<p>handler.handleMessage(null);可做其他处理</p>
+<p>参考：</p>
+<p><a href="http://developer.android.com/reference/android/we
+bkit/WebViewClient.html#onReceivedSslError\(android.webkit.WebView,%20android.
+webkit.SslErrorHandler,%20android.net.http.SslError\" target="_blank" rel="noopener"> http://developer.android.com/reference/android/webkit/WebViewClient.html#onR<br>eceivedSslError(android.webkit.WebView, android.webkit.SslErrorHandler,<br>android.net.http.SslError) </a>)</p>
+<p><strong> 5、使用addJavascriptInterface完成和js交互  </strong></p>
+<p><strong> 5.1 javascript中调用java对象及方法 </strong></p>
+<p>设置webView的addJavascriptInterface方法，该方法有两个参数，第一个参数为被绑定到js中的类实例，第二个参数为在js中暴露的类别名<br>，在js中引用java对象就是用这个名字</p>
+<p>Java代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>ClassBeBindedToJS classBeBindedToJS =  new  ClassBeBindedToJS(); </li>
+<li>webView.addJavascriptInterface(classBeBindedToJS,  “classNameBeExposedInJs”  ); </li>
+</ol>
+<p>实现绑定到js的类，其中的javaMethod方法我们将在页面前端js中调用，用于返回一段内容。  showHtml用来使用<br>AlertDialog显示一段html代码，稍后将使用到</p>
+<p>Java代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>private  class  ClassBeBindedToJS{ </li>
+<li>public  void  showHtml(String html){ </li>
+<li>new  AlertDialog.Builder(UpdateStatusActivity.  this  ) </li>
+<li>.setTitle(  “HTML”  ).setMessage(html) </li>
+<li>.setPositiveButton(android.R.string.ok,  null  ) </li>
+<li>.setCancelable(  false  ).create().show(); </li>
+<li>} </li>
+<li>public  String javaMethod() { </li>
+<li>return  “use java method”  ; </li>
+<li>} </li>
+<li>}; </li>
+</ol>
+<p>如此我们就可以在前端调用java对象，如下：</p>
+<p>Html代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>&lt; span  &gt; &lt; html  &gt;</li>
+<li>&lt; body  &gt;</li>
+<li>&lt; div  id  =  “displayDiv”  &gt; Test page.  &lt;/  div  &gt;</li>
+<li>&lt; input  type  =  “button”  value  =  “use java object”  onclick  =  “document.getElementById(‘displayDiv’).innerHTML=classNameBeExposedInJs.javaMethod()”  /&gt;</li>
+<li>&lt; span  &gt; &lt;/  body  &gt;</li>
+<li>&lt;/  html  &gt; &lt;/  span  &gt;</li>
+</ol>
+<p>这段html作用为点击button按钮，改变div内容为java对象方法中的内容，其中classNameBeExposedInJs为java对象在js中的别<br>名，  javaMethod为java对象的方法</p>
+<p><strong> 5.2 java中调用js方法 </strong></p>
+<p>用webView的loadUrl实现，比如现在我们想在页面加载完成后调用js中的hello函数，实现如下：</p>
+<p>Java代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>webView.setWebViewClient(  new  WebViewClient() { </li>
+<li>@Override </li>
+<li>public  void  onPageFinished(WebView webView, String url){ </li>
+<li>webView.loadUrl(  “javascript:hello()”  ); </li>
+<li>} </li>
+<li>}); </li>
+</ol>
+<p>怎么样，很简单吧^_^,直接loadUrl(“javascript:hello()”)就可以了</p>
+<p>利用这一点我们可以很方便的实现WebView的自动化，如网页自动化登录。举个栗子，实现 <a href="http://m.renren.com/" target="_blank" rel="noopener"> http://m.renren.com/
+</a> 的自动登录啊，代码如下</p>
+<p>Java代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>webView.getSettings().setJavaScriptEnabled(  true  ); </li>
+<li>webView.loadUrl(  “<a href="http://m.renren.com&quot;" target="_blank" rel="noopener">http://m.renren.com&quot;</a>  ); </li>
+<li>webView.requestFocus(); </li>
+<li><ol start="5">
+<li>ClassBeBindedToJS classBeBindedToJS =  new  ClassBeBindedToJS(); </li>
+</ol>
+</li>
+<li>webView.addJavascriptInterface(classBeBindedToJS,  “classNameBeExposedInJs”  ); </li>
+<li>webView.setWebViewClient(  new  WebViewClient() { </li>
+<li>@Override </li>
+<li>public  void  onPageFinished(WebView webView, String url){ </li>
+<li>webView.loadUrl(  “javascript:document.getElementsByName(‘email’)[0].value=’userName’”  ); </li>
+<li>webView.loadUrl(  “javascript:document.getElementsByName(‘password’)[0].value=’userPassword’”  ); </li>
+<li>webView.loadUrl(  “javascript:document.getElementsByName(‘login’)[0].click()”  ); </li>
+<li>} </li>
+<li>}); </li>
+</ol>
+<p>从中可以看出先加载  <a href="http://m.renren.com页面，在页面加载完成" target="_blank" rel="noopener">http://m.renren.com页面，在页面加载完成</a>  onPageFinished后，调用js实现自动登录</p>
+<p>其中三句js分别表示设置用户名文本框内容、设置用户密码文本框内容、点击登录按钮，如此登录成功喽</p>
+<p><strong> 5.3 java和js混用实现一些效果 </strong></p>
+<p><strong> 5.3.1 WebView用  AlertDialog显示页面的html代码  </strong></p>
+<p>之前5.1中的  showHtml方法现在派上用场啦，在页面加载完成后显示页面html内容，如下：</p>
+<p>Java代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>webView.setWebViewClient(  new  WebViewClient() { </li>
+<li>@Override </li>
+<li>public  void  onPageFinished(WebView webView, String url){ </li>
+<li>webView.loadUrl(  “javascript:window.classNameBeExposedInJs.showHtml(document.getElementsByTagName(‘html’)[0].innerHTML);”  ); </li>
+<li>} </li>
+<li>}); </li>
+</ol>
+<p>其中webView.loadUrl表示调用页面中的js，而页面中的js<br>window.classNameBeExposedInJs.showHtml调用了程序中的java对象的方法，方法参数为一段js。</p>
+<p>首先webView会执行这一段js document.getElementsByTagName(‘html’)[0].innerHTML。含义即为取得页面中<br>html标记的innerHTML，及网页主要内容；</p>
+<p>然后将得到的网页内容当作字符串参数传入showHtml方法</p>
+<p>最后调用showHtml函数实现，即用AlertDialog显示字符串，如此得到了整个网页的大部分html代码</p>
+<p><strong> 5.3.2 WebView显示当前页面的url地址 </strong></p>
+<p>获得WebView当前页面url使用  webView.getUrl()即可，如下：</p>
+<p>Java代码 <a href="http://blog.csdn.net/vrix/article/details/7065110" target="_blank" rel="noopener"> <img src="http://trinea.iteye.com/images/icon_star.png" alt="收藏代码">
+</a></p>
+<ol>
+<li>webView.loadUrl(  “javascript:window.classNameBeExposedInJs.showHtml(‘“  + webView.getUrl() +  “‘);”  ); </li>
+</ol>
+<p>参考：</p>
+<p><a href="http://developer.android.com/reference/android/webkit/WebView.html" target="_blank" rel="noopener"> http://developer.android.com/reference/android/webkit/WebView.html
+</a></p>
+<p><a href="http://android.tgbus.com/Android/tutorial/201103/347674.shtml" target="_blank" rel="noopener"> http://android.tgbus.com/Android/tutorial/201103/347674.shtml
+</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://godeofdeath8080.github.io/2014/08/13/38541277/" data-id="cjqhtiq8s002a6ouks7y5e7sc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/08/13/38541367/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android 增量更新实例（Smart App Updates）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/07/22/38048353/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">使用Vitamio播放rtsp流媒体并实现动态截图</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术笔记/">技术笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常/">日常</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown语法测试/">markdown语法测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/kotlin/" style="font-size: 10px;">kotlin</a> <a href="/tags/markdown语法测试/" style="font-size: 10px;">markdown语法测试</a> <a href="/tags/python/" style="font-size: 10px;">python</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/09/markdown test/">高山探秘｜南阿尔卑斯风光</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/05/github page build/">github page的搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/05/git bash open/">win下git bash交互操作用sublime3或者markdown打开本地文件</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/sql exception/">java.sql.SQLException:ResultSet.next was not called</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/01/kotlin gradle/">android studio中kotlin安卓工程的gradle配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 godeofdeath<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

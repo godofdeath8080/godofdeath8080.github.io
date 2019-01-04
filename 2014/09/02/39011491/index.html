@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>X230安装10.9.3黑苹果不完美教程 | godeofdeath</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="之前在3820TG 和4820TG上装过10.8.X 为了研究swift 所以在X230上装了10.9.3（xcode6的最低要求我估计正式发布还要换10.10吧） 之前的帖子： http://bbs.replays.net/thread-2529416-1-1.html http://bbs.replays.net/forum.php?mod=viewthread&amp;amp;tid=2488013">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="X230安装10.9.3黑苹果不完美教程">
+<meta property="og:url" content="https://godeofdeath8080.github.io/2014/09/02/39011491/index.html">
+<meta property="og:site_name" content="godeofdeath">
+<meta property="og:description" content="之前在3820TG 和4820TG上装过10.8.X 为了研究swift 所以在X230上装了10.9.3（xcode6的最低要求我估计正式发布还要换10.10吧） 之前的帖子： http://bbs.replays.net/thread-2529416-1-1.html http://bbs.replays.net/forum.php?mod=viewthread&amp;amp;tid=2488013">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-07-21T02:38:03.618Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="X230安装10.9.3黑苹果不完美教程">
+<meta name="twitter:description" content="之前在3820TG 和4820TG上装过10.8.X 为了研究swift 所以在X230上装了10.9.3（xcode6的最低要求我估计正式发布还要换10.10吧） 之前的帖子： http://bbs.replays.net/thread-2529416-1-1.html http://bbs.replays.net/forum.php?mod=viewthread&amp;amp;tid=2488013">
+  
+    <link rel="alternate" href="/atom.xml" title="godeofdeath" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">godeofdeath</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://godeofdeath8080.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-39011491" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/02/39011491/" class="article-date">
+  <time datetime="2014-09-02T12:43:00.000Z" itemprop="datePublished">2014-09-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      X230安装10.9.3黑苹果不完美教程
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前在3820TG 和4820TG上装过10.8.X 为了研究swift 所以在X230上装了10.9.3（xcode6的最低要求<br>我估计正式发布还要换10.10吧）</p>
+<p>之前的帖子： <a href="http://bbs.replays.net/thread-2529416-1-1.html" target="_blank" rel="noopener">http://bbs.replays.net/thread-2529416-1-1.html</a></p>
+<p><a href="http://bbs.replays.net/forum.php?mod=viewthread&amp;tid=2488013&amp;highlight=4820TG" target="_blank" rel="noopener">http://bbs.replays.net/forum.php?mod=viewthread&amp;tid=2488013&amp;highlight=4820TG</a>  </p>
+<p>X230 装了有段时间了 总的来说不算完美 基本可用吧 总结下</p>
+<p>第一阶段<br>1.前期参照  <a href="http://www.sdifenzhou.com/s8.html" target="_blank" rel="noopener"> http://www.sdifenzhou.com/s8.html
+</a> (有修改)<br>1）创建MAC安装盘。右键我的电脑 – 管理 – 存储 – 磁盘管理(本地) – 右键一个非系统磁盘– 压缩卷- 输入压缩空间量 = 6144(6G)<br>(原文5G偏小 多出的空间可用工具扩展WIN分区)<br>2）多出处一个绿色的6G的分区.  - 右键该分区 – 新建简单卷( 一路下一步, 但是暂时不要格式化)<br>3）创建MAC系统盘，方法同上，分了50G<br>4）打开磁盘安装助手 – 选择刚才下载的镜像文件 – 目标分区为刚才分出来的没有格式化的6G分区 – 把下面的三个勾都去掉, 然后点开始… 大概几分钟,<br>中间程序没响应是正常的. 然后软件底部出现Change partition type to AF: Success 就成功了。<br>5）接下来就是安装Win版本变色龙，然后将我提供的wowpc.iso替换C盘中的wowpc.iso，重启，用变色龙引导刚写好6G的安装盘即可。<br>6)  进入安装界面 先进行抹盘操作 点击上方 工具 磁盘工具 抹盘选项卡 选中刚才分30G的目标盘 抹盘格式选择 MAC-OS (不要选区分大小写那个)<br>抹盘完成即可安装 安装选择刚才抹盘的盘符。<br>注:<br>1)到这里需要修复引导 完成启动后可以看到WIN7/Chameleon启动菜单<br>2)wowpc.iso在WIN7的100M保留分区下 如果隐藏 给盘符可以看到 如果以前保留分区被干掉了 就在C盘根目录下<br>3)Chameleon菜单下各盘卷标可能被盖住 将中文卷标改成英文  </p>
+<p>后面步骤参见之前4820TG第二部分内容 在pcbeta搜索相关机型成功例子 在机器根目录下新建Extra/Extension 分别在各级目录下放入对应文件</p>
+<p>X230的AC269声卡有点问题（HDMI也无法输出音频）另外VGA无法输出（这个无解，但是HDMI可以接大屏输出）</p>
+<p>蓝牙和休眠也有点小问题  总体来说已可以作为开发环境</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://godeofdeath8080.github.io/2014/09/02/39011491/" data-id="cjqhtiq7e00066oukqwm2m76i" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/09/04/39052255/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          mongodb “dbpath (/data/db/) does not exist, terminating”  问题
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/09/02/39008427/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">sublime2.0.2注册码</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术笔记/">技术笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常/">日常</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown语法测试/">markdown语法测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/kotlin/" style="font-size: 10px;">kotlin</a> <a href="/tags/markdown语法测试/" style="font-size: 10px;">markdown语法测试</a> <a href="/tags/python/" style="font-size: 10px;">python</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/09/markdown test/">高山探秘｜南阿尔卑斯风光</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/05/github page build/">github page的搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/05/git bash open/">win下git bash交互操作用sublime3或者markdown打开本地文件</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/sql exception/">java.sql.SQLException:ResultSet.next was not called</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/01/kotlin gradle/">android studio中kotlin安卓工程的gradle配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 godeofdeath<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

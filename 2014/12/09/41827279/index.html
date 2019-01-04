@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>各视频网站在Webview中接入用html代码示例 长期更新 | godeofdeath</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="我使用的测试机是Nexus5 android5.0，因为从4.4开始WebView内核从Webkit换成了Chromium  ，所以HTML里的embed标签会显示无法加载flash插件，这个问题在google论坛和stackoverflow游荡了好久没有解决，后来发现video标签是可以的. &amp;lt;html&amp;gt;  &amp;lt;body&amp;gt;   &amp;lt;video src=&amp;quot;你在本">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="各视频网站在Webview中接入用html代码示例 长期更新">
+<meta property="og:url" content="https://godeofdeath8080.github.io/2014/12/09/41827279/index.html">
+<meta property="og:site_name" content="godeofdeath">
+<meta property="og:description" content="我使用的测试机是Nexus5 android5.0，因为从4.4开始WebView内核从Webkit换成了Chromium  ，所以HTML里的embed标签会显示无法加载flash插件，这个问题在google论坛和stackoverflow游荡了好久没有解决，后来发现video标签是可以的. &amp;lt;html&amp;gt;  &amp;lt;body&amp;gt;   &amp;lt;video src=&amp;quot;你在本">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2017-07-21T02:38:03.625Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="各视频网站在Webview中接入用html代码示例 长期更新">
+<meta name="twitter:description" content="我使用的测试机是Nexus5 android5.0，因为从4.4开始WebView内核从Webkit换成了Chromium  ，所以HTML里的embed标签会显示无法加载flash插件，这个问题在google论坛和stackoverflow游荡了好久没有解决，后来发现video标签是可以的. &amp;lt;html&amp;gt;  &amp;lt;body&amp;gt;   &amp;lt;video src=&amp;quot;你在本">
+  
+    <link rel="alternate" href="/atom.xml" title="godeofdeath" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">godeofdeath</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://godeofdeath8080.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-41827279" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/12/09/41827279/" class="article-date">
+  <time datetime="2014-12-09T10:34:00.000Z" itemprop="datePublished">2014-12-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      各视频网站在Webview中接入用html代码示例 长期更新
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我使用的测试机是Nexus5 android5.0，因为从4.4开始WebView内核从Webkit换成了Chromium  ，所以HTML里的embed标<br>签会显示无法加载flash插件，这个问题在google论坛和stackoverflow游荡了好久没有解决，后来发现video标签是可以的.</p>
+<pre><code>&lt;html&gt;
+ &lt;body&gt;
+  &lt;video src=&quot;你在本地服务器上上传的MP4/3GP文件&quot;controls=&quot;controls&quot;autoplay=&quot;autoplay&quot; width=&quot;100%&quot;&gt;
+  &lt;/video&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>4.4以上系统版本视频自动播放需要加上，之前的版本可以用video标签，也可以用embed标签，但是不需要加下面的这段；</p>
+<pre><code>webView.setWebViewClient(new MyWebViewClient() {
+ public void onPageFinished(WebView view, String url) {
+  webView.loadUrl(&quot;javascript:(function() { var videos = document.getElementsByTagName(&apos;video&apos;); for(var i=0;i&lt;videos.length;i++){videos[i].play();}})()&quot;);}
+});
+</code></pre><p>其他视频网站在自己的开发者网站提供了一些API，奈何很多跟不上版本变化，或者变化太快网络上的一些方法已不适用，或者干脆试验不出来，现在整理一些研究出来可行的<br>。</p>
+<p><strong> 优酷 </strong><br>接入方法：使用div+script标签。</p>
+<p>步骤：1.首先在优酷开发者中心注册，再添加你的移动应用生成一个client_id，每个client_id有效使用次数10W次；</p>
+<p>2.从视频分享地址里解析出该视频对应的vid，然后添加到下面HTML代码里，比如<a href="http://player.youku.com/player.php/Typ" target="_blank" rel="noopener">http://player.youku.com/player.php/Typ</a><br>e/Folder/Fid/23177637/Ob/1/sid/XODQ1MDA2MDY4/v.swf 这里XODQ1MDA2MDY4即为vid。</p>
+<pre><code>    &lt;html&gt;
+     &lt;body&gt;
+      &lt;div id=&apos;youkuplayer&apos; style=&apos;width:50%;height:50%&apos;&gt;
+&lt;span style=&quot;white-space:pre&quot;&gt;    &lt;/span&gt;&lt;script type=&apos;text/javascript&apos; src=&apos;http://player.youku.com/jsapi&apos;&gt;
+ &lt;span style=&quot;white-space:pre&quot;&gt;    &lt;/span&gt;   player = new YKU.Player(&apos;youkuplayer&apos;,{styleid: &apos;0&apos;,client_id: &apos;您申请的client_id&apos;,vid: &apos;XODQ1MDA2MDY4&apos;,autoplay: true,embsig: &apos;VERSION_TIMESTAMP_SIGNATURE&apos;});
+       &lt;/script&gt;
+      &lt;/div&gt;
+     &lt;/body&gt;
+    &lt;/html&gt;
+</code></pre><p><strong> 土豆 </strong><br>接入方法：土豆很方便，直接复制分享里的通用代码到HTML就可以播放<br>html示例：  </p>
+<pre><code>&lt;html&gt;
+ &lt;body&gt;
+  &lt;iframe src=&quot;http://www.tudou.com/programs/view/html5embed.action?code=kbPzDzCIeBE&amp;autoPlay=false&amp;playType=AUTO&quot; width=&quot;50%&quot; height=&quot;50%&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;
+  &lt;/iframe&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><strong> 新浪 </strong><br>接入方法：video标签 这是爱问分享的地址 这里修正下  </p>
+<pre><code>&lt;html&gt;
+ &lt;body&gt; 
+  &lt;video src=&quot;http://v.iask.com/v_play_ipad.php?vid=106974538&quot; controls=&quot;controls&quot; width=&quot;100%&quot;&gt;[video:sn106977013:size:320x180]
+  &lt;/video&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><strong> 腾讯 </strong><br>接入方法：iframe标签，使用方法同土豆，复制分享里的通用代码  </p>
+<pre><code>&lt;html&gt;
+ &lt;body&gt; 
+  &lt;iframe frameborder=0 src=\&quot;http://v.qq.com/iframe/player.html?vid=l0015mzb2ic&amp;tiny=0&amp;auto=0\&quot; allowfullscreen&gt;
+  &lt;/iframe&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><strong> 56网 </strong><br>接入方法：iframe标签，使用方法同土豆，复制分享里的iframe代码  </p>
+<pre><code>&lt;html&gt;
+ &lt;body&gt;
+  &lt;iframe src=&quot;http://www.56.com/iframe/MTMyMTg2MTIw&quot; width=&quot;320&quot; height=&quot;270&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;
+  &lt;/iframe&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>酷6 <a href="http://dev.ku6.com/?q=node/5" target="_blank" rel="noopener">http://dev.ku6.com/?q=node/5</a> 酷6给的API没有实验成功，那位朋友有经验可以跟帖实验<br>搜狐 <a href="http://open.sohu.com/wiki/api/v_upload_add.html" target="_blank" rel="noopener">http://open.sohu.com/wiki/api/v_upload_add.html</a> 没有提供播放视频接入，其他标签试了也不行</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://godeofdeath8080.github.io/2014/12/09/41827279/" data-id="cjqhtiq7w000t6oukxoxehhxx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/01/28/43237353/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          如何解决Android SDK中离线文档打开慢的问题
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/12/03/41701429/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">android webView 加载HTML代码使用loadData方法中文乱码问题</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术笔记/">技术笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常/">日常</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown语法测试/">markdown语法测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/kotlin/" style="font-size: 10px;">kotlin</a> <a href="/tags/markdown语法测试/" style="font-size: 10px;">markdown语法测试</a> <a href="/tags/python/" style="font-size: 10px;">python</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/09/markdown test/">高山探秘｜南阿尔卑斯风光</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/05/github page build/">github page的搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/05/git bash open/">win下git bash交互操作用sublime3或者markdown打开本地文件</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/04/sql exception/">java.sql.SQLException:ResultSet.next was not called</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/01/kotlin gradle/">android studio中kotlin安卓工程的gradle配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 godeofdeath<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
