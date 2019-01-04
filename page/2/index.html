@@ -1,1159 +1,1224 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
+
+  
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
+  <meta name="author" content="董沅鑫, yuanxin.me@gmail.com">
   
-
+    <meta name="robots" content="noindex">
+  
+  
   
   <title>godeofdeath</title>
+
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="godeofdeath">
-<meta property="og:url" content="https://godeofdeath8080.github.io/page/2/index.html">
-<meta property="og:site_name" content="godeofdeath">
-<meta property="og:locale" content="default">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="godeofdeath">
+
   
-    <link rel="alternate" href="/atom.xml" title="godeofdeath" type="application/atom+xml">
+    <meta name="keywords" content="Hexo, theme-bmw">
+  
+
+  <script>
+    console.log('\n%c Hexo-theme-bmw v4.0 ' + '%c 🎉 https://github.com/dongyuanxin/theme-bmw 🎉\n' + '\n%c View demo online ' + '%c 🔍 https://godbmw.com/ 🔍  \n' , 'color: #fadfa3; background: #030307; padding:3px 0;', '', 'color: #fadfa3; background: #030307; padding:3px 0;', '');
+  </script>
+
+  
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/icon/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+
+  <script src="/js/util.js"></script>
+<script src="/js/valine.min.js"></script>
+
+  
+
+  
+    <link href="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.js" async></script>
+  
+
+  
+    <link href="https://cdn.bootcss.com/social-share.js/1.0.16/css/share.min.css" rel="stylesheet">
   
   
-    <link rel="icon" href="/favicon.png">
+  <script src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js" async></script>
   
   
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.0/dist/av-min.js"></script>
   
-  <link rel="stylesheet" href="/css/style.css">
+
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">godeofdeath</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://godeofdeath8080.github.io"></form>
+
+  <body>
+
+    
+
+    <div id="app">
+
+      <div class="header-wrap">
+  <header>
+    <div class="site-brand">
+      <div class="site-title">
+        <a href="/">GODBMW.com</a>
       </div>
     </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-48290605" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/09/08/48290605/" class="article-date">
-  <time datetime="2015-09-08T06:24:00.000Z" itemprop="datePublished">2015-09-08</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/09/08/48290605/">百度云推送消息到达率低问题定位分析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
+    <nav class="site-navigation">
+      <ul class="nav-menu">
       
-        <p>去年做我们这个产品的时候，SE在客户端设计了一个推送功能，SE经过调研决定在Android和IOS端都集成百度的云推送SDK来支持这个推送功能。最近领导在做<br>运营分析的时候，发现云推送的报表显示，在Android端消息的达到率非常低，设备的在线率波动比较大，有时高有时非常低。</p>
-<p>我们的这个产品经过将近两年的折腾进步是有目共睹的，在今年的巴塞罗那GSMA世界移动通信大会上荣获“Best Mobile Music App”大奖，让我们这<br>帮苦逼了将近两年的屌丝士气大振，领导也欣喜不已并且决定将精品策略进行到底，任何影响我们产品发展的因素都不可能容忍的，而推送功能无疑对产品的推广和用户的留存都<br>是非常重要，现在发现这种现象，领导当然容忍不了，于是决定分析原因，我“不幸”被点将了，领导还要求周五下班前给出分析结论。</p>
-<p>接到这个任务有点小迷茫，虽然我们的产品集成百度的推送SDK已经快一年了，但是我并没有深入研究过，之前一直是专人负责的，现在负责的人已经不在我们团队了，而且时<br>间比较短，周三下班的时候下的任务，也就是说只有两天的时间。当然迷茫归迷茫，事儿还是要做问题还是要解决。</p>
-<p>首先先快速的学习一下SDK的集成方式，好在这个SDK使用起来还是比较简单的，基本上照着文档做进行了，而且百度还提供了Demo供参考。当然要解决问题光知道怎么<br>用肯定是不行的，接下来就要开始分析问题了。</p>
-<p>要分析消息到达率低，最好能知道哪些  <a href="http://cpro.baidu.com/cpro/ui/uijs.php?adclass=0&amp;ap
-p_id=0&amp;c=news&amp;cf=1001&amp;ch=0&amp;di=128&amp;fv=17&amp;is_app=0&amp;jk=4df8f727463de319&amp;k=%CA%D6%
-BB%FA&amp;k0=%CA%D6%BB%FA&amp;kdi0=0&amp;luki=5&amp;n=10&amp;p=baidu&amp;q=65035100_cpr&amp;rb=0&amp;rs=1&amp;sell
-er_id=1&amp;sid=19e33d4627f7f84d&amp;ssp2=1&amp;stid=0&amp;t=tpclicked3_hc&amp;td=1836545&amp;tu=u1836
-545&amp;u=http%3A%2F%2Fwww%2Ebubuko%2Ecom%2Finfodetail%2D688597%2Ehtml&amp;urlid=0" target="_blank" rel="noopener"> 手机  </a><br>接收消息有问题，幸运的是我们的测试发现在他的MATE7手机收不到我们应用的推送消息，即使打开了我们的  <a href="http://cpro.baidu
-.com/cpro/ui/uijs.php?adclass=0&amp;app_id=0&amp;c=news&amp;cf=1001&amp;ch=0&amp;di=128&amp;fv=17&amp;is_a
-pp=0&amp;jk=4df8f727463de319&amp;k=app&amp;k0=app&amp;kdi0=0&amp;luki=3&amp;n=10&amp;p=baidu&amp;q=65035100_cp
-r&amp;rb=0&amp;rs=1&amp;seller_id=1&amp;sid=19e33d4627f7f84d&amp;ssp2=1&amp;stid=0&amp;t=tpclicked3_hc&amp;td=
-1836545&amp;tu=u1836545&amp;u=http%3A%2F%2Fwww%2Ebubuko%2Ecom%2Finfodetail%2D688597%2E
-html&amp;urlid=0" target="_blank" rel="noopener"> app  </a> 也不行，而且还有一个奇怪的现象，在他手机上打开过一款“掌上营业厅”应用之后，消息接收就正常了。</p>
-<p>这个现象比较奇怪，由于我对这个SDK不熟，所以当时认为最快捷的方式应该直接问百度的  <a href="http://cpro.baidu.com/cpro
-/ui/uijs.php?adclass=0&amp;app_id=0&amp;c=news&amp;cf=1001&amp;ch=0&amp;di=128&amp;fv=17&amp;is_app=0&amp;jk=4
-df8f727463de319&amp;k=%B9%A4%B3%CC%CA%A6&amp;k0=%B9%A4%B3%CC%CA%A6&amp;kdi0=0&amp;luki=4&amp;n=10&amp;
-p=baidu&amp;q=65035100_cpr&amp;rb=0&amp;rs=1&amp;seller_id=1&amp;sid=19e33d4627f7f84d&amp;ssp2=1&amp;stid=
-0&amp;t=tpclicked3_hc&amp;td=1836545&amp;tu=u1836545&amp;u=http%3A%2F%2Fwww%2Ebubuko%2Ecom%2Fi
-nfodetail%2D688597%2Ehtml&amp;urlid=0" target="_blank" rel="noopener"> 工程师  </a> ，百度也提供了客服答疑，并且还有些专门讨论推送SDK的QQ群，但是结果比较失望，QQ群<br>里提问题基本上没有人理，而且里面的人很多我问的问题很快就被淹没了，在开发者网站问客服问题，反应非常慢，头一天晚上问的问题第二天下午才给回复，而且给的答案不痛<br>不痒，看来此路不通，就算客服能帮我解决问题估计时间也早过了。后来想到有大学同学在度娘做工程师，于是赶紧联系，让他帮忙找找看看能不能在内部做SDK的工程师帮我<br>解答一下。同学利用他的关系终于找到了push团队的工程师，赶紧微信加之，那帅哥提议加Hi，于是加Hi，当时在Hi上聊人家后来压根就不搭理了，后来想可能是太晚<br>了，明天早上在说吧。第二天早上电脑上Hi发消息，照样没理，可能度娘的工作比较饱满人家没用闲暇功夫管我们这些根本不认识的人吧。</p>
-<p>看来还得靠自己了，于是尝试把SDK<br>jar包反编译，通过代码看看里面的工作原理，但是非常遗憾的是jar包已经混淆过了阅读非常困难，而且核心代码并不在jar包里面而是在so库里面没法反编译。</p>
-<p>看代码不行就先看文档吧，于是我带着我的疑问仔细的看文档里面的每一个字，终于我在文档里面发现了两个重要的线索：</p>
-<p>百度push SDK采用了单服务单通道策略，即如果  <a href="http://cpro.baidu.com/cpro/ui/uijs.php?adcl
-ass=0&amp;app_id=0&amp;c=news&amp;cf=1001&amp;ch=0&amp;di=128&amp;fv=17&amp;is_app=0&amp;jk=4df8f727463de319&amp;k
-=%CA%D6%BB%FA&amp;k0=%CA%D6%BB%FA&amp;kdi0=0&amp;luki=5&amp;n=10&amp;p=baidu&amp;q=65035100_cpr&amp;rb=0&amp;r
-s=1&amp;seller_id=1&amp;sid=19e33d4627f7f84d&amp;ssp2=1&amp;stid=0&amp;t=tpclicked3_hc&amp;td=1836545&amp;
-tu=u1836545&amp;u=http%3A%2F%2Fwww%2Ebubuko%2Ecom%2Finfodetail%2D688597%2Ehtml&amp;url
-id=0" target="_blank" rel="noopener"> 手机  </a> 上安装了多个集成了push SDK的应用时这些应用会共享同一个服务和长连接，目的是为了给用户省电省流量，好的看到这里终于解决了我的第一个疑问：为<br>什么启动了“掌上营业厅”之后我们的应用就能收到推送消息了，因为“掌上营业厅”也集成了百度的推送SDK，通过ps命令查看手机的进程确实发现有一个百度相关的进程<br>（问题是在公司  <a href="http://cpro.baidu.com/cpro/ui/uijs.php?adclass=0&amp;app_id=0&amp;c=n
-ews&amp;cf=1001&amp;ch=0&amp;di=128&amp;fv=17&amp;is_app=0&amp;jk=4df8f727463de319&amp;k=%B6%A8%CE%BB&amp;k0=%
-B6%A8%CE%BB&amp;kdi0=0&amp;luki=6&amp;n=10&amp;p=baidu&amp;q=65035100_cpr&amp;rb=0&amp;rs=1&amp;seller_id=1&amp;si
-d=19e33d4627f7f84d&amp;ssp2=1&amp;stid=0&amp;t=tpclicked3_hc&amp;td=1836545&amp;tu=u1836545&amp;u=http
-%3A%2F%2Fwww%2Ebubuko%2Ecom%2Finfodetail%2D688597%2Ehtml&amp;urlid=0" target="_blank" rel="noopener"> 定位  </a><br>，博客是在家写的，所以没有把截图带出来）。  </p>
-<p>还有一个重要线索是，在文档里面提到了最新的SDK版本解决了一些高系统版本手机的适配问题，最新的SDK版本是4.4.0，我看看我们应用集成的版本是3.2.0，<br>显然这个版本已经很老了，而这个MATE7手机是最近新出的手机，所以有没有可能是因为版本问题呢？赶紧动手试一下，决定先用新版本的Demo试一下，在试之前为了对<br>比先用老版本的Demo测试一下看看在该手机有没有问题，经过测试是有问题的。接下来用新版本的Demo试一下，惊喜的发现用新的Demo能收到消息了，于是马上把新<br>版本SDK集成到我们的工程里面，代码不用变只需修改manifest中的配置，同老版本相比，新版本需要给PushService增加一个intent-<br>filter action，并且增加一个Service声明CommandService：</p>
-<pre><code>&lt;service
-      android:name=&quot;com.baidu.android.pushservice.PushService&quot;
-      android:exported=&quot;true&quot;
-      android:process=&quot;:bdservice_v1&quot; &gt;
-      &lt;intent-filter &gt;
-          &lt;action android:name=&quot;com.baidu.android.pushservice.action.PUSH_SERVICE&quot;/&gt;
-      &lt;/intent-filter&gt;
-  &lt;/service&gt;
-  &lt;!-- 4.4版本新增的CommandService声明，提升小米和魅族&lt;span id=&quot;2_nwp&quot; style=&quot;padding: 0px; width: auto; height: auto; float: none;&quot;&gt;&lt;a target=_blank id=&quot;2_nwl&quot; href=&quot;http://cpro.baidu.com/cpro/ui/uijs.php?adclass=0&amp;app_id=0&amp;c=news&amp;cf=1001&amp;ch=0&amp;di=128&amp;fv=17&amp;is_app=0&amp;jk=4df8f727463de319&amp;k=%CA%D6%BB%FA&amp;k0=%CA%D6%BB%FA&amp;kdi0=0&amp;luki=5&amp;n=10&amp;p=baidu&amp;q=65035100_cpr&amp;rb=0&amp;rs=1&amp;seller_id=1&amp;sid=19e33d4627f7f84d&amp;ssp2=1&amp;stid=0&amp;t=tpclicked3_hc&amp;td=1836545&amp;tu=u1836545&amp;u=http%3A%2F%2Fwww%2Ebubuko%2Ecom%2Finfodetail%2D688597%2Ehtml&amp;urlid=0&quot; target=&quot;_blank&quot; mpid=&quot;2&quot; style=&quot;padding: 0px; color: rgb(51, 51, 51); text-decoration: none;&quot;&gt;&lt;span style=&quot;padding: 0px; color: rgb(0, 0, 255); width: auto; height: auto;&quot;&gt;手机&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;上的实际推送到达率 --&gt;
-  &lt;service
-      android:name=&quot;com.baidu.android.pushservice.CommandService&quot;
-      android:exported=&quot;true&quot; /&gt;
-  &lt;!-- push结束 --&gt;
-</code></pre><p>修改之后运行工程（测试的时候要重启手机，开机之后只要有百度推送系的应用运行过我们的应用时可以收到消息的），终于我们的应用也能收到消息，但是还是有个问题，当开<br>机重启之后第一执行我们的应用时，无法收到消息，而且上应用管理查看push服务并没有被启动。在一筹莫展之际在运行日志中发现下面几行可疑日志（因为某些原因比较敏<br>感的信息叉掉了）：</p>
-<pre><code>03-19 19:57:25.822 D/Utility(7056): Find more higher priority pkg:com.baidu.BaiMap priority = 408,Current highest pkg: com.smart.softclient.music.baseline priority = 0
-03-19 19:57:25.822 D/Utility(7056): Current highest priority Push PackageName:com.baidu.BaiMap
-03-19 19:57:25.822 D/PushSDK(7056): Current push service:com.smart.softclient.music.baseline should stop!!! highest priority service is: com.baidu.BaiMap
-03-19 19:57:25.822 D/PushService(7056): stopSelf:exitOnDestroy=true --- immediate=true
-</code></pre><p>日志描述得比较清晰，我们的push服务在启动时因为百度地图这个应用又马上被停止了，日志还解释百度地图优先级比较高，了解过推送服务的单服务单通道策略之后这个动<br>作我也能理解，因为只要保证有一个推送服务就可以了，但是比较魂淡的是通过查看应用中运行的服务，发现并没有启动任何推送相关或者百度地图相关的服务，所以这应该是S<br>DK判断规则上的一个bug，我也把这个问题提给度娘了，暂时还没给反馈这到底是不是个问题（昨天提的，速度你懂的~~~）。幸运的是，通过研究发现这个问题是可以规<br>避的，我们可以通过给intent-<br>filter设置android:priority属性来把我们应用的优先级调高，通过上面的日志可以看到百度地图的优先级是408，我把我们的设成1000<br>，只需设置push服务广播和push服务的intent-filter就可以了：</p>
-<pre><code>&lt;!-- push必须的receviver和service声明 --&gt;
-       &lt;receiver android:name=&quot;com.baidu.android.pushservice.PushServiceReceiver&quot;
-           android:process=&quot;:bdservice_v1&quot;&gt;
-           &lt;intent-filter android:priority=&quot;1000&quot;&gt;
-               &lt;action android:name=&quot;android.intent.action.BOOT_COMPLETED&quot; /&gt;
-               &lt;action android:name=&quot;android.net.conn.CONNECTIVITY_CHANGE&quot; /&gt;
-               &lt;action android:name=&quot;com.baidu.android.pushservice.action.notification.SHOW&quot; /&gt;
-               &lt;action android:name=&quot;com.baidu.android.pushservice.action.media.CLICK&quot; /&gt;
-       &lt;/receiver&gt;
+        <li class="nav-item" data-path="/">
+          
+            <a href="/" target="_self">
+              主页
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          
+            <a href="/archives/" target="_self">
+              归档
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path="/categories/">
+          
+            <a href="/categories/" target="_self">
+              分类
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          
+            <a href="/tags/" target="_self">
+              标签
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          
+            <a href="/friends/" target="_self">
+              友链
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          
+            <a href="/about/" target="_self">
+              关于
+            </a>
+          
+        </li>
+      
+        <li class="nav-item" data-path="">
+          
+            <a href="javascript:void(0);" v-else="">抓到我</a>
+            <ul class="nav-menu--dropdown">
+              
+                <li>
+                  <a href="https://github.com/dongyuanxin" target="_blank">
+                    Github
+                  </a>
+                </li>
+              
+                <li>
+                  <a href="https://www.zhihu.com/people/godbmw/activities" target="_blank">
+                    知乎
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+      </ul>
+    </nav>
+    <i class="iconfont icon-menu"></i>
+  </header>
+</div>
 
-       &lt;service
-           android:name=&quot;com.baidu.android.pushservice.PushService&quot;
-           android:exported=&quot;true&quot;
-           android:process=&quot;:bdservice_v1&quot; &gt;
-           &lt;intent-filter android:priority=&quot;1000&quot;&gt;
-               &lt;action android:name=&quot;com.baidu.android.pushservice.action.PUSH_SERVICE&quot;/&gt;
-           &lt;/intent-filter&gt;
-       &lt;/service&gt;
-</code></pre><p>修改之后发现推送消息正常了，开机之后第一次启动客户端时也能正常的收到消息了，可以查看日志发现现在轮到别的应用因为我们应用的优先级高而停掉服务了。</p>
-<p>另外在百度的SDK文档中提到了一点，可以通过监听一些系统事件来提高我们服务的存活率，目前新版本的SDK支持监听到下面的系统事件广播之后尝试重启push服务：</p>
-<ul>
-<li>切网 </li>
-<li>插拔电源 </li>
-<li>屏幕解锁 </li>
-<li><a href="http://cpro.baidu.com/cpro/ui/uijs.php?adclass=0&amp;app_id=0&amp;c=news&amp;cf=1001&amp;ch=0&amp;di=128&amp;fv=17&amp;is_app=0&amp;jk=4df8f727463de319&amp;k=%CA%D6%BB%FA&amp;k0=%CA%D6%BB%FA&amp;kdi0=0&amp;luki=5&amp;n=10&amp;p=baidu&amp;q=65035100_cpr&amp;rb=0&amp;rs=1&amp;seller_id=1&amp;sid=19e33d4627f7f84d&amp;ssp2=1&amp;stid=0&amp;t=tpclicked3_hc&amp;td=1836545&amp;tu=u1836545&amp;u=http%3A%2F%2Fwww%2Ebubuko%2Ecom%2Finfodetail%2D688597%2Ehtml&amp;urlid=0" target="_blank" rel="noopener"> 手机  </a> 开机 </li>
-<li>SD卡插拔 </li>
-</ul>
-<p>在我们原来的配置中只监听了切网广播和开机广播，所以如果我们把上面那些流氓行为如加上的话应该是能提高我们的服务存活率的，因为推送的长连接就是在推送服务中建立的<br>，所以推送服务的存活率意味着设备的在线率。把push服务广播（这个广播的功能就是监听到某些系统事件之后尝试启动push服务）改成下面的配置：</p>
-<pre><code>&lt;!-- push必须的receviver和service声明 --&gt;
-        &lt;receiver android:name=&quot;com.baidu.android.pushservice.PushServiceReceiver&quot;
-            android:process=&quot;:bdservice_v1&quot;&gt;
-            &lt;intent-filter&gt;
-                &lt;action android:name=&quot;android.intent.action.BOOT_COMPLETED&quot; /&gt;
-                &lt;action android:name=&quot;android.net.conn.CONNECTIVITY_CHANGE&quot; /&gt;
-                &lt;action android:name=&quot;com.baidu.android.pushservice.action.notification.SHOW&quot; /&gt;
-                &lt;action android:name=&quot;com.baidu.android.pushservice.action.media.CLICK&quot; /&gt;
-        &lt;!-- 以下四项为可选的action声明，可大大提高service存活率和消息到达速度 --&gt;
-        &lt;action android:name=&quot;android.intent.action.MEDIA_MOUNTED&quot; /&gt;
-        &lt;action android:name=&quot;android.intent.action.USER_PRESENT&quot; /&gt;
-        &lt;action android:name=&quot;android.intent.action.ACTION_POWER_CONNECTED&quot; /&gt;
-        &lt;action android:name=&quot;android.intent.action.ACTION_POWER_DISCONNECTED&quot; /&gt;
-            &lt;/intent-filter&gt;
-        &lt;/receiver&gt;
-</code></pre><p>但是由于这些事件跟系统强相关，所以会存在适配问题，由于测试机型有限，我只测试了MOTO<br>ME860、三星Note4、小米2S、MATE7，发现MATE7的开机广播没有生效，原因还没有搞清楚，所以在这台MATE7  <a href="http://
-cpro.baidu.com/cpro/ui/uijs.php?adclass=0&amp;app_id=0&amp;c=news&amp;cf=1001&amp;ch=0&amp;di=128&amp;
-fv=17&amp;is_app=0&amp;jk=4df8f727463de319&amp;k=%CA%D6%BB%FA&amp;k0=%CA%D6%BB%FA&amp;kdi0=0&amp;luki=
-5&amp;n=10&amp;p=baidu&amp;q=65035100_cpr&amp;rb=0&amp;rs=1&amp;seller_id=1&amp;sid=19e33d4627f7f84d&amp;ssp2=
-1&amp;stid=0&amp;t=tpclicked3_hc&amp;td=1836545&amp;tu=u1836545&amp;u=http%3A%2F%2Fwww%2Ebubuko%2E
-com%2Finfodetail%2D688597%2Ehtml&amp;urlid=0" target="_blank" rel="noopener"> 手机  </a><br>上会有个问题，在手机重启之后无法收到push消息，只有启动过一次我们的应用才能正常收消息，启动过之后无论应用切后台或者退出应用都可以正常的收消息。</p>
-<p>通过上面的分析，我觉得可以通过下面几点来改善消息达到率和push服务的存活率：</p>
-<ul>
-<li>升级SDK到最新版本 </li>
-<li>设置android:priority属性 </li>
-<li>加入一些流氓行为，在插拔  <a href="http://cpro.baidu.com/cpro/ui/uijs.php?adclass=0&amp;app_id=0&amp;c=news&amp;cf=1001&amp;ch=0&amp;di=128&amp;fv=17&amp;is_app=0&amp;jk=4df8f727463de319&amp;k=%B5%E7%D4%B4&amp;k0=%B5%E7%D4%B4&amp;kdi0=0&amp;luki=2&amp;n=10&amp;p=baidu&amp;q=65035100_cpr&amp;rb=0&amp;rs=1&amp;seller_id=1&amp;sid=19e33d4627f7f84d&amp;ssp2=1&amp;stid=0&amp;t=tpclicked3_hc&amp;td=1836545&amp;tu=u1836545&amp;u=http%3A%2F%2Fwww%2Ebubuko%2Ecom%2Finfodetail%2D688597%2Ehtml&amp;urlid=0" target="_blank" rel="noopener"> 电源  </a> 、插拔SD卡、屏幕解锁事件中尝试启动push服务 </li>
-</ul>
-<p>当然效果要等产品升级之后才能看到。经过将近两天的折腾又涨姿势了。</p>
+<script>
+  let links = document.querySelectorAll('.nav-item');
+  for(let link of links){
+    let childrenLink = link.querySelector('ul');
+    link.addEventListener('mouseenter', () => {
+      if(childrenLink) {
+        childrenLink.className = "nav-menu--dropdown active";
+      }
+    })
+    link.addEventListener('mouseleave', () => {
+      if(childrenLink) {
+        childrenLink.className = "nav-menu--dropdown";
+      }
+    })
+  }
+  let rootRealPath = getRealPath(window.location.pathname, true);
+  for(let link of links) {
+    let linkPath = link.getAttribute("data-path");
+    if(linkPath && getRealPath(linkPath, true) === rootRealPath) {
+      link.className = "nav-item hover";
+    }
+  }
 
+  let iconMenu = document.querySelector("i.iconfont.icon-menu"),
+    iconMenuClicked = false;
+  let navDOM = document.querySelector("nav.site-navigation");
+  iconMenu.addEventListener("click", () => {
+    iconMenuClicked 
+      ? navDOM.className = "site-navigation active"
+      : navDOM.className = "site-navigation";
+    iconMenuClicked = !iconMenuClicked;
+  })
+</script>
+
+      
+<div class="container home-index">
+  
+  <div class="post">
+    <h1 class="article-title">
+      <a href="/2015/09/08/48290605/">
+        <span>百度云推送消息到达率低问题定位分析</span>
+      </a>
+    </h1>
+    <!-- PC端文章信息 -->
+    <div class="article-top-meta pc-view">
+      <span>
+        发布时间 : 2015-09-08
+      </span>
+    </div>
+    <!-- 移动端文章信息 -->
+    <div class="article-top-meta mobile-view">
+      <span>
+        发布 : 2015-09-08
+      </span>
+      
+        <span>
+        分类 :
+          <a href="/categories/技术笔记/">
+            技术笔记
+          </a>
+        </span>
+      
+      
+        <span>
+          浏览 : <span class="article-timer" data-identity="48290605"></span>
+        </span>
       
     </div>
-    <footer class="article-footer">
-      <a data-url="https://godeofdeath8080.github.io/2015/09/08/48290605/" data-id="cjqhtiq8x002i6oukjcz6rtfw" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-46848269" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/07/12/46848269/" class="article-date">
-  <time datetime="2015-07-12T01:44:00.000Z" itemprop="datePublished">2015-07-12</time>
-</a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <!-- 文章简介 -->
+    <div class="article-content">
+      <div class="markdown-body article-content--inner" v-html="mdToHtml(psg.summary)">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/12/46848269/">Genymotion的一些使用技巧</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
+      </div>
+    </div>
+    <div class="article-footer">
+      <div class="article-meta pull-left">
+        <!-- 分类pc端可见 -->
+        <span class="pc-view">
+          
+            <i class="iconfont icon-tag"></i>分类:
+            <a href="/categories/技术笔记/">
+              技术笔记
+            </a>
+          </span>
+          
+        <span>
+          
+            <i class="iconfont icon-06tags"></i>标签:
+            
+              <span class="span--tag">
+                <a href="/tags/android/">
+                  #android
+                </a>
+              </span>
+            
+                    
+        </span>
+      </div>
       
-        <p>Genymotion无法登录和下载的问题<br>用gogent做代理 127.0.0.1:8087即可</p>
-<p>Genymotion找不到vboxNetadp.sys的解决方法<br>1.安装带virtualbox的最新版本<br>2.之前我安装过 但是不在windows/inf下 全局搜索下替换路径即可<br>还有人会碰到WIN7下本地连接不显示造成虚拟网卡无法连接 这个自行百度吧</p>
-<p>还有BIOS下是否打开cpu虚拟化对genymotion似乎没有影响</p>
-
+        <div class="article-meta pull-right">
+          <span class="pc-view">
+            <i class="iconfont icon-view"></i>浏览: <span class="article-timer" data-identity="48290605"></span>
+          </span>
+        </div>
       
     </div>
-    <footer class="article-footer">
-      <a data-url="https://godeofdeath8080.github.io/2015/07/12/46848269/" data-id="cjqhtiq82000z6oukxc8df78n" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
-
-    </footer>
   </div>
   
-</article>
-
-
-  
-    <article id="post-44904009" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/04/06/44904009/" class="article-date">
-  <time datetime="2015-04-06T10:06:00.000Z" itemprop="datePublished">2015-04-06</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/06/44904009/">webview和js交互的灵活应用</a>
+  <div class="post">
+    <h1 class="article-title">
+      <a href="/2015/07/12/46848269/">
+        <span>Genymotion的一些使用技巧</span>
+      </a>
     </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
+    <!-- PC端文章信息 -->
+    <div class="article-top-meta pc-view">
+      <span>
+        发布时间 : 2015-07-12
+      </span>
+    </div>
+    <!-- 移动端文章信息 -->
+    <div class="article-top-meta mobile-view">
+      <span>
+        发布 : 2015-07-12
+      </span>
       
-        <p>最近一直在弄网页和js交互 ，这里主要指两种情形</p>
-<p>第一种是webview加载获取到的script脚本文本片段</p>
-<p>第二种是webview将获取到的json字符串传入js，并在webview的回调里调用js的方法或者获取值</p>
-<p>第一种：</p>
-<p>获取数据的代码就不贴了，从获取数据后在子handler里操作开始</p>
-
+        <span>
+        分类 :
+          <a href="/categories/技术笔记/">
+            技术笔记
+          </a>
+        </span>
+      
+      
+        <span>
+          浏览 : <span class="article-timer" data-identity="46848269"></span>
+        </span>
       
     </div>
-    <footer class="article-footer">
-      <a data-url="https://godeofdeath8080.github.io/2015/04/06/44904009/" data-id="cjqhtiq8300126oukzi88ita5" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-44061287" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/04/44061287/" class="article-date">
-  <time datetime="2015-03-04T07:52:00.000Z" itemprop="datePublished">2015-03-04</time>
-</a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <!-- 文章简介 -->
+    <div class="article-content">
+      <div class="markdown-body article-content--inner" v-html="mdToHtml(psg.summary)">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/04/44061287/">android Application类的详细介绍</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
+      </div>
+    </div>
+    <div class="article-footer">
+      <div class="article-meta pull-left">
+        <!-- 分类pc端可见 -->
+        <span class="pc-view">
+          
+            <i class="iconfont icon-tag"></i>分类:
+            <a href="/categories/技术笔记/">
+              技术笔记
+            </a>
+          </span>
+          
+        <span>
+          
+            <i class="iconfont icon-06tags"></i>标签:
+            
+              <span class="span--tag">
+                <a href="/tags/android/">
+                  #android
+                </a>
+              </span>
+            
+                    
+        </span>
+      </div>
       
-        <p>在代码中经常看到application这个类，一直不知道这个是干什么用的，今天刚好有点时间，所以进行了详细的学习。</p>
-<p>一.先对它的整体概念解释：  </p>
-<p>在android源码中对他的描述是;</p>
-<ul>
-<li>Base class for those who need to maintain global application state. You can   </li>
-<li>provide your own implementation by specifying its name in your   </li>
-<li>AndroidManifest.xml’s &lt;application&gt; tag, which will cause that class   </li>
-<li>to be instantiated for you when the process for your application/package is   </li>
-<li>created. </li>
-</ul>
-<p>SDK中的描述：Application类是为了那些需要保存全局变量设计的基本类，你可以在AndroidManifest.xml的<application>标<br>签中进行自己的实现，这样的结果是：当你的       application或者包被建立的时候将引起那个类被建立。  </application></p>
-<p>理解：就是说application是用来保存全局变量的，并且是在package创建的时候就跟着存在了。所以当我们需要创建全局变量的时候，不需 要再像j2se<br>那样需要创建public权限的static变量，而直接在application中去实现。只需要调用Context的getApplicationContext<br>或者Activity的getApplication方法来获得一个application对象，再做出相应 的处理。</p>
-<p>例如Launcher模块中;它自己就写了个application，在AndroidManifest.xml中将它进行了设置：  </p>
-<p>&lt;application<br>android:name=”com.android.launcher2.LauncherApplication”  </p>
-<p>对于他的设置可以参考这个模块。</p>
-<p>二.里面的方法进行说明：</p>
-<p>onCreate();</p>
-<p>/**  </p>
-<ul>
-<li>Called when the application is starting, before any other application   </li>
-<li>objects have been created.  Implementations should be as quick as   </li>
-<li>possible (for example using lazy initialization of state) since the time   </li>
-<li>spent in this function directly impacts the performance of starting the   </li>
-<li>first activity, service, or receiver in a process.   </li>
-<li>If you override this method, be sure to call super.onCreate().<br>*/ </li>
-</ul>
-<p>这个函数是当我们的应用开始之时就被调用了，比应用中的其他对象创建的早，这个实现尽可能的快一点，因为这个时间直接影响到我们第一个activity/servic<br>e</p>
-<p>/receiver。如果你要重写这个方法必须调用super.onCreate().</p>
-<p>onTerminate():</p>
-<p>/**  </p>
-<ul>
-<li>This method is for use in emulated process environments.  It will   </li>
-<li>never be called on a production Android device, where processes are   </li>
-<li>removed by simply killing them; no user code (including this callback)   </li>
-<li>is executed when doing so.<br>*/ </li>
-</ul>
-<p>这个函数是模拟一个过程环境，在真机中永远也不会被调用。  </p>
-<h2 id="Android-Application对象必须掌握的七点"><a href="#Android-Application对象必须掌握的七点" class="headerlink" title="Android Application对象必须掌握的七点"></a>Android Application对象必须掌握的七点</h2><p>作者：皇马船长  更新于 07月01日  访问（  1589  ）  评论（ <a href="http://my.eoe.cn/cainiao1/archive/2355.html#comment" target="_blank" rel="noopener"> 4
-</a> ）</p>
-<h1 id="1-Application是什么？"><a href="#1-Application是什么？" class="headerlink" title="1:Application是什么？"></a>1:Application是什么？</h1><pre><code>1
-
-
-      Application和Activity,Service一样,是android框架的一个系统组件，当android程序启动时系统会创建一个 application对象，用来存储系统的一些信息。通常我们是不需要指定一个Application的，这时系统会自动帮我们创建，如果需要创建自己 的Application，也很简单创建一个类继承 Application并在manifest的application标签中进行注册(只需要给Application标签增加个name属性把自己的 Application的名字定入即可)。
-</code></pre><p>android系统会为每个程序运行时创建一个Application类的对象且仅创建一个，所以Application可以说是单例<br>(singleton)模式的一个类.且application对象的生命周期是整个程序中最长的，它的生命周期就等于这个程序的生命周期。因为它是全局<br>的单例的，所以在不同的Activity,Service中获得的对象都是同一个对象。所以通过Application来进行一些，数据传递，数据共享<br>等,数据缓存等操作。</p>
-<h1 id="2-通过Application传递数据"><a href="#2-通过Application传递数据" class="headerlink" title="2:通过Application传递数据"></a>2:通过Application传递数据</h1><pre><code>1
-2
-
-
-     假如有一个Activity A, 跳转到 Activity B ,并需要推荐一些数据，通常的作法是Intent.putExtra() 让Intent携带，或者有一个Bundle把信息加入Bundle让Intent推荐Bundle对象，实现传递。但这样作有一个问题在 于，Intent和Bundle所能携带的数据类型都是一些基本的数据类型，如果想实现复杂的数据传递就比较麻烦了，通常需要实现 Serializable或者Parcellable接口。这其实是Android的一种IPC数据传递的方法。如果我们的两个Activity在同一个 进程当中为什么还要这么麻烦呢，只要把需要传递的对象的引用传递过去就可以了。
-    基本思路是这样的。在Application中创建一个HashMap ，以字符串为索引，Object为value这样我们的HashMap就可以存储任何类型的对象了。在Activity A中把需要传递的对象放入这个HashMap，然后通过Intent或者其它途经再把这索引的字符串传递给Activity B ,Activity B 就可以根据这个字符串在HashMap中取出这个对象了。只要再向下转个型 ，就实现了对象的传递。
-</code></pre><h1 id="3-Application数据缓存"><a href="#3-Application数据缓存" class="headerlink" title="3:Application数据缓存"></a>3:Application数据缓存</h1><p>我一般会习惯在application中建立两个HashMap一个用于数据的传递，一个用于缓<br>存一些数据。比如有一个Activity需要从网站获取一些数据，获取完之后我们就可以把这个数据cache到Application<br>当中，当页面设置到其它Activity再回来的时候，就可以直接使用缓存好的数据了。但如果需要cache一些大量的数据，最好是cache一些<br>(软引用)SoftReference<br>，并把这些数据cache到本地rom上或者sd卡上。如果在application中的缓存不存在，从本地缓存查找，如果本地缓存的数据也不存在再从网 络上获取。</p>
-<h1 id="4-PitFalls-汉语：易犯的错误"><a href="#4-PitFalls-汉语：易犯的错误" class="headerlink" title="4:PitFalls(汉语：易犯的错误)"></a>4:PitFalls(汉语：易犯的错误)</h1><p>使用Application如果保存了一些不该保存的对象很容易导致内存泄漏。如果在Application的oncreate中执行比较<br>耗时的操作，将直接影响的程序的启动时间。不些清理工作不能依靠onTerminate完成，因为android会尽量让你的程序一直运行，所以很有可能<br>onTerminate不会被调用。</p>
-<h1 id="5：MemoryLeak"><a href="#5：MemoryLeak" class="headerlink" title="5：MemoryLeak"></a>5：MemoryLeak</h1><p>在Java中内存泄漏是只，某个(某些)对象已经不在被使用应该被gc所回收，但有一个对象持有这个对象的引用而阻止这个对象被回收。比如我<br>们通常会这样创建一个View TextView tv = new<br>TextView(this);这里的this通常都是Activity。所以这个TextView就持有着这个Activity的引用。下面看张图 (Google<br>IO 2011 ppt中抄得)<br>通常情况下，当用户转动手机的时候，android会重新调用OnCreate()方法生成一个新的Activity，原来的<br>Activity应该被GC所回收。但如果有个对象比如一个View的作用域超过了这个Activity(比如有一个static对象或者我们把这个<br>View的引用放到了Application当中)，这时候原来的Activity将不能被GC所回收，Activity本身又持有很多对象的引用，所以<br>整个Activity的内存被泄漏了。</p>
-<pre><code>1
-2
-3
-
-
-  备注：经常导致内存泄漏核心原因：
-   keeping a long-lived reference to a Context.持有一个context的对象，从而gc不能回收。
-  情况如下：
-</code></pre><p>1.一个View的作用域超出了所在的Activity的作用域，比如一个static的View或者把一个View cache到了application当中<br>etc<br>理解：内存：注意静态的数据和缓存中的数据；注意释放；<br>2.某些与View关联的Drawable的作用域超出了Activity的作用域。<br>3.Runnable对象：比如在一个Activity中启用了一个新线程去执行一个任务，在这期间这个Activity被系统回收了， 但Runnalbe的<br>任务还没有执行完毕并持有Activity的引用而泄漏，但这种泄漏一般来泄漏一段时间，只有Runnalbe的线程执行完闭，这个<br>Activity又可以被正常回收了。</p>
-<p>4.内存类的对象作用域超出Activity的范围：比如定义了一个内存类来存储数据，又把这个内存类的对象传给了其它Activity 或者Service等。因为<br>内部类的对象会持有当前类的引用，所以也就持有了Context的引用。解决方法是如果不需要当前的引用把内部类写成static或者，把内部类抽取出来变成一个单独<br>的类，或者把避免内部对象作用域超出Activity的作用域。out Of Memery Error<br>在android中每一个程序所分到的内存大小是有限的，如果超过了这个数就会报Out Of Memory Error。<br>android给程序分配的内存大小与手机硬件有关，以下是一些手机的数据：<br>G1:16M Droid:24 Nexus One:32M Xoom:48Ms<br>所以尽量把程序中的一些大的数据cache到本地文件。以免内存使用量超标。<br>记得数据传递完成之后，把存放在application的HashMap中的数据remove掉，以免发生内存的泄漏</p>
-<h1 id="6：生命周期："><a href="#6：生命周期：" class="headerlink" title="6：生命周期："></a>6：生命周期：</h1><p>onCreate 在创建应用程序时创建<br>onTerminate 当终止应用程序对象时调用，不保证一定被调用，当程序是被内核终止以便为其他应用程序释放资源，那<br>么将不会提醒，并且不调用应用程序的对象的onTerminate方法而直接终止进 程<br>onLowMemory 当后台程序已经终止资源还匮乏时会调用这个方法。好的应用程序一般会在这个方法里面释放一些不必<br>要的资源来应付当后台程序已经终止，前台应用程序内存还不够时的情况。<br>onConfigurationChanged 配置改变时触发这个方法</p>
-<p>备注:application 被杀死的情况分析：<br>为了决定在内存较低的时候杀掉哪个进程, Android会根据运行在这些进程内的组件及他们的状态把进程划分成一个”重要程度层次”.<br>其重要的程度按以下规则排序:<br>1：前端进程可以是一个持有运行在屏幕最前端并与用户交互的Activity的进程(onResume方法被调用时)，也可以是持有一个正在运行的IntentRec<br>eiver(也就是说他正在执行自己的onReceiveIntent方法)的进程. 在系统中, 只会有少数这样的进程, 并且除非内存已经低到不够这些进程运行,<br>否则系统不会主动杀掉这些进程. 这时, 设备通常已经达到了需要内存整理的状态, 所以杀掉这些进程是为了不让用户界面停止响应.<br>2：可视进程是持有一个被用户可见, 但没有显示在最前端 (onPause方法被调用时) 的Activity的进程. 举例来说,<br>这种进程通常出现在一个前端Activity以一个对话框出现并保持前一个Activity可见时. 这种进程被系统认为是极其重要的, 并且通常不会被杀掉,<br>除非为了保持所有前端进程正常运行不得不杀掉这些可见进程.<br>3：服务进程是持有一个Service的进程, 该Service是由startService()方法启动的, 尽管这些进程用户不能直接看到,<br>但是通常他们做的工作用户是十分关注的(例如, 在后台播放mp3或是在后台下载 上传文件), 所以, 除非为了保持所有的前端进程和可视进程正常运行外,<br>系统是不会杀掉服务进程的.<br>4：后台进程是持有一个不再被用户可见的Activity(onStop()方法被调用时)的进程. 这些进程不会直接影响用户体验.<br>加入这些进程已经完整的,正确的完成了自己的生命周期(访问Activity查看更多细节), 系统会在为前三种进程释放内存时随时杀掉这些后台进程.<br>通常会有很多的后台进程在运行, 所以这些进程被存放在一个LRU列表中, 以保证在低内存的时候, 最近一个被用户看到的进程会被最后杀掉.<br>5：空进程是没有持有任何活动应用组件的进程. 保留这种进程的唯一理由是为了提供一种缓存机制, 缩短他的应用下次运行时的启动时间. 就其本身而言,<br>系统杀掉这些进程的目的是为了在这些空进程和底层的核心缓存之间平衡整个系统的资源. <a href="http://www.2cto.com/" target="_blank" rel="noopener"> www.2cto.com
-</a><br>当需要给一个进程分类的时候, 系统会在该进程中处于活动状态的所有组件里掉选一个重要等级最高作为分类依据. 查看Activity,<br>Service,和IntentReceiver的文档, 了解每个组件在进程整个生命周期中的贡献.<br>每一个classes的文档详细描述他们在各自应用的生命周期中所起得作用.</p>
-<h1 id="7：application-的context"><a href="#7：application-的context" class="headerlink" title="7：application 的context"></a>7：application 的context</h1><p>1、它描述的是一个应用程序环境的信息，即上下文。<br>2、该类是一个抽象(abstract class)类，Android提供了该抽象类的具体实现类(后面我们会讲到是ContextIml类)。<br>3、通过它我们可以获取应用程序的资源和类，也包括一些应用级别操作，例如：启动一个Activity，发送广播，接受Intent<br>信息 等。。</p>
-
+        <div class="article-meta pull-right">
+          <span class="pc-view">
+            <i class="iconfont icon-view"></i>浏览: <span class="article-timer" data-identity="46848269"></span>
+          </span>
+        </div>
       
     </div>
-    <footer class="article-footer">
-      <a data-url="https://godeofdeath8080.github.io/2015/03/04/44061287/" data-id="cjqhtiq8w002f6ouksp9cpbi7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
-
-    </footer>
   </div>
   
-</article>
-
-
-  
-    <article id="post-43758861" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/02/12/43758861/" class="article-date">
-  <time datetime="2015-02-12T01:39:00.000Z" itemprop="datePublished">2015-02-12</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/02/12/43758861/">android 不常用控件一览</a>
+  <div class="post">
+    <h1 class="article-title">
+      <a href="/2015/04/06/44904009/">
+        <span>webview和js交互的灵活应用</span>
+      </a>
     </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
+    <!-- PC端文章信息 -->
+    <div class="article-top-meta pc-view">
+      <span>
+        发布时间 : 2015-04-06
+      </span>
+    </div>
+    <!-- 移动端文章信息 -->
+    <div class="article-top-meta mobile-view">
+      <span>
+        发布 : 2015-04-06
+      </span>
       
-        <p>1.概述：这里所说的不常见只是相对于  button  ，  textView<br>等这些非常常见的控件而言，并不是说真的很冷爆冷门。这些控件中有为提高效率的如  merge  、  SurfaceView  ，也有为简化代码编写的如<br>GridLayout、  SearchView  ，  还有指导新式  google  风格的如  Viewpage,ActionBar<br>等。在此做一个总览可按需检取</p>
-<p>2.merge:  融合标签，这个标签和  FrameLayout类似，只能通过重力设置布局  (  <a href="http://developer.android.com/reference/android/widget/FrameLayout.LayoutParams
-.html#attr_android:layout_gravity" target="_blank" rel="noopener"> android:layout_gravity </a> )  ，所不同的是  merge<br>标签没有布局层。如下图：上面的是框架布局所形成的布局层，下面的是  merge<br>标签形成的布局层。我们知道在布局应该劲量减少布局的深度以达到优化内存的目的，  merge  标签正是这个作用。</p>
-<p>小提示：在  android xml  布局文件中开头大写的标签必定有相对应的视图类，而小写的标签都是功能性的标签如  include  、<br>fragment  。</p>
-<p>3.RadioGroup  ：这其实是一个常用的控件了。这里提一下的原因是他继承自线性布局，所以只能排一行，若想排两行就得另辟蹊径了。</p>
-<p>4.RatingBar  ：评分控件，他继承自  ProgressBar  ，他通过将触摸点对于的进度值转换成分值。</p>
-<p>5.Switch  ：开关控件，继承自  CompoundButton  ，<br>有一个是否选中的状态，其呈现有两个部分，文字和状态图标，这些和CcheckBox  都是很类似的，其中  CcheckBox  也是继承自<br>CompoundButton。</p>
-<p>6.Space  ：空白控件，就是空白的一块。他是一个轻量级的视图，为什么？分析源码可知这个类的  onDraw  方法什么也不做。所以他比设置一个<br>invisible  的控件填充视图空隙是要省资源的多。</p>
-<p>7.GridLayout：格子布局，GridLayout  能轻松搞定相对或表格布局需复杂实现的功能如计算器，  metro  风格的界面。你不需要设置子视<br>图的宽高，只需要设置他所处的位置和所跨越的格子，当然你若设置了也是有用的，其中的效果和表格布局一样是一个“长板效应”，即最长（宽）的那个格子决定这行（列）的<br>高（宽）。这里提几个主要的属性：</p>
-<p>android:rowCount  ：格子布局有几行</p>
-<p>android:columnCount  ：格子布局有几列</p>
-<p>android:orientation  ：布局方向</p>
-<p>android:layout_column  ：该格子处于第几列</p>
-<p>android:layout_row  ：该格子处于第几行</p>
-<p>android:layout_columnSpan  ：该格子占据几列</p>
-<p>android:layout_rowSpan  ：该格子占据几行</p>
-<p>使用格子布局你可以用这样的思路来使用：把格子布局想象为一个充满布局视图后便另起一行（列）的线性布局。</p>
-<p>8.SearchView  ：搜索控件，其效果是一个可以收缩的控件，也可以通过内容提供者添加搜索历史和搜索建议。在  googleplay<br>的搜索功能就是他实现的。</p>
-<p>9.SlidingDrawer  ：滑动抽屉布局，有微信摇一摇摇出妹子后的效果，不过这个控件已经被废弃了，并没有替代的控件。他由两个部分组成，一个是可见部分<br>，一个是隐藏部分（屉子）。可见部分有一个按钮叫  handle  点击他可以开关抽屉。</p>
-<p>10.TabHost  ：选项卡，虽然没有废弃，但基本上和废弃了差不多。现在实现选项卡功能的方式不可胜计，  TabHost  的确无优点可言。</p>
-<p>11.Gallery  ：也是一个被废弃了的控件，其替代控件是  viewpage  。</p>
-<p>12.VideoView  、  MediaController  ：影音显示和控制控件，  VideoView  是一个继承自  SurfaceView<br>的控件（关于  Surface  下面还会重点讲下），并内置了播放功能可以简单的实现播放功能。  MediaController<br>是一个动态创建的（不要在布局文件中使用。因为他是浮动显示的，像所有的影音软件那样碰下屏幕就在底部显示，过段时间就自动影藏起来）并附加到一个<br>VideoView  的控件，他有暂停，播放等功能。</p>
-<p>13.日期和时间控件：  CalendarView  日历，  Chronometer  计时器，  DigitalClock  数字时钟，<br>AnalogClock  钟表仪器。</p>
-<p>14.ViewAnimator  ：动画切换控件，带动画的视图切换控件，继承自  FrameLayout  ，他有两个动画属性  inAnimation<br>/outAnimation  来控制进出的现实效果，每次都只能显示一个子视图，你可以通过  addView<br>方法添加子视图也可以在布局文件中添加子设图。他的子类有  ImageSwitcher  ，  TextSwitcher  ，  ViewSwitcher<br>，这些子类都只能有两个子视图。  ViewFlipper  也是他的子类，可以添加多个子视图，还可以像幻灯片那样自动播放。</p>
-<p>15.AdapterViewFlipper  ：带适配器的视图幻灯片，只要设置一个设配器便可像幻灯片那样逐一显示。和上面提到的  ViewFlipper<br>一样都是可以自动播放的，当然也可以手动控制。</p>
-<p>16.StackView  ：带适配器的堆视图，不是逐一显示而是堆积层叠显示。和  AdapterViewFlipper  一样都继承自<br>AdapterViewAnimator  类。</p>
-<p>17.ViewStub  ：根视图，一个按需动态显示的控件。通过  android:layout=”@layout/“  预设一个布局（只能接收布局文件且<br>ViewStub  必须置于  ViewGroup  内  ）。再用inflate方法显示。他的优点是可以精确指定视图的位置，他也是一个轻量级的，和<br>Space  控件一样他的  onDraw  方法也是什么也不做。其  inflate方法实现的功能是 parent.addView()<br>，所以他的父视图必须是  ViewGroup  。</p>
-<p>18.GestureOverlayView  ：手势视图控件，其效果如同手写输入法相似，亦可将手势轨迹转换为文件。</p>
-<p>19.：表面视图控件，  android  系统不允许非  ui  线程直接操作视图，必须通过  handle<br>、异步这样的方式更新，但是大量的视图更新（比如游戏）势必造成  ui  线程的堵塞。  SurfaceView  是一种非  ui<br>线程却能在屏幕绘制的控件，这样直接操作的方式大大提高了程序的响应效率。不仅如此据说这个控件是直接和硬件打交道的，所以速度非常之快。  SurfaceView<br>是纵深排序的，他总在所在窗口的后面显示。如果  SurfaceView  的遮挡物是透明的，每次变化都会重新计算其透明效果这是影响性能的。可以通过<br>SurfaceHolder来访问控制  SurfaceView  ，通过<br>getHolder方法取得SurfaceHolder，SurfaceHolder可以添加SurfaceHolder.Callback回调接口来控制<br>SurfaceView</p>
-<p>20.TextureView  ：纹理视图控件，用于  显示内容流，如视频，3d  动画。和  SurfaceView一样他们都不是在ui  线程绘画的<br>,  不同的是  TextureView  有更多的操作，不会像  SurfaceView  一样创建一个单独的窗体，其实  TextureView<br>就是继承自  View  的控件，只能用于硬件加速上。他通过  <a href="http://
-android.toolib.net/reference/android/view/TextureView.SurfaceTextureListener.h
-tml" target="_blank" rel="noopener"> TextureView.SurfaceTextureListener </a> 来获取视图。</p>
-<p>21.ZoomButton/ZoomControls  ：缩放按钮  /  缩放控制，区别是前者只可以缩或放，后者都可以。</p>
-<p>22.TwoLineListItem  ：用于  listview  的一种特定格式，  它需要两个  TextView  （  ID  值为  text1<br>，  text2  ），还有一个可选的第三个  VIew(ID  值为  selectedIcon)  。</p>
-<p>23.DialerFilter  ：字义是拨号过滤，文档也没有解释。可以通过设置  setMode  设置模式，主要由数字和信件两种模式的组合。</p>
-<p>24.其次还有ViewPage  ，  ActionBar  ，  PopMenu  这些虽然是新控件，但是使用的频率已经越来越高，特别是<br>ActionBar  可以说是谷歌风格设计的代表。</p>
-
+        <span>
+        分类 :
+          <a href="/categories/技术笔记/">
+            技术笔记
+          </a>
+        </span>
+      
+      
+        <span>
+          浏览 : <span class="article-timer" data-identity="44904009"></span>
+        </span>
       
     </div>
-    <footer class="article-footer">
-      <a data-url="https://godeofdeath8080.github.io/2015/02/12/43758861/" data-id="cjqhtiq80000w6ouki1u6yh0r" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-43670361" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/02/09/43670361/" class="article-date">
-  <time datetime="2015-02-09T06:15:00.000Z" itemprop="datePublished">2015-02-09</time>
-</a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <!-- 文章简介 -->
+    <div class="article-content">
+      <div class="markdown-body article-content--inner" v-html="mdToHtml(psg.summary)">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/02/09/43670361/">移动开发的英文单词发音</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
+      </div>
+    </div>
+    <div class="article-footer">
+      <div class="article-meta pull-left">
+        <!-- 分类pc端可见 -->
+        <span class="pc-view">
+          
+            <i class="iconfont icon-tag"></i>分类:
+            <a href="/categories/技术笔记/">
+              技术笔记
+            </a>
+          </span>
+          
+        <span>
+          
+            <i class="iconfont icon-06tags"></i>标签:
+            
+              <span class="span--tag">
+                <a href="/tags/android/">
+                  #android
+                </a>
+              </span>
+            
+                    
+        </span>
+      </div>
       
-        <ul>
-<li>原址:<a href="http://blog.csdn.net/hursing/article/details/9212255#comments" target="_blank" rel="noopener">http://blog.csdn.net/hursing/article/details/9212255#comments</a> </li>
-</ul>
-<p>按：在中国还是按chinglish发音通行些</p>
-<p>另水原见闻<a href="http://blog.csdn.net/hursing/article/details/41848931#comments" target="_blank" rel="noopener">http://blog.csdn.net/hursing/article/details/41848931#comments</a></p>
-<p>上 <a href="http://www.youtube.com/" target="_blank" rel="noopener"> http://www.youtube.com </a> 或者 <a href="http://www.youku.com/" target="_blank" rel="noopener"> 优酷
-</a> 搜些视频听听就知道正确读音了。不管怎么说，移动开发都是外国的牛人多些，要做好交流，单词读音的正确性很重要。</p>
-<p>有些单词经常被同事读错，来此做个确认。</p>
-<p>Chrome</p>
-<p>krom 这是google开发者的读音，没有按照以e结尾就发元音的规则。</p>
-<p>Chromium</p>
-<p>这个又发 ou 元音了。  [英]  [ˈkrəʊmiəm]  [美]  [ˈkromiəm]</p>
-<p>Skia</p>
-<p>sgi:ɜ 不知道为什么有人把i发音成æ……</p>
-<p>Safari</p>
-<p>səˈfɑːrɪ 有人喜欢把重音放在第一节，那是不对的</p>
-<p>Android</p>
-<p>ˈænˌdrɔɪd  重音在第一节</p>
-<p>Event</p>
-<p>ɪˈvent 。非常奇怪为什么会有人读 ˈiːvɜnt</p>
-<p>pro</p>
-<p>prəʊ  已经单独成词，表示专业的人或事物，不是表示profession的简写</p>
-<p>Linux</p>
-<p>‘lɪnɪs  虽然不知道为什么u会发音成i，但外国人都这么读。发成ə的同学们还是改改好了。</p>
-<p>project</p>
-<p>‘prɒdʒekt  通常讲SVN会讲到project。这时是名词，重音在第一节。 （当作为动词时才有另一种发音，重音在第二节，读prəˈdʒekt。）</p>
-<p>Dalvik</p>
-<p>‘d  ɔ  lvik  （Android的Java虚拟机）</p>
-<p>gesture</p>
-<p>ˈdʒɛstʃɚ   g是发dʒ不是g</p>
-<p>Ubuntu</p>
-<p>ʊ’bʊntʊ  好多人读成 ju:’bʌntu: 吧。  </p>
-<p>Ajax</p>
-<p>‘eidʒæks  。</p>
-<p>sudo</p>
-<p>‘sʊdʊ 重音在第一节</p>
-<p>widget</p>
-<p>‘widʒit 。 g发dʒ音，和gesture一样。  </p>
-<p>bash</p>
-<p>bæʃ</p>
-<p>WIFI</p>
-<p>‘waɪ,faɪ  </p>
-<p>MySQL</p>
-<p>就是My S Q L。没有连读，Oracle的人这样读的。国内一些人连读成 my circle，真想知道谁带头的</p>
-<p>SQLite</p>
-<p>S Q Lite。google的人这样读</p>
-<p>width</p>
-<p>[wɪdθ]  </p>
-<p>height</p>
-<p>[haɪt]， 不是[heit]  </p>
-<p>margin</p>
-<p>[‘mɑ:dʒɪn], g 发 dʒ音</p>
-<p>github</p>
-<p>ɡɪt  hʌb  </p>
-<p>gnome</p>
-<p>[nəum] ,g不发音  </p>
-<p>flinger</p>
-<p>[f’lɪnɡər]</p>
-<p>grep</p>
-<p>[‘grep]  </p>
-<p>sed</p>
-<p>sæd</p>
-<p>cydia</p>
-<p>‘sɪdɪə</p>
-<p>doxygen</p>
-<p>‘dɔksi’dʒæn</p>
-<p>delegate</p>
-<p>ˈdɛlɪˌɡet   注：美音听起来后面的音节会像 ɡeɪt</p>
-<h2 id="文章分类"><a href="#文章分类" class="headerlink" title="文章分类"></a>文章分类</h2><ul>
-<li><a href="http://xuyingpin.blogbus.com/c1548452/" target="_blank" rel="noopener"> 单片机  [3]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/c1548453/" target="_blank" rel="noopener"> 计算机维修  [21]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/c1548454/" target="_blank" rel="noopener"> 今日主题曲  [8]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/c1548455/" target="_blank" rel="noopener"> 其它  [106]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/c1548457/" target="_blank" rel="noopener"> 嵌入式软件  [27]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/c1548458/" target="_blank" rel="noopener"> 嵌入式硬件  [29]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/c1548459/" target="_blank" rel="noopener"> 社科  [12]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/c1549833/" target="_blank" rel="noopener"> 好玩的  [51]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/c1549840/" target="_blank" rel="noopener"> 软件/算法  [19]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/c1880940/" target="_blank" rel="noopener"> 记事簿  [12]  </a></li>
-</ul>
-<h2 id="Tag"><a href="#Tag" class="headerlink" title="Tag"></a>Tag</h2><ul>
-<li><a href="http://xuyingpin.blogbus.com/tag/winmobile/" target="_blank" rel="noopener"> winmobile  [3]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/Control/" target="_blank" rel="noopener"> Control  [3]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/DataGrid/" target="_blank" rel="noopener"> DataGrid  [3]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/android/" target="_blank" rel="noopener"> android  [2]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/%E8%BF%87%E6%BB%A4%E9%A9%B1%E5%8A%A8,filter/" target="_blank" rel="noopener"> 过滤驱动,filter  [2]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/Microsoft/" target="_blank" rel="noopener"> Microsoft  [2]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/%E8%8B%B1%E6%96%87%E5%8F%91%E9%9F%B3/" target="_blank" rel="noopener"> 英文发音  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/View/" target="_blank" rel="noopener"> View  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/ViewGroup/" target="_blank" rel="noopener"> ViewGroup  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/%E6%96%AF%E5%AF%86/" target="_blank" rel="noopener"> 斯密  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/%E4%BA%9A%E5%BD%93/" target="_blank" rel="noopener"> 亚当  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/%E5%90%B4%E6%99%93%E6%B3%A2/" target="_blank" rel="noopener"> 吴晓波  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/%E7%B2%98%E5%8C%85/" target="_blank" rel="noopener"> 粘包  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/socket/" target="_blank" rel="noopener"> socket  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/TCP/" target="_blank" rel="noopener"> TCP  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/wifi%E4%BF%A1%E9%81%93%E9%94%99%E5%BC%80%E6%96%B9%E6%B3%95/" target="_blank" rel="noopener"> wifi信道错开方法  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BDso/" target="_blank" rel="noopener"> 动态加载so  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/usb%E8%BD%AC232/" target="_blank" rel="noopener"> usb转232  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/%E5%8E%86%E5%8F%B2%E8%99%9A%E6%97%A0%E4%B8%BB%E4%B9%89/" target="_blank" rel="noopener"> 历史虚无主义  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/FSI/" target="_blank" rel="noopener"> FSI  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/BSI/" target="_blank" rel="noopener"> BSI  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/5642/" target="_blank" rel="noopener"> 5642  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/%E5%86%9B%E6%9C%BA%E5%A4%84/" target="_blank" rel="noopener"> 军机处  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/NV21/" target="_blank" rel="noopener"> NV21  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/YUV420/" target="_blank" rel="noopener"> YUV420  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/YUV422/" target="_blank" rel="noopener"> YUV422  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/FPC%E4%BB%8B%E7%94%B5%E5%B8%B8%E6%95%B0/" target="_blank" rel="noopener"> FPC介电常数  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/manchester/" target="_blank" rel="noopener"> manchester  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/RFID/" target="_blank" rel="noopener"> RFID  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/dhcp/" target="_blank" rel="noopener"> dhcp  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/wifi/" target="_blank" rel="noopener"> wifi  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/%E7%A0%96%E5%A4%B4/" target="_blank" rel="noopener"> 砖头  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/6575/" target="_blank" rel="noopener"> 6575  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/%E6%AF%9B/" target="_blank" rel="noopener"> 毛  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/%E5%8D%97%E6%96%B9%E7%B3%BB/" target="_blank" rel="noopener"> 南方系  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/wifi%E7%A0%B4%E8%A7%A3/" target="_blank" rel="noopener"> wifi破解  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/bug/" target="_blank" rel="noopener"> bug  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/implements/" target="_blank" rel="noopener"> implements  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/extends/" target="_blank" rel="noopener"> extends  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/%E6%9C%9B%E8%BF%9C%E9%95%9C/" target="_blank" rel="noopener"> 望远镜  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/%E4%BC%BD%E5%88%A9%E7%95%A5%E6%9C%9B%E8%BF%9C%E9%95%9C/" target="_blank" rel="noopener"> 伽利略望远镜  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/%E5%BC%80%E6%99%AE%E5%8B%92/" target="_blank" rel="noopener"> 开普勒  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/SCCB/" target="_blank" rel="noopener"> SCCB  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/Vf/" target="_blank" rel="noopener"> Vf  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/Schottky/" target="_blank" rel="noopener"> Schottky  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/regulator/" target="_blank" rel="noopener"> regulator  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/5-teminal/" target="_blank" rel="noopener"> 5-teminal  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/3-terminal/" target="_blank" rel="noopener"> 3-terminal  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/iphlpapi/" target="_blank" rel="noopener"> iphlpapi  [1]  </a></li>
-<li><a href="http://xuyingpin.blogbus.com/tag/rndis/" target="_blank" rel="noopener"> rndis  [1]  </a></li>
-</ul>
-<p><a href="http://xuyingpin.blogbus.com/tags/" target="_blank" rel="noopener"> More.. </a></p>
-<h2 id="最新文章"><a href="#最新文章" class="headerlink" title="最新文章"></a>最新文章</h2><ul>
-<li><a href="http://www.blogbus.com/xuyingpin-logs/272065118.html" target="_blank" rel="noopener"> 移动开发的英文单词发音[转] </a></li>
-<li><a href="http://www.blogbus.com/xuyingpin-logs/271757991.html" target="_blank" rel="noopener"> 没有一个产业政策成功[转] </a></li>
-<li><a href="http://www.blogbus.com/xuyingpin-logs/271492944.html" target="_blank" rel="noopener"> 吴晓波：马云马化腾对公共话题关注不够却成意见领袖[转] </a></li>
-<li><a href="http://www.blogbus.com/xuyingpin-logs/270354927.html" target="_blank" rel="noopener"> TCP socket程序发送短字节时会一起发送[转] </a></li>
-<li><a href="http://www.blogbus.com/xuyingpin-logs/270311513.html" target="_blank" rel="noopener"> 1986年[转] </a></li>
-<li><a href="http://www.blogbus.com/xuyingpin-logs/263713614.html" target="_blank" rel="noopener"> wifi信道错开方法 </a></li>
-<li><a href="http://www.blogbus.com/xuyingpin-logs/263713131.html" target="_blank" rel="noopener"> android动态加载.so[转] </a></li>
-<li><a href="http://www.blogbus.com/xuyingpin-logs/263186364.html" target="_blank" rel="noopener"> 于丹式“心灵鸡汤”考：中国特色普世价值[转] </a></li>
-<li><a href="http://www.blogbus.com/xuyingpin-logs/260065967.html" target="_blank" rel="noopener"> usb转232系列芯片 </a></li>
-<li><a href="http://www.blogbus.com/xuyingpin-logs/256231489.html" target="_blank" rel="noopener"> 清人对”封建”的两种评议[转] </a></li>
-</ul>
-<p><a href="http://xuyingpin.blogbus.com/logs/" target="_blank" rel="noopener"> 全部日志&gt;&gt; </a></p>
-<h2 id="最新评论"><a href="#最新评论" class="headerlink" title="最新评论"></a>最新评论</h2><ul>
-<li>alex  ： <a href="http://www.blogbus.com/xuyingpin-logs/72300433.html#cmt" target="_blank" rel="noopener"> 四年多没联系了。经理现在在做什么项目呢？… </a></li>
-<li>yy  ： <a href="http://www.blogbus.com/xuyingpin-logs/22165656.html#cmt" target="_blank" rel="noopener"> 楼主，我也遇到同你一样的问题，你能把你怎么解决的说的更详… </a></li>
-<li>sailsmoon  ： <a href="http://www.blogbus.com/xuyingpin-logs/20950200.html#cmt" target="_blank" rel="noopener"> 如果用三极管作开关管高侧和地侧管子导通不能用同一个电压触… </a></li>
-<li>vbsoft  ： <a href="http://www.blogbus.com/xuyingpin-logs/11164392.html#cmt" target="_blank" rel="noopener"> 请问楼主可以对小弟进行知道么,我近来正在做一个这方面的开… </a></li>
-<li><a href="http://arakakihitoe.blogcn.com/index.shtml" target="_blank" rel="noopener"> 默默（嘿，是阳光） </a> ： <a href="http://www.blogbus.com/xuyingpin-logs/20832990.html#cmt" target="_blank" rel="noopener"> 连你自己也懒得来么．… </a></li>
-<li><p><a href="http://arakakihitoe.blogcn.com/index.shtml" target="_blank" rel="noopener"> 默默（嘿，是阳光） </a> ： <a href="http://xuyingpin.blogbus.com/logs/27085371.html#cmt" target="_blank" rel="noopener"> 不知道能回复成功否． 这里真的很安全呢． 终于转… </a></p>
-</li>
-<li><p><a href="http://xuyingpin.blogbus.com/index.rdf" target="_blank" rel="noopener"> <img src="http://www.blogbus.com/images/site-v3/rss.gif" alt="RSS"> </a> <a href="http://www.blogbus.com/xuyingpin-logs/5452786.html" target="_blank" rel="noopener"> 什么是RSS？ </a></p>
-</li>
-</ul>
-<p><a href="http://inezha.com/add2?hid=2320&amp;url=http://xuyingpin.blogbus.com/index.rdf" target="_blank" rel="noopener"> <img src="http://public.blogbus.com/rss/anothr.gif" alt="用IM提醒我内容更新">
-</a></p>
-<p><a href="http://mail.qq.com
-/cgi-bin/feed?u=http://xuyingpin.blogbus.com/index.rdf" target="_blank" rel="noopener"> <img src="http://public.blogbus.com/rss/qqmail.png" alt="订阅到QQ邮箱"> </a></p>
-<p><a href="http://www.xianguo.
-com/subscribe.php?url=http://xuyingpin.blogbus.com/index.rdf" target="_blank" rel="noopener"> <img src="http://public.blogbus.com/rss/xianguo.png" alt="订阅到鲜果阅读器"> </a></p>
-<p><a href="http://fusion.google.com/add?feedurl=http://xuyingpin.blogbus.com/index.rdf" target="_blank" rel="noopener"> <img src="http://public.blogbus.com/rss/google.png" alt="订阅到Google阅读器">
-</a></p>
-<p><a href="http://www.zhuaxia.
-com/add_channel.php?url=http://xuyingpin.blogbus.com/index.rdf" target="_blank" rel="noopener"> <img src="http://public.blogbus.com/rss/zhuaxia.png" alt="订阅到抓虾阅读器"> </a></p>
-<ul>
-<li><a href="http://www.blogbus.com/" target="_blank" rel="noopener"> <img src="http://www.blogbus.com/images/site-v3/link_blogbus.gif" alt="博客大巴"> </a></li>
-</ul>
-<p><a href="http://bangzhuzhongxin.blogbus.com/" target="_blank" rel="noopener"> 博客大巴使用指南 </a></p>
-<p><a href="http://www.blogbus.com/skin/" target="_blank" rel="noopener"> 博客大巴模板中心 </a></p>
-<p><a href="http://passport.blogbus.com/register_form" target="_blank" rel="noopener"> 免费注册博客大巴 </a></p>
-<p><a href="http://banjia.blogbus.com/" target="_blank" rel="noopener"> 一键博客搬家工具 </a></p>
-<p><a href="http://www.icity.cn/" target="_blank" rel="noopener"> 中文互动杂志城客 </a></p>
-<h1 id="沉闷的世界"><a href="#沉闷的世界" class="headerlink" title=" 沉闷的世界 "></a><a href="http://xuyingpin.blogbus.com/" target="_blank" rel="noopener"> 沉闷的世界 </a></h1><p>沉闷的世界,关于技术,关于其它,个人日志,没有很多图片,没有很多声音</p>
-<p><a href="http://www.blogbus.com/xuyingpin-logs/271757991.html" target="_blank" rel="noopener"> &lt;&lt;  没有一个产业政策成功[转] </a> |<br><a href="http://xuyingpin.blogbus.com/" target="_blank" rel="noopener"> 首页 </a> |</p>
-<ul>
-<li><h2 id="移动开发的英文单词发音-转-好玩的"><a href="#移动开发的英文单词发音-转-好玩的" class="headerlink" title="移动开发的英文单词发音[转]  - [  好玩的  ]"></a>移动开发的英文单词发音[转]  - [ <a href="http://xuyingpin.blogbus.com/c1549833/" target="_blank" rel="noopener"> 好玩的 </a> ]</h2></li>
-</ul>
-<h3 id="2014-12-26"><a href="#2014-12-26" class="headerlink" title="2014-12-26"></a>2014-12-26</h3><p><a href="http://creativecommons.org/licenses/by/3.0/deed.zh" target="_blank" rel="noopener"> 版权声明 </a><br>：转载时请以超链接形式标明文章原始出处和作者信息及 <a href="http://www.blogbus.com/bangzhuzhongxin-
-logs/11205960.html" target="_blank" rel="noopener"> 本声明 </a><br><a href="http://www.blogbus.com/xuyingpin-logs/272065118.html" target="_blank" rel="noopener"> http://www.blogbus.com/xuyingpin-logs/272065118.html
-</a>  </p>
-<p>原址:<a href="http://blog.csdn.net/hursing/article/details/9212255#comments" target="_blank" rel="noopener">http://blog.csdn.net/hursing/article/details/9212255#comments</a></p>
-<p>按：在中国还是按chinglish发音通行些</p>
-<p>另水原见闻<a href="http://blog.csdn.net/hursing/article/details/41848931#comments" target="_blank" rel="noopener">http://blog.csdn.net/hursing/article/details/41848931#comments</a></p>
-<p>上 <a href="http://www.youtube.com/" target="_blank" rel="noopener"> http://www.youtube.com </a> 或者 <a href="http://www.youku.com/" target="_blank" rel="noopener"> 优酷
-</a> 搜些视频听听就知道正确读音了。不管怎么说，移动开发都是外国的牛人多些，要做好交流，单词读音的正确性很重要。</p>
-<p>有些单词经常被同事读错，来此做个确认。</p>
-<p>Chrome</p>
-<p>krom 这是google开发者的读音，没有按照以e结尾就发元音的规则。</p>
-<p>Chromium</p>
-<p>这个又发 ou 元音了。  [英]  [ˈkrəʊmiəm]  [美]  [ˈkromiəm]</p>
-<p>Skia</p>
-<p>sgi:ɜ 不知道为什么有人把i发音成æ……</p>
-<p>Safari</p>
-<p>səˈfɑːrɪ 有人喜欢把重音放在第一节，那是不对的</p>
-<p>Android</p>
-<p>ˈænˌdrɔɪd  重音在第一节</p>
-<p>Event</p>
-<p>ɪˈvent 。非常奇怪为什么会有人读 ˈiːvɜnt</p>
-<p>pro</p>
-<p>prəʊ  已经单独成词，表示专业的人或事物，不是表示profession的简写</p>
-<p>Linux</p>
-<p>‘lɪnɪs  虽然不知道为什么u会发音成i，但外国人都这么读。发成ə的同学们还是改改好了。</p>
-<p>project</p>
-<p>‘prɒdʒekt  通常讲SVN会讲到project。这时是名词，重音在第一节。 （当作为动词时才有另一种发音，重音在第二节，读prəˈdʒekt。）</p>
-<p>Dalvik</p>
-<p>‘d  ɔ  lvik  （Android的Java虚拟机）</p>
-<p>gesture</p>
-<p>ˈdʒɛstʃɚ   g是发dʒ不是g</p>
-<p>Ubuntu</p>
-<p>ʊ’bʊntʊ  好多人读成 ju:’bʌntu: 吧。  </p>
-<p>Ajax</p>
-<p>‘eidʒæks  。</p>
-<p>sudo</p>
-<p>‘sʊdʊ 重音在第一节</p>
-<p>widget</p>
-<p>‘widʒit 。 g发dʒ音，和gesture一样。  </p>
-<p>bash</p>
-<p>bæʃ</p>
-<p>WIFI</p>
-<p>‘waɪ,faɪ  </p>
-<p>MySQL</p>
-<p>就是My S Q L。没有连读，Oracle的人这样读的。国内一些人连读成 my circle，真想知道谁带头的</p>
-<p>SQLite</p>
-<p>S Q Lite。google的人这样读</p>
-<p>width</p>
-<p>[wɪdθ]  </p>
-<p>height</p>
-<p>[haɪt]， 不是[heit]  </p>
-<p>margin</p>
-<p>[‘mɑ:dʒɪn], g 发 dʒ音</p>
-<p>github</p>
-<p>ɡɪt  hʌb  </p>
-<p>gnome</p>
-<p>[nəum] ,g不发音  </p>
-<p>flinger</p>
-<p>[f’lɪnɡər]</p>
-<p>grep</p>
-<p>[‘grep]  </p>
-<p>sed</p>
-<p>sæd</p>
-<p>cydia</p>
-<p>‘sɪdɪə</p>
-<p>doxygen</p>
-<p>‘dɔksi’dʒæn</p>
-<p>delegate</p>
-<p>ˈdɛlɪˌɡet   注：美音听起来后面的音节会像 ɡeɪt</p>
-
+        <div class="article-meta pull-right">
+          <span class="pc-view">
+            <i class="iconfont icon-view"></i>浏览: <span class="article-timer" data-identity="44904009"></span>
+          </span>
+        </div>
       
     </div>
-    <footer class="article-footer">
-      <a data-url="https://godeofdeath8080.github.io/2015/02/09/43670361/" data-id="cjqhtiq8u002d6oukep7uprpn" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
-
-    </footer>
   </div>
   
-</article>
-
-
-  
-    <article id="post-43490569" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/02/04/43490569/" class="article-date">
-  <time datetime="2015-02-04T10:46:00.000Z" itemprop="datePublished">2015-02-04</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/02/04/43490569/">android JNI 配置中遇到的一些问题</a>
+  <div class="post">
+    <h1 class="article-title">
+      <a href="/2015/03/04/44061287/">
+        <span>android Application类的详细介绍</span>
+      </a>
     </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
+    <!-- PC端文章信息 -->
+    <div class="article-top-meta pc-view">
+      <span>
+        发布时间 : 2015-03-04
+      </span>
+    </div>
+    <!-- 移动端文章信息 -->
+    <div class="article-top-meta mobile-view">
+      <span>
+        发布 : 2015-03-04
+      </span>
       
-        <p>1.工程导入后报找不到SH命令 在preference下NDK里配置下路径</p>
-<p>2.导入后eclipse C++编辑器代码报错  修改C++代码分析里的配置如图</p>
-<p><img src="http://h.hiphotos.baidu.com/zhidao/wh%3D600%2C800/sign=86676b0c5266d0167e4
-c962ea71bf83f/9825bc315c6034a8e1635040cb1349540823766a.jpg" alt="">  </p>
-
+        <span>
+        分类 :
+          <a href="/categories/技术笔记/">
+            技术笔记
+          </a>
+        </span>
+      
+      
+        <span>
+          浏览 : <span class="article-timer" data-identity="44061287"></span>
+        </span>
       
     </div>
-    <footer class="article-footer">
-      <a data-url="https://godeofdeath8080.github.io/2015/02/04/43490569/" data-id="cjqhtiq7u000q6ouk3e1rkaf7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-43237353" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/01/28/43237353/" class="article-date">
-  <time datetime="2015-01-28T12:33:00.000Z" itemprop="datePublished">2015-01-28</time>
-</a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <!-- 文章简介 -->
+    <div class="article-content">
+      <div class="markdown-body article-content--inner" v-html="mdToHtml(psg.summary)">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/28/43237353/">如何解决Android SDK中离线文档打开慢的问题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
+      </div>
+    </div>
+    <div class="article-footer">
+      <div class="article-meta pull-left">
+        <!-- 分类pc端可见 -->
+        <span class="pc-view">
+          
+            <i class="iconfont icon-tag"></i>分类:
+            <a href="/categories/技术笔记/">
+              技术笔记
+            </a>
+          </span>
+          
+        <span>
+          
+            <i class="iconfont icon-06tags"></i>标签:
+            
+              <span class="span--tag">
+                <a href="/tags/android/">
+                  #android
+                </a>
+              </span>
+            
+                    
+        </span>
+      </div>
       
-        <p>转载这位兄弟的<a href="http://blog.csdn.net/hansel/article/details/39268511" target="_blank" rel="noopener">http://blog.csdn.net/hansel/article/details/39268511</a><br>在chrome上安装插件打开docs成功  </p>
-<p>Android SDK中的离线文档虽然都是本地文件，但是有很多Javascript, CSS需要连接Google的服务器，因此造成打开速度很慢。</p>
-<p>一种方法是全部去除这些引用，但是600M的离线文件进行修改会有很大工作量。而且，一旦离线文档升级又要重新维护。</p>
-<p>另外一种方法是使浏览器打开这些html文档时使用离线模式。</p>
-<p>如果是IE浏览器：勾选”File” – “Work Offline”  </p>
-<p>如果是Firefox浏览器，在浏览离线文档时，在File菜单中勾上”Work Offline”</p>
-<p>也可以安装脱机插件浏览插件Work Offline 2.0：<a href="https://addons.mozilla.org/zh-CN/firefox/addon" target="_blank" rel="noopener">https://addons.mozilla.org/zh-CN/firefox/addon</a><br>/work-offline/?src=userprofile</p>
-<p>如果是Chrome浏览器，它本身没有Offline<br>Mode，不过可以安装一个proxy管理插件，例如Switchysharp，然后设置一个不存在的地址。这样迂回实现Offline模式。</p>
-<p>也有好心的兄弟写了一个Chrome浏览器插件Android Offline Doc，安装方法：</p>
-<ul>
-<li>到 <a href="https://github.com/xesam/android_offline_doc_plugin" target="_blank" rel="noopener"> https://github.com/xesam/android_offline_doc_plugin </a> 下载整个zip包 </li>
-<li>解压到一个目录 </li>
-<li>打开Chrome，”Tools” – “Extension”，勾选”Developer mode” </li>
-<li>点击”Load unpacked extension”按钮，找到刚才解压的目录下的plugin目录，插件安装完毕 </li>
-<li>使用时，请点击Android机器人图标，等它上面叠加了”ON”字样后就屏蔽了对google的访问，相当由于离线浏览，但只对Google网站生效。 </li>
-</ul>
-<p>还可以浏览国内的镜像网站：</p>
-<p><a href="http://android-doc.com/" target="_blank" rel="noopener"> http://android-doc.com/ </a>  </p>
-<p><a href="http://android.toolib.net/" target="_blank" rel="noopener"> http://android.toolib.net/ </a>  </p>
-<p><a href="http://www.apkbus.com/design/" target="_blank" rel="noopener"> http://www.apkbus.com/design/ </a></p>
-<p>参考文档：</p>
-<p>How to Work Offline in Mozilla Firefox: <a href="http://www.wikihow.com/Work-Offline-in-Mozilla-Firefox" target="_blank" rel="noopener"> http://www.wikihow.com/Work-Offline-<br>in-Mozilla-Firefox </a>  </p>
-<p><a href="http://blog.csdn.net/sgl1990_07/article/details/9491239" target="_blank" rel="noopener"> http://blog.csdn.net/sgl1990_07/article/details/9491239
-</a>  </p>
-<p>【Chrome】扩展——Android离线文档： <a href="http://my.oschina.net/xesam/blog/283740" target="_blank" rel="noopener"> http://my.oschina.net/xesam/blog/283740
-</a></p>
-
+        <div class="article-meta pull-right">
+          <span class="pc-view">
+            <i class="iconfont icon-view"></i>浏览: <span class="article-timer" data-identity="44061287"></span>
+          </span>
+        </div>
       
     </div>
-    <footer class="article-footer">
-      <a data-url="https://godeofdeath8080.github.io/2015/01/28/43237353/" data-id="cjqhtiq7r000n6ouk0ijtwr63" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
-
-    </footer>
   </div>
   
-</article>
-
-
-  
-    <article id="post-41827279" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/12/09/41827279/" class="article-date">
-  <time datetime="2014-12-09T10:34:00.000Z" itemprop="datePublished">2014-12-09</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/09/41827279/">各视频网站在Webview中接入用html代码示例 长期更新</a>
+  <div class="post">
+    <h1 class="article-title">
+      <a href="/2015/02/12/43758861/">
+        <span>android 不常用控件一览</span>
+      </a>
     </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
+    <!-- PC端文章信息 -->
+    <div class="article-top-meta pc-view">
+      <span>
+        发布时间 : 2015-02-12
+      </span>
+    </div>
+    <!-- 移动端文章信息 -->
+    <div class="article-top-meta mobile-view">
+      <span>
+        发布 : 2015-02-12
+      </span>
       
-        <p>我使用的测试机是Nexus5 android5.0，因为从4.4开始WebView内核从Webkit换成了Chromium  ，所以HTML里的embed标<br>签会显示无法加载flash插件，这个问题在google论坛和stackoverflow游荡了好久没有解决，后来发现video标签是可以的.</p>
-<pre><code>&lt;html&gt;
- &lt;body&gt;
-  &lt;video src=&quot;你在本地服务器上上传的MP4/3GP文件&quot;controls=&quot;controls&quot;autoplay=&quot;autoplay&quot; width=&quot;100%&quot;&gt;
-  &lt;/video&gt;
- &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p>4.4以上系统版本视频自动播放需要加上，之前的版本可以用video标签，也可以用embed标签，但是不需要加下面的这段；</p>
-<pre><code>webView.setWebViewClient(new MyWebViewClient() {
- public void onPageFinished(WebView view, String url) {
-  webView.loadUrl(&quot;javascript:(function() { var videos = document.getElementsByTagName(&apos;video&apos;); for(var i=0;i&lt;videos.length;i++){videos[i].play();}})()&quot;);}
-});
-</code></pre><p>其他视频网站在自己的开发者网站提供了一些API，奈何很多跟不上版本变化，或者变化太快网络上的一些方法已不适用，或者干脆试验不出来，现在整理一些研究出来可行的<br>。</p>
-<p><strong> 优酷 </strong><br>接入方法：使用div+script标签。</p>
-<p>步骤：1.首先在优酷开发者中心注册，再添加你的移动应用生成一个client_id，每个client_id有效使用次数10W次；</p>
-<p>2.从视频分享地址里解析出该视频对应的vid，然后添加到下面HTML代码里，比如<a href="http://player.youku.com/player.php/Typ" target="_blank" rel="noopener">http://player.youku.com/player.php/Typ</a><br>e/Folder/Fid/23177637/Ob/1/sid/XODQ1MDA2MDY4/v.swf 这里XODQ1MDA2MDY4即为vid。</p>
-<pre><code>    &lt;html&gt;
-     &lt;body&gt;
-      &lt;div id=&apos;youkuplayer&apos; style=&apos;width:50%;height:50%&apos;&gt;
-&lt;span style=&quot;white-space:pre&quot;&gt;    &lt;/span&gt;&lt;script type=&apos;text/javascript&apos; src=&apos;http://player.youku.com/jsapi&apos;&gt;
- &lt;span style=&quot;white-space:pre&quot;&gt;    &lt;/span&gt;   player = new YKU.Player(&apos;youkuplayer&apos;,{styleid: &apos;0&apos;,client_id: &apos;您申请的client_id&apos;,vid: &apos;XODQ1MDA2MDY4&apos;,autoplay: true,embsig: &apos;VERSION_TIMESTAMP_SIGNATURE&apos;});
-       &lt;/script&gt;
-      &lt;/div&gt;
-     &lt;/body&gt;
-    &lt;/html&gt;
-</code></pre><p><strong> 土豆 </strong><br>接入方法：土豆很方便，直接复制分享里的通用代码到HTML就可以播放<br>html示例：  </p>
-<pre><code>&lt;html&gt;
- &lt;body&gt;
-  &lt;iframe src=&quot;http://www.tudou.com/programs/view/html5embed.action?code=kbPzDzCIeBE&amp;autoPlay=false&amp;playType=AUTO&quot; width=&quot;50%&quot; height=&quot;50%&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;
-  &lt;/iframe&gt;
- &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p><strong> 新浪 </strong><br>接入方法：video标签 这是爱问分享的地址 这里修正下  </p>
-<pre><code>&lt;html&gt;
- &lt;body&gt; 
-  &lt;video src=&quot;http://v.iask.com/v_play_ipad.php?vid=106974538&quot; controls=&quot;controls&quot; width=&quot;100%&quot;&gt;[video:sn106977013:size:320x180]
-  &lt;/video&gt;
- &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p><strong> 腾讯 </strong><br>接入方法：iframe标签，使用方法同土豆，复制分享里的通用代码  </p>
-<pre><code>&lt;html&gt;
- &lt;body&gt; 
-  &lt;iframe frameborder=0 src=\&quot;http://v.qq.com/iframe/player.html?vid=l0015mzb2ic&amp;tiny=0&amp;auto=0\&quot; allowfullscreen&gt;
-  &lt;/iframe&gt;
- &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p><strong> 56网 </strong><br>接入方法：iframe标签，使用方法同土豆，复制分享里的iframe代码  </p>
-<pre><code>&lt;html&gt;
- &lt;body&gt;
-  &lt;iframe src=&quot;http://www.56.com/iframe/MTMyMTg2MTIw&quot; width=&quot;320&quot; height=&quot;270&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;
-  &lt;/iframe&gt;
- &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p>酷6 <a href="http://dev.ku6.com/?q=node/5" target="_blank" rel="noopener">http://dev.ku6.com/?q=node/5</a> 酷6给的API没有实验成功，那位朋友有经验可以跟帖实验<br>搜狐 <a href="http://open.sohu.com/wiki/api/v_upload_add.html" target="_blank" rel="noopener">http://open.sohu.com/wiki/api/v_upload_add.html</a> 没有提供播放视频接入，其他标签试了也不行</p>
-
+        <span>
+        分类 :
+          <a href="/categories/技术笔记/">
+            技术笔记
+          </a>
+        </span>
+      
+      
+        <span>
+          浏览 : <span class="article-timer" data-identity="43758861"></span>
+        </span>
       
     </div>
-    <footer class="article-footer">
-      <a data-url="https://godeofdeath8080.github.io/2014/12/09/41827279/" data-id="cjqhtiq7w000t6oukxoxehhxx" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-41701429" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/12/03/41701429/" class="article-date">
-  <time datetime="2014-12-03T11:23:00.000Z" itemprop="datePublished">2014-12-03</time>
-</a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术笔记/">技术笔记</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <!-- 文章简介 -->
+    <div class="article-content">
+      <div class="markdown-body article-content--inner" v-html="mdToHtml(psg.summary)">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/03/41701429/">android webView 加载HTML代码使用loadData方法中文乱码问题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
+      </div>
+    </div>
+    <div class="article-footer">
+      <div class="article-meta pull-left">
+        <!-- 分类pc端可见 -->
+        <span class="pc-view">
+          
+            <i class="iconfont icon-tag"></i>分类:
+            <a href="/categories/技术笔记/">
+              技术笔记
+            </a>
+          </span>
+          
+        <span>
+          
+            <i class="iconfont icon-06tags"></i>标签:
+            
+              <span class="span--tag">
+                <a href="/tags/android/">
+                  #android
+                </a>
+              </span>
+            
+                    
+        </span>
+      </div>
       
-        <p>使用 loadData方法是中文部分会出现乱码，即使指定“utf-8”、“gbk”、“gb2312”也一样。</p>
-<pre><code>    webView.getSettings().setDefaultTextEncodingName(&quot;UTF -8&quot;);//设置默认为utf-8
-//        webView.loadData(data, &quot;text/html&quot;, &quot;UTF -8&quot;);//API提供的标准用法，无法解决乱码问题
-        webView.loadData(data, &quot;text/html; charset=UTF-8&quot;, null);//这种写法可以正确解码
-</code></pre><p>原因如下:<br>乱码<br>如果用  loadDataWithBaseURL时,如果不传入URL时,刷新会造成白屏,因为刷新时调用的的是reload方法,reload是根据传入的URL<br>进行一次重新加载即再次loadUrl(url),不传入URL时,默认的的URL是about:blank  </p>
-<p>可以使用  loadData,刷新只是从缓存里面取，但是在4.0以上的,如果按照API里所写的  loadData  (  data,  “UTF-8”<br>,  null  );时会乱码,如果写成loadData(data, “text/html; charset=UTF-8”,<br>null);loadData最终的机制是会把传入的三个参数拼接在一起,然后再进行loadUrl操作,参数就是data, “text/html;<br>charset=UTF-8”, null这三个进行拼装,加入text/html; charset=UTF-8就相当于限定了页面的字符  </p>
-
+        <div class="article-meta pull-right">
+          <span class="pc-view">
+            <i class="iconfont icon-view"></i>浏览: <span class="article-timer" data-identity="43758861"></span>
+          </span>
+        </div>
       
     </div>
-    <footer class="article-footer">
-      <a data-url="https://godeofdeath8080.github.io/2014/12/03/41701429/" data-id="cjqhtiq7o000k6ouk6jnttfvg" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
-
-    </footer>
   </div>
   
-</article>
-
-
+  <div class="post">
+    <h1 class="article-title">
+      <a href="/2015/02/09/43670361/">
+        <span>移动开发的英文单词发音</span>
+      </a>
+    </h1>
+    <!-- PC端文章信息 -->
+    <div class="article-top-meta pc-view">
+      <span>
+        发布时间 : 2015-02-09
+      </span>
+    </div>
+    <!-- 移动端文章信息 -->
+    <div class="article-top-meta mobile-view">
+      <span>
+        发布 : 2015-02-09
+      </span>
+      
+        <span>
+        分类 :
+          <a href="/categories/技术笔记/">
+            技术笔记
+          </a>
+        </span>
+      
+      
+        <span>
+          浏览 : <span class="article-timer" data-identity="43670361"></span>
+        </span>
+      
+    </div>
+    
+    <!-- 文章简介 -->
+    <div class="article-content">
+      <div class="markdown-body article-content--inner" v-html="mdToHtml(psg.summary)">
+        
+      </div>
+    </div>
+    <div class="article-footer">
+      <div class="article-meta pull-left">
+        <!-- 分类pc端可见 -->
+        <span class="pc-view">
+          
+            <i class="iconfont icon-tag"></i>分类:
+            <a href="/categories/技术笔记/">
+              技术笔记
+            </a>
+          </span>
+          
+        <span>
+          
+            <i class="iconfont icon-06tags"></i>标签:
+            
+              <span class="span--tag">
+                <a href="/tags/android/">
+                  #android
+                </a>
+              </span>
+            
+                    
+        </span>
+      </div>
+      
+        <div class="article-meta pull-right">
+          <span class="pc-view">
+            <i class="iconfont icon-view"></i>浏览: <span class="article-timer" data-identity="43670361"></span>
+          </span>
+        </div>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="article-title">
+      <a href="/2015/02/04/43490569/">
+        <span>android JNI 配置中遇到的一些问题</span>
+      </a>
+    </h1>
+    <!-- PC端文章信息 -->
+    <div class="article-top-meta pc-view">
+      <span>
+        发布时间 : 2015-02-04
+      </span>
+    </div>
+    <!-- 移动端文章信息 -->
+    <div class="article-top-meta mobile-view">
+      <span>
+        发布 : 2015-02-04
+      </span>
+      
+        <span>
+        分类 :
+          <a href="/categories/技术笔记/">
+            技术笔记
+          </a>
+        </span>
+      
+      
+        <span>
+          浏览 : <span class="article-timer" data-identity="43490569"></span>
+        </span>
+      
+    </div>
+    
+    <!-- 文章简介 -->
+    <div class="article-content">
+      <div class="markdown-body article-content--inner" v-html="mdToHtml(psg.summary)">
+        
+      </div>
+    </div>
+    <div class="article-footer">
+      <div class="article-meta pull-left">
+        <!-- 分类pc端可见 -->
+        <span class="pc-view">
+          
+            <i class="iconfont icon-tag"></i>分类:
+            <a href="/categories/技术笔记/">
+              技术笔记
+            </a>
+          </span>
+          
+        <span>
+          
+            <i class="iconfont icon-06tags"></i>标签:
+            
+              <span class="span--tag">
+                <a href="/tags/android/">
+                  #android
+                </a>
+              </span>
+            
+                    
+        </span>
+      </div>
+      
+        <div class="article-meta pull-right">
+          <span class="pc-view">
+            <i class="iconfont icon-view"></i>浏览: <span class="article-timer" data-identity="43490569"></span>
+          </span>
+        </div>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="article-title">
+      <a href="/2015/01/28/43237353/">
+        <span>如何解决Android SDK中离线文档打开慢的问题</span>
+      </a>
+    </h1>
+    <!-- PC端文章信息 -->
+    <div class="article-top-meta pc-view">
+      <span>
+        发布时间 : 2015-01-28
+      </span>
+    </div>
+    <!-- 移动端文章信息 -->
+    <div class="article-top-meta mobile-view">
+      <span>
+        发布 : 2015-01-28
+      </span>
+      
+        <span>
+        分类 :
+          <a href="/categories/技术笔记/">
+            技术笔记
+          </a>
+        </span>
+      
+      
+        <span>
+          浏览 : <span class="article-timer" data-identity="43237353"></span>
+        </span>
+      
+    </div>
+    
+    <!-- 文章简介 -->
+    <div class="article-content">
+      <div class="markdown-body article-content--inner" v-html="mdToHtml(psg.summary)">
+        
+      </div>
+    </div>
+    <div class="article-footer">
+      <div class="article-meta pull-left">
+        <!-- 分类pc端可见 -->
+        <span class="pc-view">
+          
+            <i class="iconfont icon-tag"></i>分类:
+            <a href="/categories/技术笔记/">
+              技术笔记
+            </a>
+          </span>
+          
+        <span>
+          
+            <i class="iconfont icon-06tags"></i>标签:
+            
+              <span class="span--tag">
+                <a href="/tags/android/">
+                  #android
+                </a>
+              </span>
+            
+                    
+        </span>
+      </div>
+      
+        <div class="article-meta pull-right">
+          <span class="pc-view">
+            <i class="iconfont icon-view"></i>浏览: <span class="article-timer" data-identity="43237353"></span>
+          </span>
+        </div>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="article-title">
+      <a href="/2014/12/09/41827279/">
+        <span>各视频网站在Webview中接入用html代码示例 长期更新</span>
+      </a>
+    </h1>
+    <!-- PC端文章信息 -->
+    <div class="article-top-meta pc-view">
+      <span>
+        发布时间 : 2014-12-09
+      </span>
+    </div>
+    <!-- 移动端文章信息 -->
+    <div class="article-top-meta mobile-view">
+      <span>
+        发布 : 2014-12-09
+      </span>
+      
+        <span>
+        分类 :
+          <a href="/categories/技术笔记/">
+            技术笔记
+          </a>
+        </span>
+      
+      
+        <span>
+          浏览 : <span class="article-timer" data-identity="41827279"></span>
+        </span>
+      
+    </div>
+    
+    <!-- 文章简介 -->
+    <div class="article-content">
+      <div class="markdown-body article-content--inner" v-html="mdToHtml(psg.summary)">
+        
+      </div>
+    </div>
+    <div class="article-footer">
+      <div class="article-meta pull-left">
+        <!-- 分类pc端可见 -->
+        <span class="pc-view">
+          
+            <i class="iconfont icon-tag"></i>分类:
+            <a href="/categories/技术笔记/">
+              技术笔记
+            </a>
+          </span>
+          
+        <span>
+          
+            <i class="iconfont icon-06tags"></i>标签:
+            
+              <span class="span--tag">
+                <a href="/tags/android/">
+                  #android
+                </a>
+              </span>
+            
+                    
+        </span>
+      </div>
+      
+        <div class="article-meta pull-right">
+          <span class="pc-view">
+            <i class="iconfont icon-view"></i>浏览: <span class="article-timer" data-identity="41827279"></span>
+          </span>
+        </div>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="article-title">
+      <a href="/2014/12/03/41701429/">
+        <span>android webView 加载HTML代码使用loadData方法中文乱码问题</span>
+      </a>
+    </h1>
+    <!-- PC端文章信息 -->
+    <div class="article-top-meta pc-view">
+      <span>
+        发布时间 : 2014-12-03
+      </span>
+    </div>
+    <!-- 移动端文章信息 -->
+    <div class="article-top-meta mobile-view">
+      <span>
+        发布 : 2014-12-03
+      </span>
+      
+        <span>
+        分类 :
+          <a href="/categories/技术笔记/">
+            技术笔记
+          </a>
+        </span>
+      
+      
+        <span>
+          浏览 : <span class="article-timer" data-identity="41701429"></span>
+        </span>
+      
+    </div>
+    
+    <!-- 文章简介 -->
+    <div class="article-content">
+      <div class="markdown-body article-content--inner" v-html="mdToHtml(psg.summary)">
+        
+      </div>
+    </div>
+    <div class="article-footer">
+      <div class="article-meta pull-left">
+        <!-- 分类pc端可见 -->
+        <span class="pc-view">
+          
+            <i class="iconfont icon-tag"></i>分类:
+            <a href="/categories/技术笔记/">
+              技术笔记
+            </a>
+          </span>
+          
+        <span>
+          
+            <i class="iconfont icon-06tags"></i>标签:
+            
+              <span class="span--tag">
+                <a href="/tags/android/">
+                  #android
+                </a>
+              </span>
+            
+                    
+        </span>
+      </div>
+      
+        <div class="article-meta pull-right">
+          <span class="pc-view">
+            <i class="iconfont icon-view"></i>浏览: <span class="article-timer" data-identity="41701429"></span>
+          </span>
+        </div>
+      
+    </div>
+  </div>
   
 
-
-  <nav id="page-nav">
+  <nav class="page-navigation">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a href="/">上一页</a>
+    
+    
+      <a href="/page/3/">下一页</a>
+    
   </nav>
 
-</section>
-        
-          <aside id="sidebar">
   
+    <script defer>
+const valineAPI = (() => {
+  try {
+    AV.init("Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz", "WaR7nrzhliHj9aVwdQzkdlGd");
+  } catch(error) {}
+  const isExist = (identity) => {
+    identity = identity || getRealPath();
+    let query = new AV.Query('Timer');
+    return new Promise((resolve, reject) => {
+      query.equalTo("identity", identity);
+      query.find().then(results => {
+        resolve(results.length > 0);
+      }, error => reject(error));
+    })
+  }
+
+  const _get = (identity) => {
+    let query = null;
+    if(identity && identity instanceof Array){
+      let querys = [];
+      for(let i = 0; i < identity.length; ++i) {
+        querys[i] = new AV.Query('Timer');
+        querys[i].equalTo('identity', identity[i]);
+      }
+      query = AV.Query.or.apply(null ,querys);
+    } else {
+      identity = identity || getRealPath();
+      query = new AV.Query("Timer");
+      query.equalTo("identity", identity);
+    }
+
+    return new Promise((resolve, reject) => {
+      query.find()
+      .then(results => resolve(results))
+      .catch(error => reject(error))
+    })
+  }
+
+  const create = (identity) => {
+    identity = identity || getRealPath();
+    return new Promise((resolve, reject) => {
+      let Todo = AV.Object.extend('Timer');
+      let todo = new Todo();
+      todo.set("times", 1);
+      todo.set("identity", identity);
+      todo.save().then(res => resolve(true), error => reject(error));
+    })
+  }
+
+  const update = (identity) => {
+    identity = identity || getRealPath();
+    return new Promise((resolve, reject) => {
+      let query = new AV.Query('Timer');
+      query.equalTo("identity", identity);
+      query.find().then(todos => {
+        todos.forEach(todo => {
+          todo.set("times", todo.attributes.times + 1);
+        });
+        return AV.Object.saveAll(todos);
+      }).then(todos => resolve(true), error => reject(error));
+    })
+  }
+
+  return {
+    isExist,
+    _get,
+    update,
+    create
+  }
+})()
+
+const calcAndWriteTimes = () => {
+  let isPost = false;
+
+  let timerAllDOM = document.querySelectorAll(".article-timer");
+
+  if(isPost) {
+    let identity = timerAllDOM[0].getAttribute("data-identity");
+    valineAPI.isExist(identity)
+    .then(exist => {
+      if(exist) {
+        return valineAPI.update(identity);
+      }
+      return new Promise(resolve => resolve(true));
+    })
+    .then( succuess => valineAPI._get(identity))
+    .then( result => timerAllDOM[0].innerText = result[0].attributes.times)
+    .catch(error => console.log(error.message))
+    return ;
+  }
+
+  let timerDOMCache = {};
+
+  for(let timerDOM of timerAllDOM) {
+    let identity = timerDOM.getAttribute("data-identity");
+    if(timerDOMCache.hasOwnProperty(identity)){
+      timerDOMCache[identity].dom.push(timerDOM);
+    }else{
+      timerDOMCache[identity] = {
+        dom: [timerDOM],
+        times: undefined
+      };
+    }
+  }
+
+  let identities = Object.keys(timerDOMCache);
+  valineAPI._get(identities).then(results => {
+    for(let result of results) {
+      let {identity, times} = result.attributes;
+      timerDOMCache[identity].times = times;
+      timerDOMCache[identity].dom.map(item => item.innerText = times);
+    }
+    for(let identity of identities) {
+      if(timerDOMCache[identity].times){
+        continue;
+      }
+      timerDOMCache[identity].dom.map(item => item.innerText = 1);
+      valineAPI.create(identity);
+    }
+  }).catch(error => console.log(error.message))
+}
+
+if(true){
+  calcAndWriteTimes();
+}
+</script>
+   
+</div>
+
+
+      <footer>
+  <p class="site-info">
+    博客已萌萌哒运行<span id="time-to-now"></span><span class="my-face">(●'◡'●)ﾉ♥</span>
+    <br>
+    Theme - <a href="https://github.com/dongyuanxin/theme-bmw">BMW</a> | Made With 💗 | Powered by <a href="https://godbmw.com/">GodBMW</a>
+    <br>
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术笔记/">技术笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/日常/">日常</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kotlin/">kotlin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown语法测试/">markdown语法测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/kotlin/" style="font-size: 10px;">kotlin</a> <a href="/tags/markdown语法测试/" style="font-size: 10px;">markdown语法测试</a> <a href="/tags/python/" style="font-size: 10px;">python</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2017/07/09/markdown test/">高山探秘｜南阿尔卑斯风光</a>
-          </li>
-        
-          <li>
-            <a href="/2017/07/05/github page build/">github page的搭建</a>
-          </li>
-        
-          <li>
-            <a href="/2017/07/05/git bash open/">win下git bash交互操作用sublime3或者markdown打开本地文件</a>
-          </li>
-        
-          <li>
-            <a href="/2017/07/04/sql exception/">java.sql.SQLException:ResultSet.next was not called</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/01/kotlin gradle/">android studio中kotlin安卓工程的gradle配置</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 godeofdeath<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
+  </p>
 </footer>
+
+
+
+<script>
+const timeToNowDOM = document.querySelector("#time-to-now");
+const startTimestamp = new Date(2018, 1, 10).getTime();
+
+const updateTimeStr = () => {
+  let offset = parseInt(
+      (new Date().getTime() - startTimestamp) / 1000,
+      10
+    ),
+    day = Math.floor(offset / 86400),
+    hour = Math.floor((offset % 86400) / 3600),
+    minute = Math.floor(((offset % 86400) % 3600) / 60),
+    second = Math.floor(((offset % 86400) % 3600) % 60);
+  timeToNowDOM.innerHTML =
+    day + "天" + hour + "小时" + minute + "分钟" + second + "秒";
+  setTimeout(updateTimeStr, 500);
+}
+
+setTimeout(updateTimeStr, 500);
+</script>
+
+
+      <div class="back-to-top hidden">
+  <span>
+    <i class="iconfont icon-60"></i><span></span>%
+  </span>
+</div>
+
+<script>
+const updateIconToTop = percent => {
+  let dom = document.querySelector(".back-to-top span span");
+  dom.innerText = percent;
+  if(percent < 1) {
+    document.querySelector(".back-to-top").className = "back-to-top hidden";
+  } else {
+    document.querySelector(".back-to-top").className = "back-to-top";
+  }
+}
+
+const handleScoll = () => {
+  let isRunning = false;
+  return () => {
+    if (isRunning) return;
+    isRunning = true;
+    window.requestAnimationFrame(timestamp => {
+      let scrollTop =
+          document.documentElement.scrollTop || document.body.scrollTop,
+        scrollHeight =
+          document.documentElement.scrollHeight ||
+          document.body.scrollHeight,
+        clientHeight =
+          document.documentElement.clientHeight ||
+          document.body.clientHeight;
+      isRunning = false;
+      if (scrollTop <= 1) {
+        updateIconToTop(0);
+        return;
+      }
+      if (scrollTop + clientHeight >= scrollHeight) {
+        updateIconToTop(100);
+      } else {
+        updateIconToTop(parseInt(
+          100 * scrollTop / (scrollHeight - clientHeight),
+          10
+        ));
+      }
+    });
+  };
+}
+
+const backToTop = () => {
+  let scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop,
+    delay = 10,
+    time = 200;
+  if (scrollTop <= 20) {
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    return;
+  }
+  let step = Math.ceil(scrollTop * delay / time);
+  let timer = setInterval(() => {
+    scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop;
+    if (scrollTop - step <= 0) {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      clearInterval(timer);
+    } else {
+      document.documentElement.scrollTop = scrollTop - step;
+      document.body.scrollTop = scrollTop - step;
+    }
+  }, delay);
+}
+
+document.addEventListener("scroll", handleScoll(), false);
+
+document.querySelector(".back-to-top").addEventListener("click", backToTop, false);
+
+</script>
+
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+
+    
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script>
+  (() => {
+    const mathjaxConfig = {
+      showProcessingMessages: false, //关闭js加载过程信息
+      messageStyle: "none", //不显示信息
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [["$", "$"], ["\\(", "\\)"]], //行内公式选择符
+        displayMath: [["$$", "$$"], ["\\[", "\\]"]], //段内公式选择符
+        skipTags: ["script", "noscript", "style", "textarea", "pre", "code", "a"] //避开某些标签
+      },
+      "HTML-CSS": {
+        availableFonts: ["STIX", "TeX"], //可选字体
+        showMathMenu: false //关闭右击菜单显示
+      }
+    }
+
+    let mathjaxInterval = setInterval(() => {
+      if(!window.MathJax){
+        return;
+      }
+      window.MathJax.Hub.Config(mathjaxConfig)
+      window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById('app')])
+
+      clearInterval(mathjaxInterval)
+    }, 10)    
+  })()
+</script>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script>
+<script async>
+  let fancyTimer = setInterval(function(){
+    if(!window.$){
+      return;
+    }
+    $(document).ready(function() {
+      $(".post img").each(function () {
+        if($(this).parent().get(0).tagName.toLowerCase() === "a") {
+          return;
+        }
+        // $(this).attr("data-fancybox", "gallery"); // if you add 'data-fancybox', img will display after showed
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "gallery");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      });
+      
+      clearInterval(fancyTimer);
+    });
+  }, 10);
+</script>
 
+    
+  </body>
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
-
-  </div>
-</body>
 </html>
