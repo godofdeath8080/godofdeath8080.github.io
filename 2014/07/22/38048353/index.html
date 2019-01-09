@@ -233,40 +233,11 @@
 <p>其实这两个类在android源码里都有对应的 vitamio应该是在其基础上重写了</p>
 <p>又加入了一些解码库在它的so文件里</p>
 <p>Activity新建的时候加入so库检测：</p>
-<pre><code>if (!LibsChecker.checkVitamioLibs(this))
-return;
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">if (!LibsChecker.checkVitamioLibs(this))</span><br><span class="line">return;</span><br></pre></td></tr></table></figure>
 </code></pre><p>初始化MediaPlayer：</p>
-<pre><code>mMediaPlayer = new MediaPlayer(this);
-mMediaPlayer.setDataSource(url);//url为rtsp视频地址
-mMediaPlayer.setDisplay(holder);
-mMediaPlayer.prepareAsync();
-mMediaPlayer.setOnBufferingUpdateListener(this);
-mMediaPlayer.setOnCompletionListener(this);
-mMediaPlayer.setOnPreparedListener(this);
-mMediaPlayer.setOnVideoSizeChangedListener(this);
-setVolumeControlStream(AudioManager.STREAM_MUSIC);
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mMediaPlayer = new MediaPlayer(this);</span><br><span class="line">mMediaPlayer.setDataSource(url);//url为rtsp视频地址</span><br><span class="line">mMediaPlayer.setDisplay(holder);</span><br><span class="line">mMediaPlayer.prepareAsync();</span><br><span class="line">mMediaPlayer.setOnBufferingUpdateListener(this);</span><br><span class="line">mMediaPlayer.setOnCompletionListener(this);</span><br><span class="line">mMediaPlayer.setOnPreparedListener(this);</span><br><span class="line">mMediaPlayer.setOnVideoSizeChangedListener(this);</span><br><span class="line">setVolumeControlStream(AudioManager.STREAM_MUSIC);</span><br></pre></td></tr></table></figure>
 </code></pre><p>截图代码：</p>
-<pre><code>Bitmap dd = mMediaPlayer.getCurrentFrame();//截图方法
-                if (mMediaPlayer.isPlaying()) {
-                    try {
-                        String name = new DateFormat().format(
-                                &quot;yyyyMMdd_hhmmss&quot;,
-                                Calendar.getInstance(Locale.CHINA))
-                                + &quot;.jpg&quot;;
-                        String fileName = getSDPath() + &quot;/&quot; + name;//getSDPath()获取SD卡目录string方法
-                        FileOutputStream b = new FileOutputStream(fileName);
-                        dd.compress(Bitmap.CompressFormat.JPEG, 100, b);
-                        b.flush();
-                        b.close();
-                        Toast.makeText(VideoPlayerActivity.this, &quot;截图成功&quot;,
-                                Toast.LENGTH_LONG).show();
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                } else
-                    Toast.makeText(VideoPlayerActivity.this, &quot;视频未播放，请稍候截图&quot;,
-                            Toast.LENGTH_LONG).show();
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Bitmap dd = mMediaPlayer.getCurrentFrame();//截图方法</span><br><span class="line">				if (mMediaPlayer.isPlaying()) &#123;</span><br><span class="line">					try &#123;</span><br><span class="line">						String name = new DateFormat().format(</span><br><span class="line">								&quot;yyyyMMdd_hhmmss&quot;,</span><br><span class="line">								Calendar.getInstance(Locale.CHINA))</span><br><span class="line">								+ &quot;.jpg&quot;;</span><br><span class="line">						String fileName = getSDPath() + &quot;/&quot; + name;//getSDPath()获取SD卡目录string方法</span><br><span class="line">						FileOutputStream b = new FileOutputStream(fileName);</span><br><span class="line">						dd.compress(Bitmap.CompressFormat.JPEG, 100, b);</span><br><span class="line">						b.flush();</span><br><span class="line">						b.close();</span><br><span class="line">						Toast.makeText(VideoPlayerActivity.this, &quot;截图成功&quot;,</span><br><span class="line">								Toast.LENGTH_LONG).show();</span><br><span class="line">					&#125; catch (IOException e) &#123;</span><br><span class="line">						// TODO Auto-generated catch block</span><br><span class="line">						e.printStackTrace();</span><br><span class="line">					&#125;</span><br><span class="line">				&#125; else</span><br><span class="line">					Toast.makeText(VideoPlayerActivity.this, &quot;视频未播放，请稍候截图&quot;,</span><br><span class="line">							Toast.LENGTH_LONG).show();</span><br></pre></td></tr></table></figure>
 </code></pre><p>注： 截图的时候 发现bitmap保存为jpg很正常 但是保存png会花屏 我估计和流的格式有关系</p>
 
     </div>
